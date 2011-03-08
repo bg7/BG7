@@ -71,23 +71,23 @@
     nbproject/build-impl.xml file.
 
     -->
-    <!--<target name="-post-jar">
-            <jar jarfile="PrediceGenes.jar">
+<!--    <target name="-post-jar">
+            <jar jarfile="jars/PredictGenes.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
-            <zipfileset src="lib/BioinfoXML-1.0-jar-with-dependencies.jar"
+            <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
             excludes="META-INF/*" />
             <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
             excludes="META-INF/*" />
             <zipfileset src="lib/biojava.jar"  excludes="META-INF/*" />
             <manifest>
-                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.PrediceGenes"/>
+                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.PredictGenes"/>
             </manifest>
         </jar>
     </target>-->
-    <!--<target name="-post-jar">
-            <jar jarfile="HspSetTester.jar">
+    <target name="-post-jar">
+            <jar jarfile="jars/HspSetTester.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
-            <zipfileset src="lib/BioinfoXML-1.0-jar-with-dependencies.jar"
+            <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
             excludes="META-INF/*" />
             <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
             excludes="META-INF/*" />
@@ -96,48 +96,48 @@
                 <attribute name="Main-Class" value="com.era7.bioinfo.annotation.HspSetTester"/>
             </manifest>
         </jar>
-    </target>-->
-    <!--<target name="-post-jar">
-            <jar jarfile="EliminaGenesDuplicados.jar">
+    </target>
+<!--    <target name="-post-jar">
+            <jar jarfile="jars/RemoveDuplicatedGenes.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
-            <zipfileset src="lib/BioinfoXML-1.0-jar-with-dependencies.jar"
+            <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
             excludes="META-INF/*" />
             <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
             excludes="META-INF/*" />
             <manifest>
-                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.EliminaGenesDuplicados"/>
-            </manifest>
-        </jar>
-    </target>-->
-    <!--<target name="-post-jar">
-            <jar jarfile="DetectaSolapamientosGenes.jar">
-            <zipfileset src="${dist.jar}" excludes="META-INF/*" />
-            <zipfileset src="lib/BioinfoXML-1.0-jar-with-dependencies.jar"
-            excludes="META-INF/*" />
-            <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
-            excludes="META-INF/*" />
-            <manifest>
-                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.DetectaSolapamientosGenes"/>
+                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.RemoveDuplicatedGenes"/>
             </manifest>
         </jar>
     </target>-->
 <!--    <target name="-post-jar">
-        <jar jarfile="ResolverSolapamientos.jar">
+            <jar jarfile="jars/DetectGeneOverlappings.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
-            <zipfileset src="lib/BioinfoXML-1.0-jar-with-dependencies.jar"
+            <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
+            excludes="META-INF/*" />
+            <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
+            excludes="META-INF/*" />
+            <manifest>
+                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.DetectGeneOverlappings"/>
+            </manifest>
+        </jar>
+    </target>-->
+<!--    <target name="-post-jar">
+        <jar jarfile="jars/SolverOverlappings.jar">
+            <zipfileset src="${dist.jar}" excludes="META-INF/*" />
+            <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
                         excludes="META-INF/*" />
             <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
                         excludes="META-INF/*" />
             <zipfileset src="lib/biojava.jar" excludes="META-INF/*" />
             <manifest>
-                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.ResolverSolapamientos"/>
+                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.SolverOverlappings"/>
             </manifest>
         </jar>
     </target>-->
 <!--    <target name="-post-jar">
-        <jar jarfile="RellenarDatosUniprot.jar">
+        <jar jarfile="jars/FillDataFromUniprot.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
-            <zipfileset src="lib/BioinfoXML-1.0-jar-with-dependencies.jar"
+            <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
                         excludes="META-INF/*" />
             <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
                         excludes="META-INF/*" />
@@ -145,51 +145,51 @@
             <zipfileset src="lib/commons-logging-1.1.1.jar" excludes="META-INF/*" />
             <zipfileset src="lib/commons-codec-1.4.jar" excludes="META-INF/*" />
             <manifest>
-                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.RellenarDatosUniprot"/>
+                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.FillDataFromUniprot"/>
             </manifest>
         </jar>
     </target>-->
-    <!--<target name="-post-jar">
-        <jar jarfile="GeneraArchivosFasta.jar">
+<!--    <target name="-post-jar">
+        <jar jarfile="jars/GenerateFastaFiles.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
-            <zipfileset src="lib/BioinfoXML-1.0-jar-with-dependencies.jar"
+            <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
                         excludes="META-INF/*" />
             <manifest>
-                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.GeneraArchivosFasta"/>
+                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.GenerateFastaFiles"/>
             </manifest>
         </jar>
     </target>-->
-    <!--<target name="-post-jar">
-        <jar jarfile="PatatizaGenes.jar">
+<!--    <target name="-post-jar">
+        <jar jarfile="jars/PotatizeGenes.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
-            <zipfileset src="lib/BioinfoXML-1.0-jar-with-dependencies.jar"
+            <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
                         excludes="META-INF/*" />
             <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
                         excludes="META-INF/*" />
             <manifest>
-                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.PatatizaGenes"/>
+                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.PotatizeGenes"/>
             </manifest>
         </jar>
     </target>-->
-    <!--<target name="-post-jar">
-        <jar jarfile="GenerarArchivoGff.jar">
+<!--    <target name="-post-jar">
+        <jar jarfile="jars/GenerateGffFile.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
-            <zipfileset src="lib/BioinfoXML-1.0-jar-with-dependencies.jar"
+            <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
                         excludes="META-INF/*" />
             <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
                         excludes="META-INF/*" />
             <manifest>
-                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.GenerarArchivoGff"/>
+                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.GenerateGffFile"/>
             </manifest>
         </jar>
     </target>-->
-    <!--<target name="-post-jar">
-        <jar jarfile="DescargaArchivoDeS3.jar">
+<!--    <target name="-post-jar">
+        <jar jarfile="jars/DownloadFilesFromS3.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
             <zipfileset src="lib/BioinfoAWS-1.0-jar-with-dependencies.jar"
                         excludes="META-INF/*" />
             <manifest>
-                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.DescargaArchivoDeS3"/>
+                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.DownloadFilesFromS3"/>
             </manifest>
         </jar>
     </target>-->
@@ -233,7 +233,7 @@
             </manifest>
         </jar>
     </target>-->
-    <target name="-post-jar">
+<!--    <target name="-post-jar">
         <jar jarfile="jars/GetIntergenicSequences.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
             <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
@@ -244,5 +244,5 @@
                 <attribute name="Main-Class" value="com.era7.bioinfo.annotation.GetIntergenicSequences"/>
             </manifest>
         </jar>
-    </target>
+    </target>-->
 </project>
