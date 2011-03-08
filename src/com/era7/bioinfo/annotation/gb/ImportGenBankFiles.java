@@ -24,8 +24,8 @@ import java.util.logging.Logger;
 import org.jdom.Element;
 
 /**
- *
- * @author ppareja
+ * 
+ * @author Pablo Pareja Tobes <ppareja@era7.com>
  */
 public class ImportGenBankFiles implements Executable {
 
@@ -104,13 +104,13 @@ public class ImportGenBankFiles implements Executable {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line = null;
 
-            //------------------------------linea del LOCUS------------------------------------
+            //------------------------------LOCUS line------------------------------------
             line = reader.readLine();
             String[] locusSplit = line.split(" |\t");
 
             int currentIndex = 1;
             boolean found = false;
-            //ciclo para el id del contig
+            //contig ids loop
             for (; currentIndex < locusSplit.length && !found; currentIndex++) {
                 if (!locusSplit[currentIndex].equals("")) {
                     //System.out.println("locusSplit[currentIndex] = " + locusSplit[currentIndex]);
@@ -120,7 +120,7 @@ public class ImportGenBankFiles implements Executable {
                 }
             }
             found = false;
-            //ciclo para la longitud del contig
+            //contig length loop
             for (; currentIndex < locusSplit.length && !found; currentIndex++) {
                 if (!locusSplit[currentIndex].equals("")) {
                     //System.out.println("locusSplit[currentIndex] = " + locusSplit[currentIndex]);
@@ -130,7 +130,7 @@ public class ImportGenBankFiles implements Executable {
             }
             //------------------------------------------------------------------------------------
 
-            //------------------------------linea del SOURCE------------------------------------
+            //------------------------------SOURCE line------------------------------------
             found = false;
             while ((line = reader.readLine()) != null && !found) {
                 if (line.startsWith(GBCommon.SOURCE_STR)) {
@@ -142,16 +142,16 @@ public class ImportGenBankFiles implements Executable {
 
 
             //------------------------------------------------------------------------------------
-            //------------------------------lineas con genes y rnas----------------------------------
+            //------------------------------genes & rnas lines----------------------------------
             found = false;
-            //--------primero paso lineas hasta llegar a la de features
+            //--------first I have to skip some lines till reaching the features line
             while ((line = reader.readLine()) != null && !found) {
                 if (line.startsWith(GBCommon.FEATURES_STR)) {
                     found = true;
                 }
             }
 
-            //ahora me tengo que saltar las lineas hasta encontrar un gene
+            //now more lines must be skipped till I reach the first gene
             do {
                 line = reader.readLine();
             } while (!line.trim().startsWith(GBCommon.GENE_STR) && !line.trim().startsWith(GBCommon.ORIGIN_STR));
@@ -162,7 +162,7 @@ public class ImportGenBankFiles implements Executable {
 
                 if (line.trim().startsWith(GBCommon.GENE_STR)) {
 
-                    //-------------VER STRAND Y START/END POSITION--------------------
+                    //-------------GET STRAND & START/END POSITION--------------------
                     //---------------------------------------------------------------
 
                     boolean strandIsNegative = line.indexOf("complement(") >= 0;
@@ -176,7 +176,7 @@ public class ImportGenBankFiles implements Executable {
                     boolean startIsCanonical = true;
                     boolean endIsCanonical = true;
                     int startPosition, endPosition;
-                    //Ahora tengo que ver si el start/end es canonical o no
+                    //Now I have to figure out if start/end are canonical or not
                     if (positionSt.charAt(0) == '<') {
                         if (strandIsNegative) {
                             endIsCanonical = false;
@@ -207,7 +207,7 @@ public class ImportGenBankFiles implements Executable {
                     //---------------------------------------------------------------
                     //---------------------------------------------------------------
 
-                    //----AHORA LEO LINEAS HASTA ENCONTRAR EL CDS / xRNA--------------
+                    //----SKIP LINES TILL CDS /xRNA IS FOUND--------------
                     do {
                         line = reader.readLine();
                     } while (!line.trim().startsWith(GBCommon.CDS_STR)
@@ -221,16 +221,16 @@ public class ImportGenBankFiles implements Executable {
 
                     String translationSt = "";
 
-                    //----AHORA LEO LINEAS HASTA ENCONTRAR EL PRODUCT--------------
+                    //----SKIP LINES TILL FINDIND PRODUCT--------------
                     do {
                         line = reader.readLine();
                     } while (!line.trim().startsWith("/product="));
                     //-------------------------------------------------------------
 
-                    //----ya estoy en la linea del prouct--------------
+                    //----I'm already in the product line--------------
                     String productSt = line.trim().split("/product=\"")[1];
                     if (productSt.indexOf("\"") >= 0) {
-                        //el product esta completo en esta linea
+                        //the product must be completed in this line
                         productSt = productSt.split("\"")[0];
                     } else {
                         do {
@@ -243,7 +243,7 @@ public class ImportGenBankFiles implements Executable {
                     //-------------------------------------------------------------
 
 
-                    //----AHORA LEO LINEAS HASTA ENCONTRAR EL TRANSLATION O OTRO GENE--------------
+                    //----READING LINES TILL FINDING EITHER TRANSLATION OR OTHER GENE--------------
                     do {
                         line = reader.readLine();
                     } while (!line.trim().startsWith("/translation=")
@@ -255,7 +255,7 @@ public class ImportGenBankFiles implements Executable {
                     if (line.trim().startsWith("/translation=")) {
                         translationSt = line.trim().split("/translation=\"")[1];
                         if (productSt.indexOf("\"") >= 0) {
-                            //el product esta completo en esta linea
+                            //the product should be already complete in this line
                             translationSt = translationSt.split("\"")[0];
                         } else {
                             do {
@@ -270,7 +270,7 @@ public class ImportGenBankFiles implements Executable {
 
                     //System.out.println("isRna = " + isRna);
 
-                    //-ahora ya hay que crear el gen/rna
+                    //-it's time to create the gene/rna
                     if (isRna) {
                         PredictedRna tempRna = new PredictedRna();
                         tempRna.setStartPosition(startPosition);

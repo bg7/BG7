@@ -67,32 +67,32 @@ public class ExportGenBankFiles implements Executable {
             try {
 
 
-                //-----LECTURA DEL XML CON LOS DATOS DE ANOTACION------------
+                //-----READING XML FILE WITH ANNOTATION DATA------------
                 BufferedReader reader = new BufferedReader(new FileReader(annotationFile));
                 String tempSt;
                 StringBuilder stBuilder = new StringBuilder();
                 while ((tempSt = reader.readLine()) != null) {
                     stBuilder.append(tempSt);
                 }
-                //Cerrar archivo de entrada
+                //Closing file
                 reader.close();
 
                 Annotation annotation = new Annotation(stBuilder.toString());
                 //-------------------------------------------------------------
 
-                //-----LECTURA DEL XML DE GENBANK------------
+                //-----READING GENBANK XML------------
                 reader = new BufferedReader(new FileReader(genBankXmlFile));
                 stBuilder.delete(0, stBuilder.length());
                 while ((tempSt = reader.readLine()) != null) {
                     stBuilder.append(tempSt);
                 }
-                //Cerrar archivo de entrada
+                //Closing file
                 reader.close();
 
                 GenBankXML genBankXml = new GenBankXML(stBuilder.toString());
                 //-------------------------------------------------------------
 
-                //-------------PARSEADO DE CONTIGS Y SUS SECUENCIAS------------------
+                //-------------PARSING CONTIGS & THEIR SEQUENCES------------------
                 HashMap<String, String> contigsMap = new HashMap<String, String>();
                 reader = new BufferedReader(new FileReader(fnaContigFile));
                 stBuilder.delete(0, stBuilder.length());
@@ -124,11 +124,11 @@ public class ExportGenBankFiles implements Executable {
                     contigsRnaMap.put(rnaContig.getId(), rnaContig);
                 }
 
-                //-----------ESCRITURA DEL ARCHIVO RESUMEN------------------
+                //-----------WRITING GENERAL FILE------------------
                 BufferedWriter mainOutBuff = new BufferedWriter(new FileWriter(mainOutFile));
 
                 //------------------------------------------------------
-                //------------------------linea del locus------------------
+                //------------------------locus line------------------
                 mainOutBuff.write(GBCommon.LOCUS_STR
                         + getWhiteSpaceIndentationForString(GBCommon.LOCUS_STR,
                         GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION)
@@ -187,7 +187,7 @@ public class ExportGenBankFiles implements Executable {
                 for (String string : keySetList) {
                     contigsIdsList += string + ", ";
                 }
-                //ahora le quito la coma del final que sobra
+                //I have to get rid of the last comma
                 contigsIdsList = contigsIdsList.substring(0, contigsIdsList.length() - 1);
 
                 System.out.println(contigsIdsList);
@@ -206,7 +206,7 @@ public class ExportGenBankFiles implements Executable {
 
 
 
-                //-----------BUCLE DE CONTIGS-----------------------
+                //-----------CONTIGS LOOP-----------------------
 
                 for (Element elem : contigList) {
 
@@ -253,9 +253,9 @@ public class ExportGenBankFiles implements Executable {
         File outFile = new File(outFileString + currentContig.getId() + GBCommon.GEN_BANK_FILE_EXTENSION);
         BufferedWriter outBuff = new BufferedWriter(new FileWriter(outFile));
 
-        //-------------------------linea del locus-----------------------------------
-        //en este caso el formato es un poco mas restrictivo y hay que poner
-        //las palabras en posiciones determinadas y los separadores tb son especiales
+        //-------------------------locus line-----------------------------------
+        //in this case the format is a bit more restrictive so we have to write
+        //words in specific positions paying also attention to their separators
         String locusLineSt = "";
         locusLineSt += GBCommon.LOCUS_STR + getWhiteSpaces(6);
         if (genBankXml.getLocusName().length() > 16) {
@@ -341,13 +341,13 @@ public class ExportGenBankFiles implements Executable {
 
 
 
-        //------Hashmap con clave el id del gen/rna
-        //---- y value la string equivalente tal cual hay que escribirla--------------------------------
+        //------Hashmap with key = gene/rna id and the value =
+        //---- respective String exactly as is must be written to the result file---------------------------
         HashMap<String, String> genesRnasMixedUpMap = new HashMap<String, String>();
 
         TreeSet<Feature> featuresTreeSet = new TreeSet<Feature>();
 
-        //----------------------BUCLE GENES----------------------------
+        //----------------------GENES LOOP----------------------------
         List<Element> genesList = currentContig.asJDomElement().getChildren(PredictedGene.TAG_NAME);
         for (Element element : genesList) {
 
@@ -367,7 +367,7 @@ public class ExportGenBankFiles implements Executable {
         }
         //--------------------------------------------------------------
 
-        //Ahora le an;ado los rnas si es que hay para que se ordenen
+        //Now rnas are added (if there are any) so that everything can be sort afterwards
         ContigXML contig = contigsRnaMap.get(currentContig.getId());
         if (contig != null) {
             List<Element> rnas = contig.asJDomElement().getChildren(PredictedRna.TAG_NAME);
@@ -387,7 +387,7 @@ public class ExportGenBankFiles implements Executable {
             }
         }
 
-        //Ahora saco ya ordenados todos los genes y rnas y los escribo
+        //Once genes & rnas are sorted, we just have to write them
         for (Feature f : featuresTreeSet) {
             outBuff.write(genesRnasMixedUpMap.get(f.getId()));
         }

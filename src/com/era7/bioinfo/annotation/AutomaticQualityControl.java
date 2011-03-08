@@ -18,19 +18,22 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.jdom.Element;
 
 /**
- *
- * @author ppareja
+ * 
+ * @author Pablo Pareja Tobes <ppareja@era7.com>
  */
 public class AutomaticQualityControl implements Executable {
 
@@ -52,13 +55,15 @@ public class AutomaticQualityControl implements Executable {
 
 
         if (args.length != 4) {
-            System.out.println("El programa espera cuatro parametros: \n"
-                    + "1. Nombre del archivo xml con los genes \n"
-                    + "2. Conjunto de proteinas de referencia (.fasta)\n"
-                    + "3. Nombre del archivo txt de salida\n"
-                    + "4. Nombre del archivo xml resultado del BLAST inicial para el proceso de anotacion\n");
+            System.out.println("This program expects four parameters: \n"
+                    + "1. Gene annotation XML filename \n"
+                    + "2. Reference protein set (.fasta)\n"
+                    + "3. Output TXT filename\n"
+                    + "4. Initial Blast XML results filename (the one used at the very beginning of the semiautomatic annotation process)\n");
         } else {
 
+
+            BufferedWriter outBuff = null;
 
             try {
 
@@ -75,9 +80,9 @@ public class AutomaticQualityControl implements Executable {
                     stBuilder.append(line);
                 }
                 buffReader.close();
-                System.out.println("Creando blastoutput...");
+                System.out.println("Creating blastoutput...");
                 BlastOutput blastOutput = new BlastOutput(stBuilder.toString());
-                System.out.println("BlastOutput creado! :)");
+                System.out.println("BlastOutput created! :)");
                 stBuilder.delete(0, stBuilder.length());
 
                 HashMap<String, String> blastProteinsMap = new HashMap<String, String>();
@@ -85,14 +90,14 @@ public class AutomaticQualityControl implements Executable {
                 for (Iteration iteration : iterations) {
                     blastProteinsMap.put(iteration.getQueryDef().split("\\|")[1].trim(), iteration.toString());
                 }
-                //libero memoria
+                //freeing some memory
                 blastOutput = null;
                 //------------------------------------------------------------------------
 
-                //Preparo el writer para el archivo de salida
-                BufferedWriter outBuff = new BufferedWriter(new FileWriter(outFile));
+                //Initializing writer for output file
+                outBuff = new BufferedWriter(new FileWriter(outFile));
 
-                //Primero leo el archivo con el xml de los genes.....
+                //reading gene annotation xml file.....
                 buffReader = new BufferedReader(new FileReader(inFile));
                 stBuilder = new StringBuilder();
                 line = null;
@@ -102,15 +107,15 @@ public class AutomaticQualityControl implements Executable {
                 buffReader.close();
 
                 XMLElement genesXML = new XMLElement(stBuilder.toString());
-                //libero memoria que ya no necesito
+                //freeing some memory I don't need anymore
                 stBuilder.delete(0, stBuilder.length());
 
-                //Ahora leo el archivo con las proteinas de referencia
-                ArrayList<String> proteinasConjuntoReferencia = new ArrayList<String>();
+                //reading file with the reference proteins set
+                ArrayList<String> proteinsReferenceSet = new ArrayList<String>();
                 buffReader = new BufferedReader(new FileReader(fastaFile));
                 while ((line = buffReader.readLine()) != null) {
                     if (line.charAt(0) == '>') {
-                        proteinasConjuntoReferencia.add(line.split("\\|")[1]);
+                        proteinsReferenceSet.add(line.split("\\|")[1]);
                     }
                 }
                 buffReader.close();
@@ -119,11 +124,11 @@ public class AutomaticQualityControl implements Executable {
 
                 List<Element> contigs = pGenes.getChildren(ContigXML.TAG_NAME);
 
-                System.out.println("Hay " + contigs.size() + " contigs que controlar... ");
+                System.out.println("There are " + contigs.size() + " contigs to be checked... ");
 
-                outBuff.write("Hay " + contigs.size() + " contigs que controlar... \n");
-                outBuff.write("Conjunto de proteinas de referencia: \n");
-                for (String st : proteinasConjuntoReferencia) {
+                outBuff.write("There are " + contigs.size() + " contigs to be checked... \n");
+                outBuff.write("Proteins reference set: \n");
+                for (String st : proteinsReferenceSet) {
                     outBuff.write(st + ",");
                 }
                 outBuff.write("\n");
@@ -132,7 +137,7 @@ public class AutomaticQualityControl implements Executable {
                     ContigXML contig = new ContigXML(elem);
 
                     //escribo el id del contig en el que estoy
-                    outBuff.write("Controlando calidad del contig: " + contig.getId() + "\n");
+                    outBuff.write("Checking contig: " + contig.getId() + "\n");
                     outBuff.flush();
 
                     List<XMLElement> geneList = contig.getChildrenWith(PredictedGene.TAG_NAME);
@@ -145,7 +150,7 @@ public class AutomaticQualityControl implements Executable {
 
                     ArrayList<Integer> indicesUtilizados = new ArrayList<Integer>();
 
-                    outBuff.write("\nEl contig tiene " + geneList.size() + " genes predichos, vamos a analizar: " + numeroDeGenesParaAnalizar + "\n");
+                    outBuff.write("\nThe contig has " + geneList.size() + " predicted genes, let's analyze: " + numeroDeGenesParaAnalizar + "\n");
 
                     for (int j = 0; j < numeroDeGenesParaAnalizar; j++) {
                         int geneIndex;
@@ -166,7 +171,7 @@ public class AutomaticQualityControl implements Executable {
                         //Ahora hay que sacar el gen correspondiente al indice y hacer el control de calidad
                         PredictedGene gene = new PredictedGene(geneList.get(geneIndex).asJDomElement());
 
-                        outBuff.write("\nAnalizando gen con id: " + gene.getId() + " , annotation uniprot id: " + gene.getAnnotationUniprotId() + "\n");
+                        outBuff.write("\nAnalyzing gene with id: " + gene.getId() + " , annotation uniprot id: " + gene.getAnnotationUniprotId() + "\n");
                         outBuff.write("eValue: " + gene.getEvalue() + "\n");
 
 
@@ -195,7 +200,7 @@ public class AutomaticQualityControl implements Executable {
                         }
                         outStream.close();
 
-                        //Una vez creado el archivo leo su unica linea para extraer el identificador del job
+                        //Once the file is created I just have to read one line in order to extract the job id
                         buffReader = new BufferedReader(new FileReader(new File(fileName)));
                         String jobId = buffReader.readLine();
                         buffReader.close();
@@ -203,7 +208,7 @@ public class AutomaticQualityControl implements Executable {
                         System.out.println("jobId = " + jobId);
 
 
-                        //--------------PETICION HTTP CHECK JOB STATUS----------------------
+                        //--------------HTTP CHECK JOB STATUS REQUEST----------------------
                         GetMethod get = new GetMethod(CHECK_JOB_STATUS_URL + jobId);
                         String jobStatus = "";
                         do {
@@ -227,7 +232,7 @@ public class AutomaticQualityControl implements Executable {
                             }
                             outStream.close();
 
-                            //Una vez creado el archivo leo su unica linea para extraer el identificador del job
+                            //Once the file is created I just have to read one line in order to extract the job id
                             buffReader = new BufferedReader(new FileReader(new File(fileName)));
                             jobStatus = buffReader.readLine();
                             //System.out.println("jobStatus = " + jobStatus);
@@ -235,9 +240,9 @@ public class AutomaticQualityControl implements Executable {
 
                         } while (!jobStatus.equals(FINISHED_JOB_STATUS));
 
-                        //Cuando llegue aqui el blast deberia haber acabado ya
+                        //Once I'm here the blast should've already finished
 
-                        //--------------PETICION HTTP RESULTADOS DEL JOB----------------------
+                        //--------------JOB RESULTS HTTP REQUEST----------------------
                         get = new GetMethod(JOB_RESULT_URL + jobId + "/out");
 
                         status = client.executeMethod(get);
@@ -254,7 +259,7 @@ public class AutomaticQualityControl implements Executable {
                         outStream.close();
 
 
-                        //--------Ahora recorro el archivo con los resultados de blast-----
+                        //--------parsing the blast results file-----
 
                         TreeSet<GeneEValuePair> featuresBlast = new TreeSet<GeneEValuePair>();
 
@@ -284,7 +289,7 @@ public class AutomaticQualityControl implements Executable {
 
                                         }
                                     } else {
-                                        //Numero antes de e-
+                                        //Number before e-
                                         String[] arr = arraySt[0].split("e-")[0].split(" ");
                                         String numeroAntesE = arr[arr.length - 1];
                                         String numeroDespuesE = arraySt[0].split("e-")[1].split(" ")[0];
@@ -315,26 +320,26 @@ public class AutomaticQualityControl implements Executable {
 
 
                         if (blastContainsGene) {
-                            outBuff.write("La proteina esta en el WU-BLAST hecho por internet.. \n");
+                            outBuff.write("The protein was found in the WU-BLAST result.. \n");
                             //Una vez que se que esta en el blast tengo que ver que sea la mejor
                             GeneEValuePair first = featuresBlast.first();
-                            outBuff.write("Proteina con mejor valor de e segun el WU-BLAST hecho por internet: " + first.id + " , " + first.eValue + "\n");
+                            outBuff.write("Protein with best eValue according to the WU-BLAST result: " + first.id + " , " + first.eValue + "\n");
                             if (first.id.equals(currentGeneEValuePair.id)) {
-                                outBuff.write("La de mejor e coincide \n");
+                                outBuff.write("Proteins with best eValue match up \n");
                             } else {
                                 if (first.eValue == currentGeneEValuePair.eValue) {
-                                    outBuff.write("La de mejor e no es la misma pero tiene la misma e \n");
+                                    outBuff.write("The one with best eValue is not the same protein but has the same eValue \n");
                                 } else if (first.eValue > currentGeneEValuePair.eValue) {
-                                    outBuff.write("La de mejor e no es la misma pero tiene una e peor :) \n");
+                                    outBuff.write("The one with best eValue is not the same protein but has a worse eValue :) \n");
                                 } else {
-                                    outBuff.write("La mejor proteina del BLAST tiene una e menor que la nuestra, comprobando si se encuentra en el conjunto de referencia...\n");
+                                    outBuff.write("The best protein from BLAST has an eValue smaller than ours, checking if it's part of the reference set...\n");
                                     //System.exit(-1);
-                                    if (proteinasConjuntoReferencia.contains(first.id)) {
-                                        //La proteina se encuentra en el conjunto de referencia, y eso no deberia pasar
-                                        outBuff.write("La proteina se encuentra en el conjunto de referencia, viendo si es del mismo contig...\n");
+                                    if (proteinsReferenceSet.contains(first.id)) {
+                                        //The protein is in the reference set and that shouldn't happen
+                                        outBuff.write("The protein was found on the reference set, checking if it belongs to the same contig...\n");
                                         String iterationSt = blastProteinsMap.get(gene.getAnnotationUniprotId());
                                         if (iterationSt != null) {
-                                            outBuff.write("La proteina se encuentra en el BLAST inicial del proceso de anotacion.\n");
+                                            outBuff.write("The protein was found in the BLAST used at the beginning of the annotation process.\n");
                                             Iteration iteration = new Iteration(iterationSt);
                                             ArrayList<Hit> hits = iteration.getIterationHits();
                                             boolean contigFound = false;
@@ -347,27 +352,26 @@ public class AutomaticQualityControl implements Executable {
                                                 }
                                             }
                                             if (contigFound) {
-                                                outBuff.write("ERROR: Se ha encontrado un hit del mismo contig en el blast: \n" + errorHit.toString() + "\n");
+                                                outBuff.write("ERROR: A hit from the same contig was find in the Blast file: \n" + errorHit.toString() + "\n");
                                             } else {
-                                                outBuff.write("No existe ningun hit con el mismo contig! :)\n");
+                                                outBuff.write("There is no hit with the same contig! :)\n");
                                             }
                                         }else{
-                                            outBuff.write("La proteina NO esta en el BLAST inicial del proceso de anotacion.\n");
+                                            outBuff.write("The protein is NOT in the BLAST used at the beginning of the annotation process.\n");
                                         }
 
                                     } else {
-                                        //La proteina no esta en el conjunto de referencia, asi que todo esta normal
-                                        outBuff.write("La proteina no esta en el conjunto de referencia asi que todo esta bien :)\n");
+                                        //The protein was not found on the reference set so everything's ok
+                                        outBuff.write("The protein was not found on the reference, everything's ok :)\n");
                                     }
                                 }
                             }
 
                         } else {
-                            outBuff.write("La proteina NO esta en el WU-BLAST hecho por internet!! :( \n");
+                            outBuff.write("The protein was NOT found on the WU-BLAST !! :( \n");
 
                             //System.exit(-1);
                         }
-
 
 
                     }
@@ -375,14 +379,15 @@ public class AutomaticQualityControl implements Executable {
                 }
 
 
-
-
-                //cierro el archivo de salida
-                outBuff.close();
-
-
             } catch (Exception ex) {
                 ex.printStackTrace();
+            }finally{
+                try {
+                    //closing outputfile
+                    outBuff.close();
+                } catch (IOException ex) {
+                    Logger.getLogger(AutomaticQualityControl.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
 
