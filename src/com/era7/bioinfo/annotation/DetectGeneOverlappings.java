@@ -20,8 +20,8 @@ import java.util.List;
 import org.jdom.Element;
 
 /**
- *
- * @author ppareja
+ * Detects gene overlappings
+ * @author Pablo Pareja Tobes <ppareja@era7.com>
  */
 public class DetectGeneOverlappings implements Executable{
 
@@ -37,9 +37,9 @@ public class DetectGeneOverlappings implements Executable{
 
 
         if (args.length != 2) {
-            System.out.println("El programa espera dos parametros: \n"
-                    + "1. Nombre del archivo xml de entrada con los genes predichos \n"
-                    + "2. Nombre del archivo xml con la salida de los solapamientos");
+            System.out.println("This program expects two parameters: \n"
+                    + "1. XML filename with the predicted genes \n"
+                    + "2. XML output filename including the overlappings");
         } else {
             String inFileString = args[0];
             String outFileString = args[1];
@@ -52,7 +52,7 @@ public class DetectGeneOverlappings implements Executable{
 
                 
 
-                //Leer datos archivo xml con predicted genes
+                //reading xml file with predicted genes
                 BufferedReader reader = new BufferedReader(new FileReader(inFile));
                 String temp;
                 StringBuilder stBuilder = new StringBuilder();
@@ -60,7 +60,7 @@ public class DetectGeneOverlappings implements Executable{
                 while ((temp = reader.readLine()) != null) {
                     stBuilder.append(temp);
                 }
-                //Cerrar archivo de entrada blastouput
+                //closing file
                 reader.close();
 
                 PredictedGenes predictedGenesXML = new PredictedGenes(stBuilder.toString());
@@ -68,11 +68,11 @@ public class DetectGeneOverlappings implements Executable{
 
                 int contadorSolapamientos = 0;
 
-                //Ahora tengo que agrupar los predicted genes por scaffolds
-                //para eso hago un mapa de scaffold id a array de predicted genes
+                //Predicted genes must be grouped by sacaffolds
+                //that's the aim of this Hashmap scaffold id --> predicted genes array
                 HashMap<String, ArrayList<PredictedGene>> map = new HashMap<String, ArrayList<PredictedGene>>();
 
-                //Rellenando los arrays de los diferentes scaffolds/contigs
+                //Filling up arrays
                 List<Element> list = predictedGenesXML.getRoot().getChildren(PredictedGene.TAG_NAME);
 
                 for (int i=0;i<list.size();i++) {
@@ -98,7 +98,7 @@ public class DetectGeneOverlappings implements Executable{
                 for (String key : map.keySet()) {
 
                     int contadorScaffold = 0;
-                    System.out.println("Detectando solapamientos en scaffold: " + key);
+                    System.out.println("Detecting overlappings in scaffold: " + key);
 
                     ArrayList<PredictedGene> array = map.get(key);
 
@@ -107,7 +107,7 @@ public class DetectGeneOverlappings implements Executable{
                         PredictedGene tempGene1 = array.get(i);
                         int initGene1 = tempGene1.getStartPosition();
                         int stopGene1 = tempGene1.getEndPosition();
-                        //------Si la orientacion es negativa son al reves----
+                        //------if orientation is negative they are the other way round----
                         if (!tempGene1.getHspSet().getOrientation()) {
                             int tempSwap = initGene1;
                             initGene1 = stopGene1;
@@ -120,7 +120,7 @@ public class DetectGeneOverlappings implements Executable{
                             PredictedGene tempGene2 = array.get(j);
                             int initGene2 = tempGene2.getStartPosition();
                             int stopGene2 = tempGene2.getEndPosition();
-                            //------Si la orientacion es negativa son al reves----
+                            //------if orientation is negative they are the other way round----
                             if (!tempGene2.getHspSet().getOrientation()) {
                                 int tempSwap = initGene2;
                                 initGene2 = stopGene2;
@@ -130,7 +130,7 @@ public class DetectGeneOverlappings implements Executable{
                             if ( (stopGene1 >= initGene2) && (initGene1 <= initGene2)) {
                                 System.out.println("stopGene1 = " + stopGene1);
                                 System.out.println("initGene2 = " + initGene2);
-                                System.out.println("[" + tempGene1.getId() + "] solapa con ["
+                                System.out.println("[" + tempGene1.getId() + "] overlaps with ["
                                         + tempGene2.getId() + "]");
 
                                 Overlap overlap = new Overlap();
@@ -160,8 +160,8 @@ public class DetectGeneOverlappings implements Executable{
                 buffWriter.close();
                 fileWriter.close();
 
-                System.out.println("Fichero xml de salida creado con el nombre: " + outFileString);
-                System.out.println("Numero de solapamientos detectados: " + contadorSolapamientos);
+                System.out.println("Output xml file created with the name: " + outFileString);
+                System.out.println("Number of overlappings detected: " + contadorSolapamientos);
 
             } catch (Exception e) {
                 e.printStackTrace();

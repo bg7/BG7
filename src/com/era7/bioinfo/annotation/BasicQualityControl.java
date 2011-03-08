@@ -18,8 +18,8 @@ import java.util.List;
 import org.jdom.Element;
 
 /**
- *
- * @author ppareja
+ * 
+ * @author Pablo Pareja Tobes <ppareja@era7.com>
  */
 public class BasicQualityControl implements Executable {
 
@@ -35,21 +35,21 @@ public class BasicQualityControl implements Executable {
 
 
         if (args.length != 4) {
-            System.out.println("El programa espera cuatro parametros: \n"
-                    + "1. Nombre del archivo xml con los genes iniciales predichos \n"
-                    + "2. Nombre del archivo xml con los genes eliminados por el programa 'EliminaGenesDuplicados'\n"
-                    + "3. Nombre del archivo xml con los genes resultantes tras eliminar los duplicados\n"
-                    + "4. Nombre del archivo txt con el resultado del control de calidad basico\n");
+            System.out.println("This program expects four parameters: \n"
+                    + "1. XML filename with the initial predicted genes \n"
+                    + "2. XML filename with the genes removed by the program 'RemoveDuplicatedGenes'\n"
+                    + "3. XML filename with the resulting genes file after removing duplicates\n"
+                    + "4. Output TXT filename (results of the basic quality control)\n");
         } else {
 
 
             try {
 
-                File genesPredichosFile, eliminadosFile, sinDuplicadosFile, outFile;
+                File predictedGenesFile, removedGenesFile, withoutDuplicatesFile, outFile;
                 
-                genesPredichosFile = new File(args[0]);
-                eliminadosFile = new File(args[1]);
-                sinDuplicadosFile = new File(args[2]);
+                predictedGenesFile = new File(args[0]);
+                removedGenesFile = new File(args[1]);
+                withoutDuplicatesFile = new File(args[2]);
                 outFile = new File(args[3]);
 
                 BufferedWriter outBuff = new BufferedWriter(new FileWriter(outFile));
@@ -58,9 +58,9 @@ public class BasicQualityControl implements Executable {
                 ArrayList<String> idsGenesEliminados = new ArrayList<String>();
                 ArrayList<String> idsGenesResultantes = new ArrayList<String>();
 
-                //------------GENES PREDICHOS-------------------------
+                //------------PREDICTED GENES-------------------------
 
-                BufferedReader bufferedReader = new BufferedReader(new FileReader(genesPredichosFile));
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(predictedGenesFile));
                 StringBuilder stBuilder = new StringBuilder();
                 String line = null;
                 while((line = bufferedReader.readLine()) != null){
@@ -68,11 +68,11 @@ public class BasicQualityControl implements Executable {
                 }
                 bufferedReader.close();
                 
-                System.out.println("Construyendo el xml de genes predichos...");
+                System.out.println("parsing XML file with predicted genes...");
                 XMLElement xMLElement = new XMLElement(stBuilder.toString());
                 stBuilder.delete(0, stBuilder.length());
-                System.out.println("ya!");
-                System.out.println("Extrayendo ids...");
+                System.out.println("done!");
+                System.out.println("Extracting ids...");
                 List<Element> contigList = xMLElement.asJDomElement().getChildren(ContigXML.TAG_NAME);
                 for (Element element : contigList) {
                     List<Element> genes = element.getChildren(PredictedGene.TAG_NAME);
@@ -83,12 +83,12 @@ public class BasicQualityControl implements Executable {
                 }
                 xMLElement = null;
                 contigList = null;
-                System.out.println("ya!");
-                outBuff.write("Numero de genes predichos inicialmente: " + idsGenesPredichos.size() + "\n");
+                System.out.println("done!");
+                outBuff.write("Number of genes predicted initially: " + idsGenesPredichos.size() + "\n");
 
-                //------------GENES ELIMINADOS-------------------------
+                //------------REMOVED GENES-------------------------
 
-                bufferedReader = new BufferedReader(new FileReader(eliminadosFile));
+                bufferedReader = new BufferedReader(new FileReader(removedGenesFile));
                 stBuilder = new StringBuilder();
                 line = null;
                 while((line = bufferedReader.readLine()) != null){
@@ -96,11 +96,11 @@ public class BasicQualityControl implements Executable {
                 }
                 bufferedReader.close();
 
-                System.out.println("Construyendo el xml de genes eliminados...");
+                System.out.println("parsing removed genes XML file...");
                 xMLElement = new XMLElement(stBuilder.toString());
                 stBuilder.delete(0, stBuilder.length());
-                System.out.println("ya!");
-                System.out.println("Extrayendo ids...");
+                System.out.println("done!");
+                System.out.println("Extracting ids...");
                 contigList = xMLElement.asJDomElement().getChildren(ContigXML.TAG_NAME);
                 //System.out.println("contigList.size() = " + contigList.size());
                 for (Element element : contigList) {
@@ -112,12 +112,12 @@ public class BasicQualityControl implements Executable {
                     }
                 }
                 xMLElement = null;
-                System.out.println("ya!");
-                outBuff.write("Numero de genes eliminados por 'EliminaGenesDuplicados': " + idsGenesEliminados.size() + "\n");
+                System.out.println("done!");
+                outBuff.write("Number of genes removed by the program 'RemoveDuplicatedGenes': " + idsGenesEliminados.size() + "\n");
 
-                //------------GENES RESULTANTES-------------------------
+                //------------RESULTING GENES-------------------------
 
-                bufferedReader = new BufferedReader(new FileReader(sinDuplicadosFile));
+                bufferedReader = new BufferedReader(new FileReader(withoutDuplicatesFile));
                 stBuilder = new StringBuilder();
                 line = null;
                 while((line = bufferedReader.readLine()) != null){
@@ -125,11 +125,11 @@ public class BasicQualityControl implements Executable {
                 }
                 bufferedReader.close();
 
-                System.out.println("Construyendo el xml de genes resultantes sin duplicados...");
+                System.out.println("parsing the XML file of predicted genes without duplicates...");
                 xMLElement = new XMLElement(stBuilder.toString());
                 stBuilder.delete(0, stBuilder.length());
-                System.out.println("ya!");
-                System.out.println("Extrayendo ids...");
+                System.out.println("done!");
+                System.out.println("Extracting ids...");
                 contigList = xMLElement.asJDomElement().getChildren(ContigXML.TAG_NAME);
                 for (Element element : contigList) {
                     List<Element> genes = element.getChildren(PredictedGene.TAG_NAME);
@@ -139,15 +139,15 @@ public class BasicQualityControl implements Executable {
                     }
                 }
                 xMLElement = null;
-                System.out.println("ya!");
-                outBuff.write("Numero de genes resultantes tras ejecutar 'EliminaGenesDuplicados': " + idsGenesResultantes.size() + "\n");
+                System.out.println("done!");
+                outBuff.write("Resulting number of genes after executing program 'RemoveDuplicatedGenes': " + idsGenesResultantes.size() + "\n");
                 int suma = (idsGenesEliminados.size() + idsGenesResultantes.size());
-                outBuff.write("eliminados: " + idsGenesEliminados.size() + " + resultantes: " + idsGenesResultantes.size() + " = " +
+                outBuff.write("removed: " + idsGenesEliminados.size() + " + resulting: " + idsGenesResultantes.size() + " = " +
                  suma + "\n");
                 if(idsGenesPredichos.size() == suma){
-                    outBuff.write("La suma coincide! :)\n");
+                    outBuff.write("The sum matchs up! :)\n");
                 }else{
-                    outBuff.write("La suma NO coincide! :(\n");
+                    outBuff.write("The sum does NOT match up! :(\n");
                 }
 
 
@@ -157,9 +157,6 @@ public class BasicQualityControl implements Executable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
-
 
 
         }
