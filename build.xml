@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="PrediccionGenes" default="default" basedir=".">
-    <description>Builds, tests, and runs the project PrediccionGenes.</description>
+<project name="SemiautomaticGeneAnnotation" default="default" basedir=".">
+    <description>Builds, tests, and runs the project SemiautomaticGeneAnnotation.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 
@@ -72,6 +72,42 @@
 
     -->
 <!--    <target name="-post-jar">
+        <jar jarfile="jars/ExportGenBankFiles.jar">
+            <zipfileset src="${dist.jar}" excludes="META-INF/*" />
+            <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
+                        excludes="META-INF/*" />
+            <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
+                        excludes="META-INF/*" />
+            <manifest>
+                <attribute name="Main-Class" value="com.era7.bioinfo.gb.ExportGenBankFiles"/>
+            </manifest>
+        </jar>
+    </target>-->
+<!--    <target name="-post-jar">
+        <jar jarfile="ImportGeneBankFiles.jar">
+            <zipfileset src="${dist.jar}" excludes="META-INF/*" />
+            <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
+                        excludes="META-INF/*" />
+            <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
+                        excludes="META-INF/*" />
+            <manifest>
+                <attribute name="Main-Class" value="com.era7.bioinfo.gb.ImportGeneBankFiles"/>
+            </manifest>
+        </jar>
+    </target>-->
+    <target name="-post-jar">
+        <jar jarfile="ControlGenBankFilesQuality.jar">
+            <zipfileset src="${dist.jar}" excludes="META-INF/*" />
+            <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
+                        excludes="META-INF/*" />
+            <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
+                        excludes="META-INF/*" />
+            <manifest>
+                <attribute name="Main-Class" value="com.era7.bioinfo.gb.ControlGenBankFilesQuality"/>
+            </manifest>
+        </jar>
+    </target>
+<!--    <target name="-post-jar">
             <jar jarfile="jars/PredictGenes.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
             <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
@@ -84,7 +120,7 @@
             </manifest>
         </jar>
     </target>-->
-    <target name="-post-jar">
+<!--    <target name="-post-jar">
             <jar jarfile="jars/HspSetTester.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
             <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
@@ -96,7 +132,7 @@
                 <attribute name="Main-Class" value="com.era7.bioinfo.annotation.HspSetTester"/>
             </manifest>
         </jar>
-    </target>
+    </target>-->
 <!--    <target name="-post-jar">
             <jar jarfile="jars/RemoveDuplicatedGenes.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
