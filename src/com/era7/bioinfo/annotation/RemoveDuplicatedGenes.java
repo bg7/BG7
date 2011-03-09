@@ -22,8 +22,8 @@ import java.util.TreeSet;
 import org.jdom.Element;
 
 /**
- *
- * @author ppareja
+ * 
+ * @author Pablo Pareja Tobes <ppareja@era7.com>
  */
 public class RemoveDuplicatedGenes implements Executable {
 
@@ -39,10 +39,10 @@ public class RemoveDuplicatedGenes implements Executable {
 
 
         if (args.length != 3 && args.length != 4) {
-            System.out.println("El programa espera tres parametros: \n"
-                    + "1. Nombre del archivo xml de entrada con los genes predichos \n"
-                    + "2. Nombre del archivo xml de salida sin duplicados \n"
-                    + "3. Nombre del archivo xml de salida con los genes eliminados.");
+            System.out.println("This program expects three parameters: \n"
+                    + "1. Predicted genes XML input file\n"
+                    + "2. Output XML file without duplicates \n"
+                    + "3. Output XML file including removed genes.");
         } else {
             String inFileString = args[0];
             String outFileNoDuplicadosString = args[1];
@@ -66,13 +66,13 @@ public class RemoveDuplicatedGenes implements Executable {
                 BufferedWriter consoleBuff = new BufferedWriter(new FileWriter(consoleFile));
 
 
-                //XMLElement que incluira los genes predichos sin duplicados
+                //XMLElement holding predicted genes without duplicates
                 PredictedGenes predictedGenesResult = new PredictedGenes();
-                //XMLElement que incluira los genes que han sido eliminados
+                //XMLElement including removed predicted genes
                 PredictedGenes removedGenes = new PredictedGenes();
 
 
-                //Leer datos archivo xml con predicted genes
+                //Reading data from input xml file
                 BufferedReader reader = new BufferedReader(new FileReader(inFile));
                 String temp;
                 StringBuilder stBuilder = new StringBuilder();
@@ -80,14 +80,14 @@ public class RemoveDuplicatedGenes implements Executable {
                 while ((temp = reader.readLine()) != null) {
                     stBuilder.append(temp);
                 }
-                //Cerrar archivo de entrada blastouput
+                //closing input file reader
                 reader.close();
 
-                System.out.println("Creando predictedGenesXML....");
+                System.out.println("Creating predictedGenesXML....");
                 PredictedGenes predictedGenesXML = new PredictedGenes(stBuilder.toString());
-                System.out.println("Ya! :)");
+                System.out.println("Done! :)");
 
-                //copio los valores de difSpan y gene threshold del xml de entrada
+                //Copying difSpan & gene threshold values from the input xml file
                 int difSpan = predictedGenesXML.getDifSpan();
                 int threshold = predictedGenesXML.getGeneThreshold();
                 predictedGenesResult.setDifSpan(difSpan);
@@ -98,12 +98,13 @@ public class RemoveDuplicatedGenes implements Executable {
 
                 int contadorEliminados = 0;
 
-                //map con todos los genes mezclados identificados por su id
+                //Map with every predicted gene mixed up (gene id --> gene)
                 HashMap<String, String> todosLosGenes = new HashMap<String, String>();
                 List<Element> listContigs = predictedGenesXML.getRoot().getChildren(ContigXML.TAG_NAME);
 
 
-                //Hay que ver si se ha especificado un organismo concreto o se usa el por defecto
+                //Checking if a preferent organism was specified or the default one
+                // should be used instead
                 String goodOrganism = predictedGenesXML.getPreferentOrganism();
                 if (preferentOrganism != null) {
                     goodOrganism = preferentOrganism;
@@ -145,7 +146,7 @@ public class RemoveDuplicatedGenes implements Executable {
                         genesSet.add(f);
 
                         if (listGenes.size() % 1000 == 0) {
-                            System.out.println("Creando features y genes, quedan " + listGenes.size() + " para el contig: " + currentContigId);
+                            System.out.println("Creating features and genes, " + listGenes.size() + " are left for the contig: " + currentContigId);
                         }
                     }
 
@@ -153,43 +154,44 @@ public class RemoveDuplicatedGenes implements Executable {
                     ArrayList<String> idsGenesBorradosDelContig = new ArrayList<String>();
                     ArrayList<String> idsGenesSinBorrarDelContig = new ArrayList<String>();
 
-                    System.out.println("Elminando duplicados del contig: " + currentContigId);
-                    consoleBuff.write("Elminando duplicados del contig: " + currentContigId);
+                    System.out.println("Removing duplicated genes from the contig: " + currentContigId);
+                    consoleBuff.write("Removing duplicated genes from the contig: " + currentContigId);
 
                     while (genesSet.size() > 0) {
-                        //Cojo el primer elemento por posicion
+                        //The first element is selected by position
                         Feature firstFeature = genesSet.pollFirst();
                         consoleBuff.write("firstFeature = " + firstFeature.getId() + "\n");
-                        //Ahora recorro el resto y busco genes que esten incluidos dentro
+                        //Now I loop through the rest looking for genes that might be included in this one
                         boolean borrado = false;
                         for (Iterator<Feature> it = genesSet.iterator(); it.hasNext() && !borrado;) {
                             Feature feature = it.next();
                             if (feature.getEnd() <= firstFeature.getEnd()) {
                                 consoleBuff.write("FirstFeature = " + firstFeature.getId() + "," + firstFeature.geteValue() + " feature = " + feature.getId() + "," + feature.geteValue() + "\n");
-                                //Ahora hay que borrar el de mayor e, si tienen el mismo valor se mira el organismo
+                                //The one with a bigger eValue must be removed, if they have the same value
+                                //it depends on their organism
                                 if (feature.geteValue() < firstFeature.geteValue()) {
-                                    consoleBuff.write("Se borra firstFeature \n");
+                                    consoleBuff.write("Removing firstFeature \n");
                                     idsGenesBorradosDelContig.add(firstFeature.getId());
                                     borrado = true;
                                 } else if (firstFeature.geteValue() < feature.geteValue()) {
-                                    consoleBuff.write("Se borra feature \n");
+                                    consoleBuff.write("Removing feature \n");
                                     idsGenesBorradosDelContig.add(feature.getId());
                                     it.remove();
                                 } else {
-                                    //como tienen la misma e hay que mirar el organismo
+                                    //checking their organism (they have the same eValue)
 
-                                    consoleBuff.write("Hay dos con la misma e, el organismo que prima es: " + goodOrganism);
+                                    consoleBuff.write("There are two with the same e, the organism that predominates is: " + goodOrganism);
                                     consoleBuff.write(" firstFeature.getOrganism() = " + firstFeature.getOrganism());
                                     consoleBuff.write(" feature.getOrganism() = " + feature.getOrganism() + "\n");
 
                                     if (feature.getOrganism().equals(goodOrganism)) {
                                         idsGenesBorradosDelContig.add(firstFeature.getId());
                                         borrado = true;
-                                        consoleBuff.write(" borro firstFeature " + "(" + firstFeature.getId() + ")\n");
+                                        consoleBuff.write(" removing firstFeature " + "(" + firstFeature.getId() + ")\n");
                                     } else {
                                         idsGenesBorradosDelContig.add(feature.getId());
                                         it.remove();
-                                        consoleBuff.write(" borro feature" + "(" + feature.getId() + ")\n");
+                                        consoleBuff.write(" removing feature" + "(" + feature.getId() + ")\n");
                                     }
                                 }
                             }
@@ -198,18 +200,18 @@ public class RemoveDuplicatedGenes implements Executable {
                         if (!borrado) {
                             idsGenesSinBorrarDelContig.add(firstFeature.getId());
                         }
-                        System.out.println("Quedan " + genesSet.size() + " genes por analizar del contig: " + currentContigId);
-                        consoleBuff.write("Quedan " + genesSet.size() + " genes por analizar del contig: " + currentContigId);
+                        System.out.println("There are " + genesSet.size() + " genes left to be analyzed from the contig: " + currentContigId);
+                        consoleBuff.write("There are " + genesSet.size() + " genes left to be analyzed from the contig: " + currentContigId);
 
 
                     }
 
-                    System.out.println("Se han detectado " + idsGenesBorradosDelContig.size() + " genes que hay que borrar...");
-                    consoleBuff.write("Se han detectado " + idsGenesBorradosDelContig.size() + " genes que hay que borrar...");
+                    System.out.println("There were " + idsGenesBorradosDelContig.size() + " genes detected that must be removed...");
+                    consoleBuff.write("There were " + idsGenesBorradosDelContig.size() + " genes detected that must be removed...");
 
                     contadorEliminados += idsGenesBorradosDelContig.size();
 
-                    //ahora borro los genes para que no salgan al final
+                    //removing genes
                     if (idsGenesBorradosDelContig.size() > 0) {
                         ContigXML contig = new ContigXML();
                         contig.setId(currentContigId);
@@ -228,7 +230,7 @@ public class RemoveDuplicatedGenes implements Executable {
                     }
 
 
-                    //ahora agrego al resultado final los genes que han quedado sin borrar
+                    //resulting genes are added to the result
                     if (idsGenesSinBorrarDelContig.size() > 0) {
                         ContigXML contig = new ContigXML();
                         contig.setId(currentContigId);
@@ -266,9 +268,9 @@ public class RemoveDuplicatedGenes implements Executable {
                 buffWriterEliminados.close();
                 fileWriterElminados.close();
 
-                System.out.println("Genes eliminados: " + contadorEliminados);
-                System.out.println("XML created with the name: " + outFileNoDuplicadosString);
-                System.out.println("XML created with the name: " + outFileGenesElminadosString);
+                System.out.println("Number of genes which were removed: " + contadorEliminados);
+                System.out.println("XML output file created with the name: " + outFileNoDuplicadosString);
+                System.out.println("XML output file created with the name: " + outFileGenesElminadosString);
 
             } catch (Exception e) {
                 e.printStackTrace();

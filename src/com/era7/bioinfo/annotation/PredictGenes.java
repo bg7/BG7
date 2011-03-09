@@ -32,8 +32,9 @@ import org.biojava.bio.symbol.SymbolList;
 import org.jdom.Element;
 
 /**
- *
- * @author ppareja
+ * This is one of the most important programs/steps on the semi-automatic annotation
+ * process. It carries out the gene prediction phase of the process
+ * @author Pablo Pareja Tobes <ppareja@era7.com>
  */
 public class PredictGenes implements Executable {
 
@@ -58,12 +59,12 @@ public class PredictGenes implements Executable {
 
 
         if (args.length != 5) {
-            System.out.println("El programa espera cinco parametros: \n"
-                    + "1. Nombre del archivo xml BlastOutput \n"
-                    + "2. Nombre del archivo fna con los contigs \n"
-                    + "3. Nombre del archivo xml de salida \n"
-                    + "4. Maxima longitud de gen (numero entero)\n"
-                    + "5. El genoma corresponde a un virus (true/false)\n");
+            System.out.println("This program expects five parameters: \n"
+                    + "1. BlastOutput XML filename \n"
+                    + "2. Contigs FNA filename \n"
+                    + "3. Output results XML filename \n"
+                    + "4. Maximum gene length (integer)\n"
+                    + "5. Flag (boolean) indicating if this genome corresponds to a virus (true/false)\n");
         } else {
             String blastOutputFileString = args[0];
             String fnaFileString = args[1];
@@ -74,11 +75,11 @@ public class PredictGenes implements Executable {
                 System.out.println("args[3] = " + args[3]);
                 MAXIMA_LONGITUD_GEN = Integer.parseInt(args[3]);
             } catch (NumberFormatException ex) {
-                System.out.println("El parametro 'Maxima lontigud de gen' especificado no es un numero entero");
+                System.out.println("The parameter 'Maximum gene length' provided is not an integer");
                 System.exit(-1);
             }
             if (MAXIMA_LONGITUD_GEN <= 0) {
-                System.out.println("Debe introducir un numero entero mayor que cero para el parametro 'Maxima lontigud de gen'");
+                System.out.println("A number greater than 0 must be provided for the parameter 'Maximum gene length'");
                 System.exit(-1);
             }
 
@@ -87,7 +88,7 @@ public class PredictGenes implements Executable {
             if (virusSt.equals("true") || virusSt.equals("false")) {
                 isVirus = Boolean.parseBoolean(virusSt);
             } else {
-                System.out.println("El valor introducido para el ultimo argumento debe ser \"true\" o  \"false\"");
+                System.out.println("The value provided for the virus flag parameter must be one of these two: \"true\" , \"false\"");
                 System.exit(-1);
             }
 
@@ -114,7 +115,7 @@ public class PredictGenes implements Executable {
                 StringBuilder tempSecuenciaSt = new StringBuilder();
                 String currentScaffoldId = "";
 
-                System.out.println("Leyendo archivo fna...");
+                System.out.println("Reading fna file...");
 
                 while ((tempFna = fnaReader.readLine()) != null) {
 
@@ -136,15 +137,15 @@ public class PredictGenes implements Executable {
                     contigSequencesMap.put(currentScaffoldId, tempSecuenciaSt.toString());
                 }
 
-                //Cerrar archivo de entrada blastouput
+                //closing fna file reader
                 fnaReader.close();
 
-                System.out.println("Ya!! :)");
+                System.out.println("Done!! :)");
 
-                //Ahora calculo las complementarias invertidas de todas las secuencias
-                //de los contigs (me pueden hacer falta mas adelante)
+                //Complementary inverted sequences from the contigs are now calculated
+                //(they'll be useful later)
 
-                System.out.println("Calculando complementarias invertidas....");
+                System.out.println("Calculating complementary inverted sequences....");
 
                 for (String key : contigSequencesMap.keySet()) {
                     SymbolList symL = DNATools.createDNA(contigSequencesMap.get(key));
@@ -153,44 +154,44 @@ public class PredictGenes implements Executable {
                 }
                 //-----------------------------------------------------
 
-                System.out.println("Ya!");
+                System.out.println("Done!");
 
-                //Leer datos archivo xml Blastoutput
+                //Reading data from xml Blastoutput
                 BufferedReader reader = new BufferedReader(new FileReader(blastOutputFile));
                 String temp;
                 StringBuilder stBuilder = new StringBuilder();
 
-                System.out.println("Construyendo el xml del blastoutput");
+                System.out.println("Parsing blastoutput XML file");
 
                 while ((temp = reader.readLine()) != null) {
                     stBuilder.append(temp);
                 }
-                //Cerrar archivo de entrada blastouput
+                //closing input reader
                 reader.close();
 
                 BlastOutput blast = new BlastOutput(stBuilder.toString());
 
-                System.out.println("YA!");
+                System.out.println("Done!");
 
                 ArrayList<Iteration> iterations = blast.getBlastOutputIterations();
                 System.out.println("Iterations size: " + iterations.size());
 
-                //XMLElement que incluira los genes predichos
+                //XMLElement where predicted genes will be added to
                 PredictedGenes predictedGenes = new PredictedGenes();
                 predictedGenes.setDifSpan(DIF_SPAN);
                 predictedGenes.setGeneThreshold(MAXIMA_LONGITUD_GEN);
-                // Array donde voy a guardar los hspsets que contienen
-                // hsps pegados o unicos
+                // Array for hspsets containing hsps (groups with several
+                // hsps joined together of groups with just one hsp) 
                 ArrayList<HspSet> hspSets = new ArrayList<HspSet>();
 
-                // Recorro todas las iteraciones
+                // Looping through every iteration
                 for (Iteration iteration : iterations) {
                     ArrayList<Hit> hits = iteration.getIterationHits();
 
                     System.out.println("Iteration " + iteration.getUniprotIdFromQueryDef() + " has " + hits.size() + "hits");
                     //System.out.println("hits = " + hits);
 
-                    //Saco el organismo de la iteration
+                    //Retrieving organism from the iteration
 
                     String iterationOrganism = null;
                     if (hits.size() > 0) {
@@ -199,15 +200,15 @@ public class PredictGenes implements Executable {
                         }
                     }
 
-                    // Recorro todos los hits de la iteracion
+                    // Looping through all the hits in the iteracion
                     for (Hit hit : hits) {
 
                         System.out.println("hit = " + hit.getHitDef());
 
-                        // Obtengo todos los hsps del hit
+                        // Getting every hsp in this hit
                         ArrayList<Hsp> hsps = hit.getHitHsps();
 
-                        //Limpio lo que no me sirve de los hsps para depurar
+                        //I get rid of elements which are not useful for us
                         for (int i = 0; i < hsps.size(); i++) {
                             Hsp hsp = hsps.get(i);
                             hsp.getRoot().removeChild("Hsp_qseq");
@@ -218,17 +219,17 @@ public class PredictGenes implements Executable {
 
                         HspSet hspSet = new HspSet();
                         hspSet.setOrganism(iterationOrganism);
-                        //Apuntamos el id de uniprot al que corresponde en el hit
+                        //Saving the uniprot id linked to this hit
                         hit.setUniprotID(iteration.getUniprotIdFromQueryDef());
                         hspSet.setHit(hit);
 
-                        System.out.println("Analizando hsps hit, hay " + hsps.size());
+                        System.out.println("Analyzing hsps hit, there are " + hsps.size());
 
                         while (hsps.size() > 0) {
 
-                            System.out.println("Entrando en el while... hsps.size()=" + hsps.size());
+                            System.out.println("Entering while... hsps.size()=" + hsps.size());
 
-                            //Recorro los hsps del hit buscando el de menor query from
+                            //Looping through hit hsps looking for the one with the least query from value
                             int indiceHspMenorQueryFrom = 0;
                             boolean orientacionHspMenorQueryFromEsNegativa = !hsps.get(0).getOrientation();
 //                            System.out.println("hsps.get(0).getHitFrame() = " + hsps.get(0).getOrientation());
@@ -248,8 +249,8 @@ public class PredictGenes implements Executable {
                             if (hspSet.size() == 0) {
                                 hspSet.addHsp(new Hsp((Element) hsps.get(indiceHspMenorQueryFrom).getRoot().clone()));
 
-                                //lo borro del array para que no forme parte del conjunto de busqueda
-                                // de los hsps a pegar
+                                // It's removed from the array so that it does not belong to the set
+                                // for searching hsps to be joined
                                 hsps.remove(hsps.get(indiceHspMenorQueryFrom));
                             }
 
@@ -263,14 +264,14 @@ public class PredictGenes implements Executable {
                                     hspsCopia.add(new Hsp((Element) tempHsp.getRoot().clone()));
                                 }
 
-                                //Ahora tengo que quedarme solo con los hsps que tengan la
-                                // misma orientacion para ver si puedo pegarle alguno(s)
+                                // Now I must only select the hsps with the same orientation and see if
+                                // there's any suitable candidate to be joined with
                                 for (int i = 0; i < hspsCopia.size(); i++) {
                                     Hsp tempHsp = hspsCopia.get(i);
                                     System.out.println("tempHsp.getHitFrame() = " + tempHsp.getHitFrame());
                                     System.out.println("orientacionHspMenorQueryFromEsNegativa = " + orientacionHspMenorQueryFromEsNegativa);
                                     if (!((tempHsp.getHitFrame() < 0) == orientacionHspMenorQueryFromEsNegativa)) {
-                                        //como no tiene la misma orientacion lo borro del array
+                                        //it's removed from the array cause if has a different orientation
                                         hspsCopia.remove(tempHsp);
                                     }
                                 }
@@ -279,20 +280,20 @@ public class PredictGenes implements Executable {
 
                                 while (hspsCopia.size() > 0) {
 
-                                    //Los que quedan ahora en el array son los que tienen la misma orientacion
-                                    //Ahora tengo que filtrar y quedarme solo con los que tengan un query_to mayor
-                                    //que el ultimo hsp del hsp_set
+                                    //The ones left in the array are those wich have the same orientation
+                                    //They must be filtered now so that only the ones with a 'query_to' value
+                                    // bigger than the one from the last hsp in the hsp_set are left
                                     //System.out.println("hspsCopia = " + hspsCopia.get(0).getNum());
                                     for (int i = 0; i < hspsCopia.size(); i++) {
                                         Hsp tempHsp = hspsCopia.get(i);
                                         if (tempHsp.getQueryTo() <= hspSet.getHspQueryTo()) {
-                                            //como el query to es menor lo borro del array
+                                            //it's removed from the array cause its query_to value is smaller
                                             hspsCopia.remove(tempHsp);
                                         }
                                     }
-                                    System.out.println("hspsCopia size despues quitar menor query_to = " + hspsCopia.size());
+                                    System.out.println("hspsCopia size after removing those with smaller query_to value = " + hspsCopia.size());
 
-                                    //Selecciono de los que quedan el que tenga menor query from
+                                    //The one with the smallest query from value is selected among those which are left
                                     if (hspsCopia.size() > 0) {
 
                                         Hsp hspMenorQueryFrom = hspsCopia.get(0);
@@ -303,7 +304,7 @@ public class PredictGenes implements Executable {
                                             }
                                         }
 
-                                        //Ahora tengo que calcular los valores spanHsps y spanQuery
+                                        //Now spanHsps & spanQuery values must be calculated
                                         int spanHsps = 0;
                                         if (orientacionHspMenorQueryFromEsNegativa) {
                                             spanHsps = hspSet.getHspHitFrom() - hspMenorQueryFrom.getHitTo();
@@ -349,23 +350,23 @@ public class PredictGenes implements Executable {
                                     hspSets.add(hspSet);
                                     //Initializing the new hspset
                                     hspSet = new HspSet();
-                                    //Apuntamos el id de uniprot al que corresponde en el hit
+                                    //The uniprot id for the hit is stored
                                     hit.setUniprotID(iteration.getUniprotIdFromQueryDef());
                                     hspSet.setHit(hit);
                                 }
                             }
                         }
 
-                        // no hay hsps asi q no hago nada y paso al siguiente hit
+                        // There are no hsps so I should go to the next hit
                         //Now it's time to add the hspSet found
                         hspSets.add(hspSet);
 
                     }
                 }
 
-                System.out.println("Acabe las iteraciones !!! :)");
+                System.out.println("Iterations finished !!! :)");
 
-                //Ahora ya tengo todos los hspSets asi que a buscar los genes!!
+                //Here hspSets are already retrieved, nos it's time to look for the genes!!
                 int contadorIdsPredictedGenes = 1;
 
                 for (HspSet hspSet : hspSets) {
@@ -374,7 +375,7 @@ public class PredictGenes implements Executable {
                     predictedGene.setId(String.valueOf(contadorIdsPredictedGenes));
                     contadorIdsPredictedGenes++;
 
-                    //Now it's time to look for both begin and end codons
+                    //time to look for both begin and end codons
                     String currentContigId = hspSet.getHit().getHitDef().split(" ")[0];
                     String hitDnaSequence = contigSequencesMap.get(currentContigId);
 
@@ -383,36 +384,32 @@ public class PredictGenes implements Executable {
                     int hspHitFrom = hspSet.getHspHitFrom();
                     int hspHitTo = hspSet.getHspHitTo();
 
-                    //Ahora se coge la secuencia, si la orientacion es
-                    //positiva se coge la normal, si no, se coge la complementaria invertida.
+                    // Retrieving the sequence, if orientation is positive we just take the 'normal' one,
+                    // otherwise we must take the complementary inverted seq.
                     if (!hspSet.getOrientation()) {
                         hitDnaSequence = contigsSequencesMapComplementaryInverted.get(currentContigId);
 
-                        //Si la orientacion es negativa tengo que transformar las coordenadas
-                        //ya que estan del reves
+                        // If orientation is negative, the coordinates must be transformed since
+                        // they are the other way round
                         hspHitFrom = Math.abs(hspHitFrom - hitDnaSequence.length());
                         hspHitTo = Math.abs(hspHitTo - hitDnaSequence.length());
-                        //Ademas ahora tengo que intercambiar los valores porque en las
-                        //negativas vienen al reves
+                        //Besides that, the values must be swaped cause they are also changed when the
+                        //orientation is negative
                         int tempSwap = hspHitFrom;
                         hspHitFrom = hspHitTo;
                         hspHitTo = tempSwap;
 
-                        //Le sumo uno porque el stop empieza justo despues de la ultima base
-                        //y en esta linea el to es ya el from por lo de ser negativo y todo eso
+                        //I have to increment it in one, because the stop starts right after the last base
+                        //and in this line the 'to' value is already the 'from' value due to the negative orientation
                         hspHitTo++;
                     } else {
-                        hspHitFrom -= 1; //Es importante RESTARLE UNO!!
-                        //hspHitTo -= 1; //Es importante RESTARLE UNO!!
-                        //La resta del hitTo esta comentada porque se anula con la suma de una unidad
-                        //que hay que hacer PORQUE EL GEN EMPIEZA JUSTO DESPUES DE LA ULTIMA BASE DEL GEN!!
-
+                        hspHitFrom -= 1; // DECREASING IT IN ONE is important!!
                     }
 
                     //ArrayList with extra stop codons
                     ArrayList<Codon> extraStopCodonsArray = new ArrayList<Codon>();
 
-                    //Ahora se busca el codon de inicio en funcion de la orientacion
+                    //Now we look for the start codon depending on the orientation
                     int initCodonPosition = -1;
                     //int stopCodonPosition = -1;
 
@@ -463,11 +460,7 @@ public class PredictGenes implements Executable {
                     }
 
 
-                    //Ahora se pone en el tag de start position de PredictedGene
-//                    Codon initCodon = new Codon();
-//                    initCodon.setType(Codon.START_CODON_TYPE);
-//                    initCodon.setIsCanonical(initCodonFound);
-                    //Si es negativa hay que reconvertir las coord.
+                    //If orientation is negative coordinates must be reconverted.
                     if (!hspSet.getOrientation()) {
                         initCodonPosition = Math.abs(initCodonPosition - hitDnaSequence.length());
                     } else {
@@ -514,22 +507,17 @@ public class PredictGenes implements Executable {
                         realStopCodonPosition = minRealStopCodonPosition;
                     }
 
-                    //Ahora se pone en el tag de end position de PredictedGene
-//                    Codon realStopCodon = new Codon();
-//                    realStopCodon.setType(Codon.STOP_CODON_TYPE);
-//                    realStopCodon.setIsCanonical(realStopCodonFound);
 
-
-                    //Ahora tengo que restarle uno a la posicion del codon stop real porque
-                    //lo que tiene que indicar la posicion en este caso es la ultima base
-                    //del codon anterior al stop ya que este no codifica aminoacido.
+                    //We have to decrease in one the real stop codon position because in this case it
+                    //should indicate the position of the last base of the codon previous to the stop codon,
+                    // since this one does not codify amino acid
                     realStopCodonPosition -= 1;
 
-                    //Si es negativa hay que reconvertir las coord.
+                    //If orientation is negative coordinates must be reconverted
                     if (!hspSet.getOrientation()) {
                         realStopCodonPosition = Math.abs(realStopCodonPosition - hitDnaSequence.length());
                     } else {
-                        realStopCodonPosition += 1; //Notacion distinta ordenadores
+                        realStopCodonPosition += 1; //Due to the differences between human-computar array notation
                     }
 
                     predictedGene.setEndIsCanonical(realStopCodonFound);
@@ -548,11 +536,11 @@ public class PredictGenes implements Executable {
                                 Codon extraStopCodon = new Codon();
                                 extraStopCodon.setType(Codon.STOP_CODON_TYPE);
                                 int tempPosition = i;
-                                //Si es negativa hay que reconvertir las coord.
+                                //If orientation is negative coordinates must be reconverted
                                 if (!hspSet.getOrientation()) {
                                     tempPosition = Math.abs(tempPosition - hitDnaSequence.length());
                                 } else {
-                                    tempPosition += 1; //Notacion distinta ordenadores
+                                    tempPosition += 1; //Due to the differences between human-computar array notation
                                 }
                                 extraStopCodon.setPosition(tempPosition);
                                 extraStopCodonsArray.add(extraStopCodon);
@@ -566,21 +554,21 @@ public class PredictGenes implements Executable {
 
                             int tempHitFrom = lalala.getHitFrom();
                             int tempHitTo = lalala.getHitTo();
-                            //Transformacion coordenadas
+                            //Transforming coordinates
 
                             if (!hspSet.getOrientation()) {
-                                //Si la orientacion es negativa tengo que transformar las coordenadas
-                                //ya que estan del reves
+                                //If orientation is negative coordinates must be transformed since they
+                                //are the other way round
                                 tempHitFrom = Math.abs(tempHitFrom - hitDnaSequence.length());
                                 tempHitTo = Math.abs(tempHitTo - hitDnaSequence.length());
-                                //Ademas ahora tengo que intercambiar los valores porque en las
-                                //negativas vienen al reves
+                                //Besides that, values must be swapped cause they are changed when orientation
+                                //is negative
                                 int tempSwap = tempHitFrom;
                                 tempHitFrom = tempHitTo;
                                 tempHitTo = tempSwap;
                             } else {
-                                tempHitFrom -= 1; //Es importante RESTARLE UNO!!
-                                tempHitTo -= 1; //Es importante RESTARLE UNO!!
+                                tempHitFrom -= 1; //DECREASING IT IN ONE is important!!
+                                tempHitTo -= 1; //DECREASING IT IN ONE is important!!
                             }
 
                             for (int i = - 1; i < - 3; i += 3) {
@@ -588,11 +576,11 @@ public class PredictGenes implements Executable {
                                     Codon extraStopCodon = new Codon();
                                     extraStopCodon.setType(Codon.STOP_CODON_TYPE);
                                     int tempPosition = i;
-                                    //Si es negativa hay que reconvertir las coord.
+                                    //If orientation is negative coordinates must be reconverted
                                     if (!hspSet.getOrientation()) {
                                         tempPosition = Math.abs(tempPosition - hitDnaSequence.length());
                                     } else {
-                                        tempPosition += 1; //Notacion distinta ordenadores
+                                        tempPosition += 1; //Due to the differences between human-computar array notation
                                     }
                                     extraStopCodon.setPosition(tempPosition);
                                     extraStopCodonsArray.add(extraStopCodon);
@@ -655,7 +643,7 @@ public class PredictGenes implements Executable {
                     //---------------------------------------------------------------------------
 
 
-                    //-----por ultimo pongo el organismo extraido de la iteration--------
+                    //-----finally the organism value is added to the gene (it was extracted from the iteration)--------
                     predictedGene.setOrganism(hspSet.getOrganism());
 
                     if (!predictedGene.getOrganism().equals("")) {
@@ -679,15 +667,15 @@ public class PredictGenes implements Executable {
                 }
 
 
-                //Ahora pegamos los contigs en el elemento predictedgenes
-                System.out.println("Pegando contigs en predictedgenes");
+                //Contigs are added to the Xml element 'predictedgenes'
+                System.out.println("Adding contigs to predictedgenes element");
                 Set<String> contigKeys = contigsXMLMap.keySet();
                 for (String contigKey : contigKeys) {
                     ContigXML c = contigsXMLMap.get(contigKey);
                     predictedGenes.addChild(c);
                 }
 
-                //Por ultimo cuento cual es el organismo que hay mas para ponerlo
+                //Counting which is the organism with more occurrences
                 Set<String> keys = cuentaOrganismos.keySet();
                 int maxCount = -1;
                 String maxCountOrganism = "";
@@ -698,7 +686,7 @@ public class PredictGenes implements Executable {
                         maxCountOrganism = key;
                     }
                 }
-                //libero memoria de cosas que ya no me sirven
+                //freeing some memory I don't need anymore
                 keys.clear();
                 cuentaOrganismos.clear();
                 predictedGenes.setPreferentOrganism(maxCountOrganism);

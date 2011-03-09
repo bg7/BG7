@@ -40,8 +40,8 @@ public class FillDataFromUniprot implements Executable {
 
         if (args.length != 2) {
             System.out.println("El programa espera dos parametros: \n"
-                    + "1. Nombre del archivo xml con los genes \n"
-                    + "2. Nombre del arhicvo xml con los datos de uniprot de los genes rellenos\n");
+                    + "1. Name of the XML file with predicted genes \n"
+                    + "2. Output XML filename with uniprot data incorporated\n");
         } else {
 
             String inFileString = args[0];
@@ -58,7 +58,7 @@ public class FillDataFromUniprot implements Executable {
                 while ((tempSt = reader.readLine()) != null) {
                     stBuilder.append(tempSt);
                 }
-                //Cerrar archivo de entrada
+                //closing input file
                 reader.close();
 
                 Annotation annotation = new Annotation(stBuilder.toString());
@@ -67,7 +67,7 @@ public class FillDataFromUniprot implements Executable {
                 int contadorContigs = 0;
 
                 for (Element element : contigs) {
-                    System.out.println("Hay = " + contigs.size() + " contigs que rellenar...");
+                    System.out.println("There are = " + contigs.size() + " contigs to be completed with uniprot data...");
                     ContigXML contig = new ContigXML(element);
                     List<XMLElement> genes = contig.getChildrenWith(PredictedGene.TAG_NAME);
                     for (XMLElement xMLElement : genes) {
@@ -79,11 +79,11 @@ public class FillDataFromUniprot implements Executable {
 
                         //System.out.println("gene = " + gene);
 
-                        System.out.println("gen = " + gene.getAnnotationUniprotId() + " relleno!");
+                        System.out.println("gene = " + gene.getAnnotationUniprotId() + " completed!");
                     }
 
                     contadorContigs++;
-                    System.out.println("Llevo " + contadorContigs + " contigs rellenos");
+                    System.out.println(contadorContigs + " contigs already completed");
 
 
                 }
@@ -92,7 +92,7 @@ public class FillDataFromUniprot implements Executable {
                 outBuff.write(annotation.toString());
                 outBuff.close();
 
-                System.out.println("Acabeeee!!! :D");
+                System.out.println("Done!!! :D");
 
 
             } catch (Exception e) {

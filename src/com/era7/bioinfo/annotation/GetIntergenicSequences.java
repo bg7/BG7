@@ -22,8 +22,8 @@ import java.util.List;
 import org.jdom.Element;
 
 /**
- *
- * @author ppareja
+ * 
+ * @author Pablo Pareja Tobes <ppareja@era7.com>
  */
 public class GetIntergenicSequences implements Executable {
 
@@ -43,11 +43,11 @@ public class GetIntergenicSequences implements Executable {
 
 
         if (args.length != 4) {
-            System.out.println("El programa espera tres parametros: \n"
-                    + "1. Nombre del archivo xml con los genes finales predichos \n"
-                    + "2. Nombre del archivo .fasta con las secuencias de los contigs\n"
-                    + "3. Nombre del archivo xml con las secuencias intergenicas existentes\n"
-                    + "4. Nombre del archivo .fasta (multifasta) con las secuencias intergenicas existentes\n");
+            System.out.println("This program expects four parameters: \n"
+                    + "1. Final predicted genes XML filename \n"
+                    + "2. Fasta file with the sequences of the contigs\n"
+                    + "3. Output XML file including existing intergenic sequences\n"
+                    + "4. Output fasta (multifasta) including existing intergenic sequences\n");
         } else {
 
 
@@ -62,7 +62,7 @@ public class GetIntergenicSequences implements Executable {
 //                outTxtFile = new File(args[3]);
 
 
-                //-------------primero saco las secuencias de los contigs para tenerlas en memoria----
+                //-------------first of all the sequences of the contigs are fetched and stored in memory----
                 HashMap<String, String> contigsMap = new HashMap<String, String>();
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(fastaFile));
                 String line = null;
@@ -85,7 +85,7 @@ public class GetIntergenicSequences implements Executable {
                 if (stringBuilder.length() > 0) {
                     contigsMap.put(currentContigID, stringBuilder.toString());
                 }
-                //Cerrar archivo de entrada con los contigs
+                //closing input contigs file
                 bufferedReader.close();
                 //--------------------------------------------------------------------------------------
 
@@ -103,21 +103,21 @@ public class GetIntergenicSequences implements Executable {
                     stringBuilder.append(line);
                 }
                 bufferedReader.close();
-                System.out.println("Construyendo el xml de genes predichos...");
+                System.out.println("Parsing predicted genes xml file...");
                 XMLElement xMLElement = new XMLElement(stringBuilder.toString());
                 stringBuilder.delete(0, stringBuilder.length());
-                System.out.println("ya!");
-                System.out.println("Extrayendo intergenicas...");
+                System.out.println("done!");
+                System.out.println("Extracting intergenic sequences...");
                 List<Element> contigList = xMLElement.asJDomElement().getChild(PredictedGenes.TAG_NAME).getChildren(ContigXML.TAG_NAME);
 
-                //----------CICLO DE CONTIGS---------------
+                //----------CONTIGS LOOP---------------
                 for (Element element : contigList) {
                     ContigXML currentContig = new ContigXML(element);
                     ContigXML contigResult = new ContigXML();
                     contigResult.setId(currentContig.getId());
                     List<Element> genes = currentContig.asJDomElement().getChildren(PredictedGene.TAG_NAME);
 
-                    //---------primero borro los que sean dismissed de la lista----------------
+                    //---------dismissed genes are removed from the list first----------------
                     for (Iterator<Element> it = genes.iterator(); it.hasNext();) {
                         Element element1 = it.next();
                         PredictedGene tempGene = new PredictedGene(element1);
@@ -135,7 +135,7 @@ public class GetIntergenicSequences implements Executable {
 
                     lastGene = new PredictedGene(genes.get(0));
 
-                    //--------------CICLO DE GENES PARA SACER INTERGENICAS-------------
+                    //--------------RETRIEVING INTERGENICS LOOP -----------
                     for (int i = 1; i < genes.size(); i++) {
                         currentGene = new PredictedGene(genes.get(i));
                         int begin1,begin2,end1,end2;
@@ -155,7 +155,7 @@ public class GetIntergenicSequences implements Executable {
                             end2 = swap;
                         }
 
-                        //Si se cumple esta condicion es que hay una extragenica
+                        //if condition is fulfilled it means there's an extragenic seq
                         if(end1 < (begin2 - 1)){
                             Intergenic intergenic = new Intergenic();
                             intergenic.setBegin(end1 +1);
@@ -167,7 +167,7 @@ public class GetIntergenicSequences implements Executable {
 
                             contigResult.addChild(intergenic);
 
-                            //Tambien la guardamos en el multifasta de salida
+                            //It's also recorded in the multifasta output file
                             String header = HEADER + currentContig.getId() + SEPARATOR + intergenic.getBegin() + ".." + intergenic.getEnd() + "\n";
                             outFastaBuff.write(header + fastaFormat(intergenic.getSequence()));
 
@@ -200,7 +200,7 @@ public class GetIntergenicSequences implements Executable {
 
                 outFastaBuff.close();
 
-                System.out.println("Ya esta todo! :)");
+                System.out.println("Everything's done! :)");
 
 
             } catch (Exception e) {

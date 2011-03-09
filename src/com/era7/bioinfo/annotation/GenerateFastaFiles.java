@@ -26,8 +26,8 @@ import java.util.logging.Logger;
 import org.jdom.Element;
 
 /**
- *
- * @author ppareja
+ * 
+ * @author Pablo Pareja Tobes <ppareja@era7.com>
  */
 public class GenerateFastaFiles implements Executable {
 
@@ -48,10 +48,10 @@ public class GenerateFastaFiles implements Executable {
 
     public static void main(String[] args) {
         if (args.length != 3) {
-            System.out.println("El programa espera tres parametros: \n"
-                    + "1. Nombre del archivo xml de entrada con los genes predichos \n"
-                    + "2. Nombre del archivo fasta de salida con las secuencias de nucleotidos\n"
-                    + "3. Nombre del archivo fasta de salida con las secuencias de aminoacidos\n");
+            System.out.println("This program expects three parameters: \n"
+                    + "1. Predicted genes XML input filename \n"
+                    + "2. Output fasta file including the nucleotide sequences\n"
+                    + "3. Output fasta file including the amino acid sequences\n");
         } else {
             BufferedReader reader = null;
             try {
@@ -77,7 +77,7 @@ public class GenerateFastaFiles implements Executable {
                 while ((tempSt = reader.readLine()) != null) {
                     stBuilder.append(tempSt);
                 }
-                //Cerrar archivo de entrada blastouput
+                //closing input file reader
                 reader.close();
 
                 BufferedWriter aminoacidsBuff = new BufferedWriter(new FileWriter(aminoacidsFile));
@@ -146,7 +146,7 @@ public class GenerateFastaFiles implements Executable {
                 nucleotidesBuff.close();
                 dismissedNucleotidesBuff.close();
 
-                System.out.println("Archivos creados con exito!! :)");
+                System.out.println("Files created successfully!! :)");
 
 
             } catch (Exception ex) {

@@ -28,7 +28,7 @@ import org.jdom.Element;
  */
 public class PotatizeGenes implements Executable{
 
-    public static String SEPARATOR = "\t";
+    public static final String SEPARATOR = "\t";
     public static String GENE = "gene";
     public static String RNA = "rna";
 
@@ -59,9 +59,9 @@ public class PotatizeGenes implements Executable{
     public static void main(String[] args) {
 
         if (args.length != 2) {
-            System.out.println("El programa espera dos parametros: \n"
-                    + "1. Nombre del archivo xml con los genes \n"
-                    + "2. Nombre del arhicvo txt donde va todo patatizado\n");
+            System.out.println("This program expects two parameters: \n"
+                    + "1. Input predicted genes XML file \n"
+                    + "2. Output TXT file with the potatized results\n");
         } else {
 
             String inFileString = args[0];
@@ -75,7 +75,7 @@ public class PotatizeGenes implements Executable{
                 BufferedWriter outBuff = new BufferedWriter(new FileWriter(outFile));
 
 
-                //Escribo la cabecera en primer lugar
+                //writing header in the first place
                 outBuff.write(HEADER);
 
                 BufferedReader reader = new BufferedReader(new FileReader(inFile));
@@ -84,13 +84,13 @@ public class PotatizeGenes implements Executable{
                 while ((tempSt = reader.readLine()) != null) {
                     stBuilder.append(tempSt);
                 }
-                //Cerrar archivo de entrada
+                //closing input file reader
                 reader.close();
 
                 Annotation annotation = new Annotation(stBuilder.toString());
 
 
-                //-----------PATATIZACION DE LOS GENES-----------------
+                //-----------GENES POTATIZATION-----------------
                 List<Element> contigsGenes = annotation.asJDomElement().getChild(PredictedGenes.TAG_NAME).getChildren(ContigXML.TAG_NAME);
                 for (Element element : contigsGenes) {
                     ContigXML contig = new ContigXML(element);
@@ -139,7 +139,7 @@ public class PotatizeGenes implements Executable{
                 }
 
 
-                //-----------PATATIZACION DE LOS RNAS-----------------
+                //-----------RNAs POTATIZATION-----------------
                 List<Element> contigsRnas = annotation.asJDomElement().getChild(PredictedRnas.TAG_NAME).getChildren(ContigXML.TAG_NAME);
                 for (Element element : contigsRnas) {
                     ContigXML contig = new ContigXML(element);
@@ -166,7 +166,7 @@ public class PotatizeGenes implements Executable{
 
 
                 outBuff.close();
-                System.out.println("Acabeeee!!! :D");
+                System.out.println("Done!!! :D");
 
 
             }catch(Exception e){

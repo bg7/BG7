@@ -17,8 +17,8 @@ import java.util.logging.Logger;
 import org.jdom.Element;
 
 /**
- *
- * @author ppareja
+ * 
+ * @author Pablo Pareja Tobes <ppareja@era7.com>
  */
 public class HspSetTester {
 
@@ -26,8 +26,8 @@ public class HspSetTester {
 
     public static void main(String[] args) {
         if (args.length != 1) {
-            System.out.println("El programa espera un parametro: \n"
-                    + "1. Nombre del archivo xml con la lista plana de hspset \n");
+            System.out.println("This program expects one parameter: \n"
+                    + "1. XML filename with the flat list of hspset \n");
         } else {
             BufferedReader reader = null;
             try {
@@ -49,7 +49,7 @@ public class HspSetTester {
                 while ((temp = reader.readLine()) != null) {
                     stBuilder.append(temp);
                 }
-                //Cerrar archivo de entrada blastouput
+                //closing input file
                 reader.close();
 
                 XMLElement hspSetsXML = new XMLElement(stBuilder.toString());
@@ -159,7 +159,7 @@ public class HspSetTester {
                             subHspSet.addHsp(hsps.get(j));
                         }
 
-                        //Ahora tengo que calcular los valores spanHsps y spanQuery
+                        //Now values spanHsps & spanQuery must be calculated
                         int spanHsps = 0;
                         if (!orientation) {
                             spanHsps = subHspSet.getHspHitFrom() - hsp.getHitTo();

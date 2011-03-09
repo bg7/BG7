@@ -12,17 +12,17 @@ import com.era7.bioinfo.bioinfoaws.s3.S3FileDownloader;
 import java.io.File;
 
 /**
- *
- * @author ppareja
+ * 
+ * @author Pablo Pareja Tobes <ppareja@era7.com>
  */
 public class DownloadFilesFromS3 {
 
     public static void main(String[] args) {
         if (args.length != 3) {
-            System.out.println("El programa espera tres parametros: \n"
-                    + "1. Nombre del archivo a descargar \n"
-                    + "2. Nombre del bucket donde se encuentra el archivo \n"
-                    + "3. Directorio de descarga");
+            System.out.println("This program expects three parameters: \n"
+                    + "1. Name of the file to be downloaded \n"
+                    + "2. Name of the bucket the file belongs to \n"
+                    + "3. Name of the folder where the file should be downloaded");
         } else {
 
             try {

@@ -7,17 +7,7 @@ package com.era7.bioinfo.annotation;
 import com.era7.lib.bioinfo.bioinfoutil.Entry;
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
 import com.era7.lib.bioinfo.bioinfoutil.Pair;
-import com.era7.lib.bioinfoxml.Annotation;
-import com.era7.lib.bioinfoxml.BlastOutput;
-import com.era7.lib.bioinfoxml.ContigXML;
-import com.era7.lib.bioinfoxml.Hit;
-import com.era7.lib.bioinfoxml.Hsp;
-import com.era7.lib.bioinfoxml.HspSet;
-import com.era7.lib.bioinfoxml.Iteration;
-import com.era7.lib.bioinfoxml.PredictedGene;
-import com.era7.lib.bioinfoxml.PredictedGenes;
-import com.era7.lib.bioinfoxml.PredictedRna;
-import com.era7.lib.bioinfoxml.PredictedRnas;
+import com.era7.lib.bioinfoxml.*;
 import com.era7.lib.era7xmlapi.model.XMLElement;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -52,12 +42,12 @@ public class SolveOverlappings implements Executable {
 
 
         if (args.length != 5) {
-            System.out.println("El programa espera cinco parametros: \n"
-                    + "1. Nombre del archivo xml de entrada con los genes predichos \n"
-                    + "2. Nombre del archivo xml de salida con los solapamientos resueltos\n"
-                    + "3. Umbral de numero de bases para marcar como solapamiento (numero entero)\n"
-                    + "4. Nombre del archivo xml de blast con la salida de rnas \n"
-                    + "5. Nombre del archivo fna con las secuencias de los contigs\n");
+            System.out.println("This program expects five parameters: \n"
+                    + "1. Predicted genes XML input file \n"
+                    + "2. Output XML file with solved overlappings\n"
+                    + "3. Number of bases overlapping threshold (integer)\n"
+                    + "4. Input blast XML file with the rnas \n"
+                    + "5. Input FNA file with the sequences of the contigs\n");
         } else {
             String inFileString = args[0];
             String outFileString = args[1];
@@ -82,7 +72,7 @@ public class SolveOverlappings implements Executable {
                 PredictedGenes resultadoGenes = new PredictedGenes();
                 PredictedRnas resultadoRnas = new PredictedRnas();
 
-                //Leer datos archivo xml con predicted genes
+                //reading predicted genes xml file
                 BufferedReader reader = new BufferedReader(new FileReader(inFile));
                 String temp;
                 StringBuilder stBuilder = new StringBuilder();
@@ -90,7 +80,7 @@ public class SolveOverlappings implements Executable {
                 while ((temp = reader.readLine()) != null) {
                     stBuilder.append(temp);
                 }
-                //Cerrar archivo de entrada blastouput
+                //closing input file reader
                 reader.close();
 
                 PredictedGenes predictedGenesXML = new PredictedGenes(stBuilder.toString());
@@ -103,16 +93,16 @@ public class SolveOverlappings implements Executable {
                 for (Element elemContig : contigs) {
 
                     ContigXML contig = new ContigXML(elemContig);
-                    consoleBuff.write("Analizando solapamientos en el contig " + contig.getId() + " quedan " + (contigs.size()));
+                    consoleBuff.write("Analyzing overlappings in contig " + contig.getId() + " there are " + (contigs.size() + " contigs left"));
                     ArrayList<PredictedGene> arrayGenes = new ArrayList<PredictedGene>();
 
-                    System.out.println("Construyendo array de genes...");
+                    System.out.println("Building genes array up ...");
                     List<Element> listGenes = contig.getRoot().getChildren(PredictedGene.TAG_NAME);
                     for (Element elemGen : listGenes) {
                         PredictedGene tempPGene = new PredictedGene(elemGen);
                         arrayGenes.add(tempPGene);
                     }
-                    System.out.println("Array construido! :)");
+                    System.out.println("Done! :)");
 
                     ArrayList<Pair<Entry<String, Double>, Entry<String, Double>>> arraySolapamientosMayoresUmbral = new ArrayList<Pair<Entry<String, Double>, Entry<String, Double>>>();
 
@@ -122,7 +112,7 @@ public class SolveOverlappings implements Executable {
                         int initGene1 = tempGene1.getStartPosition();
                         int stopGene1 = tempGene1.getEndPosition();
 
-                        //------Si la orientacion es negativa son al reves----
+                        //------If orientation is negative they're inverted----
                         if (!tempGene1.getHspSet().getOrientation()) {
                             int tempSwap = initGene1;
                             initGene1 = stopGene1;
@@ -135,7 +125,7 @@ public class SolveOverlappings implements Executable {
                             int initGene2 = tempGene2.getStartPosition();
                             int stopGene2 = tempGene2.getEndPosition();
 
-                            //------Si la orientacion es negativa son al reves----
+                            //------If orientation is negative they're inverted----
                             if (!tempGene2.getHspSet().getOrientation()) {
                                 int tempSwap = initGene2;
                                 initGene2 = stopGene2;
@@ -145,7 +135,7 @@ public class SolveOverlappings implements Executable {
                             if ((stopGene1 >= initGene2) && (initGene1 <= initGene2)) {
                                 //System.out.println("stopGene1 = " + stopGene1);
                                 //System.out.println("initGene2 = " + initGene2);
-                                consoleBuff.write("[" + tempGene1.getId() + "] solapa con ["
+                                consoleBuff.write("[" + tempGene1.getId() + "] overlaps with ["
                                         + tempGene2.getId() + "]" + "\n");
 
                                 int difference = stopGene1 - initGene2;
@@ -170,9 +160,9 @@ public class SolveOverlappings implements Executable {
                         }
                     }
 
-                    //---aqui ya tengo los solapamientos existentes en el array separados por mayores y
-                    //menores que el umbral de bases. Ahora viene todo el circo de agrupar y ordenar
-                    //parejas para ver cuales se anulan antes y despues.
+                    //here I already have in the array the existing overlappings divided in two groups,
+                    // greater or smaller than the bases threshold. Now it's time for all the magic
+                    //regarding grouping and sorting pairs in order to see which ones are dismissed and when.
                     TreeSet<GeneEValuePair> treeSet = new TreeSet<GeneEValuePair>();
                     for (Pair<Entry<String, Double>, Entry<String, Double>> pair : arraySolapamientosMayoresUmbral) {
                         GeneEValuePair gene1 = new GeneEValuePair(pair.getValue1().getKey(), pair.getValue1().getValue());
@@ -185,8 +175,8 @@ public class SolveOverlappings implements Executable {
 
                     consoleBuff.write("treeSet.size() = " + treeSet.size());
 
-                    //map con los genes anulados por lo de la e, la primera String es el id del gen
-                    //descartado y la segunda String el id del gen que lo descarta.
+                    //map with dismisse genes due to their e value,
+                    //the first String is the gene id, the latter is the id of the gene which dismisses the first.
                     HashMap<String, String> dismissedGenes = new HashMap<String, String>();
 
 //                    System.out.println("Treeset:");
@@ -199,7 +189,7 @@ public class SolveOverlappings implements Executable {
                         GeneEValuePair tempGenePair = treeSet.pollFirst();
                         consoleBuff.write("tempGenePair = " + tempGenePair.id + ", e= " + tempGenePair.eValue + "\n");
 
-                        //aqui voy a guardar los ids de los genes que anula el tempGenePair actual
+                        //array for storing the ids of the genes dismissed by the current tempGenePair 
                         ArrayList<String> anuladosArray = new ArrayList<String>();
 
                         for (Pair<Entry<String, Double>, Entry<String, Double>> pair : arraySolapamientosMayoresUmbral) {
@@ -211,11 +201,11 @@ public class SolveOverlappings implements Executable {
                                 consoleBuff.write("value1 = " + value1 + "\n");
                                 consoleBuff.write("value2 = " + value2);
 
-                                //Estoy en una pareja correspondiente al current geneEvaluePair en value1
+                                //I'm in a pair corresponding to the current geneEvaluePair in value1
                                 if (value2.getValue() >= tempGenePair.eValue) {
                                     dismissedGenes.put(value2.getKey(), tempGenePair.id);
                                     anuladosArray.add(value2.getKey());
-                                    consoleBuff.write("se borra value2: " + value2.getKey() + "\n");
+                                    consoleBuff.write("value2 must be removed: " + value2.getKey() + "\n");
                                 } else {
                                     dismissedGenes.put(tempGenePair.id, value2.getKey());
                                     anuladosArray.add(tempGenePair.id);
@@ -225,9 +215,9 @@ public class SolveOverlappings implements Executable {
                                 consoleBuff.write("value1 = " + value1 + "\n");
                                 consoleBuff.write("value2 = " + value2 + "\n");
 
-                                //Estoy en una pareja correspondiente al current geneEvaluePair en value2
+                                //I'm in a pair corresponding to the current geneEvaluePair in value1
                                 if (value1.getValue() >= tempGenePair.eValue) {
-                                    consoleBuff.write("se borra value1: " + value1.getKey() + "\n");
+                                    consoleBuff.write("value1 must be removed: " + value1.getKey() + "\n");
                                     dismissedGenes.put(value1.getKey(), tempGenePair.id);
                                     anuladosArray.add(value1.getKey());
                                 } else {
@@ -240,12 +230,12 @@ public class SolveOverlappings implements Executable {
                         }
 
 
-                        //ahora borro de la lista los que han sido anulados por el actual
+                        //now genes which were dismissed by the current one are removed from the list
                         for (Iterator<GeneEValuePair> it = treeSet.iterator(); it.hasNext();) {
                             GeneEValuePair tempPair = it.next();
                             for (String string : anuladosArray) {
                                 if (tempPair.id.equals(string)) {
-                                    consoleBuff.write("borrando " + tempPair.id + "\n");
+                                    consoleBuff.write("removing " + tempPair.id + "\n");
                                     it.remove();
                                 }
                             }
@@ -278,20 +268,14 @@ public class SolveOverlappings implements Executable {
 
                         //System.out.println("status2: " + tempGene.getStatus());
 
-
-
                         //tempGene.detach();
                         //contig.addPredictedGene(tempGene);
                     }
 
-
                 }
 
-
-
-
-                //Una vez que todos los contigs han sido modificados segun los genes se
-                //han seleccionado o descartado, los detacheo del xml original y los pongo en el resultado
+                //Once every contig has been modified according to genes dismissed or not,
+                //they are dettached from the original XML and attached to the result
                 Element element = predictedGenesXML.getRoot().getChild(ContigXML.TAG_NAME);
                 while (element != null) {
                     element.detach();
@@ -299,8 +283,8 @@ public class SolveOverlappings implements Executable {
                     element = predictedGenesXML.getRoot().getChild(ContigXML.TAG_NAME);
                 }
 
-                //-----------OBTENCION DE LOS RNAS----------------
-                System.out.println("Obteniendo los RNAs !");
+                //-----------RNAS RETRIEVAL----------------
+                System.out.println("Retrieving RNAs !");
 
                 reader = new BufferedReader(new FileReader(rnaFile));
                 stBuilder = new StringBuilder();
@@ -308,7 +292,7 @@ public class SolveOverlappings implements Executable {
                 while ((temp = reader.readLine()) != null) {
                     stBuilder.append(temp);
                 }
-                //Cerrar archivo de entrada blastouput
+                //closing input reader file
                 reader.close();
 
                 int contadorRnas = 0;
@@ -339,8 +323,8 @@ public class SolveOverlappings implements Executable {
                                 hspSet.addHsp(hsp);
                                 PredictedRna rna = new PredictedRna();
                                 rna.setHitDef(iteration.getQueryDef());
-                                //se pone en el mismo sitio que el identificador de uniprot
-                                //el chorizo del hitdef donde viene el id del elem.genoma y mas cosas
+                                // the hitdef 'chorizo' where the id of the genome element (besides more things) can be found
+                                //is stored in the same tag as the one for the uniprot id
                                 rna.setAnnotationUniprotId(hit.getHitDef());
                                 rna.setStartPosition(hspSet.getHspQueryFrom());
                                 rna.setEndPosition(hspSet.getHspQueryTo());
@@ -356,8 +340,8 @@ public class SolveOverlappings implements Executable {
 
                         System.out.println("rnas.size() = " + rnas.size());
 
-                        //Aqui ya tengo los rnas (de un mismo contig) ordenados por posicion de inicio en el treeset
-                        //ahora tengo que quitar los solapamientos que haya
+                        //Here I should already have the rnas (from the same contig) ordered by position in the treeset
+                        //now it's time to get rid of any kind of overlapping
                         PredictedRna[] rnasArray = rnas.toArray(new PredictedRna[rnas.size()]);
                         TreeSet<Integer> indicesABorrar = new TreeSet<Integer>();
                         for (int i = 0; i < rnasArray.length; i++) {
@@ -379,15 +363,15 @@ public class SolveOverlappings implements Executable {
                                 } else {
                                     if (predictedRna.getEvalue() > predictedRna2.getEvalue()) {
                                         indicesABorrar.add(i);
-                                        consoleBuff.write("hay que borrar: \n" + predictedRna + "\n por culpa de: \n" + predictedRna2 + "\n");
+                                        consoleBuff.write("this rna must be removed: \n" + predictedRna + "\n due to: \n" + predictedRna2 + "\n");
                                     } else {
                                         indicesABorrar.add(j);
-                                        consoleBuff.write("hay que borrar: \n" + predictedRna2 + "\n por culpa de: \n" + predictedRna + "\n");
+                                        consoleBuff.write("this rna must be removed: \n" + predictedRna2 + "\n due to: \n" + predictedRna + "\n");
                                     }
                                 }
                             }
                         }
-                        //Ahora tengo que aniadir al contig los rnas que no solapan
+                        //Now I have to add the non-overlapping rnas to the contig
                         for (int i = 0; i < rnasArray.length; i++) {
                             PredictedRna predictedRna = rnasArray[i];
                             if (!indicesABorrar.contains(i)) {
@@ -395,7 +379,7 @@ public class SolveOverlappings implements Executable {
                             }
                         }
 
-                        //El contig esta completo con sus rnas asi que solo falta attachearlo al array
+                        //This contig is already complete with its rnas so only adding it to the array is left
                         contigsRnas.add(contig);
 
                     }
@@ -404,13 +388,13 @@ public class SolveOverlappings implements Executable {
                 //--------------------------------------------
 
 
-                //Aniadir los rnas por contig al resultado
+                //Adding contig rnas to the result
                 for (ContigXML contig : contigsRnas) {
                     resultadoRnas.addChild(contig);
                 }
 
 
-                //----------OBTENCION DE LAS SECUENCIAS DE LOS GENES Y RNAS---------
+                //----------------RETRIEVING GENES & RNAS SEQUENCES------------------
                 //------------------------------------------------------------------
 
                 HashMap<String, String> contigsMap = new HashMap<String, String>();
@@ -435,11 +419,10 @@ public class SolveOverlappings implements Executable {
                 if (tempSecuenciaSt.length() > 0) {
                     contigsMap.put(currentContigId, tempSecuenciaSt.toString());
                 }
-                //Cerrar archivo de entrada con los contigs
+                //closing input fna reader
                 fnaReader.close();
 
-                //Ahora ya tengo en memoria las secuencias de todos los contigs
-                //Asi que vamos a rellenar las secuencias de todos los genes
+                //Now that all the sequences are in memory only adding them to the genes/rnas is left
 
                 //------------------------SEQUENCES PREDICTED GENES---------------------------
                 //---------------------------------------------------------------------------
@@ -452,7 +435,7 @@ public class SolveOverlappings implements Executable {
                     for (XMLElement xMLElement1 : geneList) {
                         PredictedGene gene = new PredictedGene(xMLElement1.asJDomElement());
 
-                        //Si la orientacion es positiva se coge tal cual
+                        //If orientation is positive we can take the positions directly
                         int beginPosition = gene.getStartPosition();
                         int endPosition = gene.getEndPosition();
 
@@ -473,7 +456,7 @@ public class SolveOverlappings implements Executable {
                             gene.setSequence(tempSeq);
 
                             if (sePuedeTraducirAProteina) {
-                                //Ahora traduzco la secuencia a proteina
+                                //Translating sequence to protein
                                 SymbolList symL = DNATools.createDNA(tempSeq);
                                 symL = DNATools.toRNA(symL);
                                 symL = RNATools.translate(symL);
@@ -482,14 +465,14 @@ public class SolveOverlappings implements Executable {
 
 
                         } else {
-                            //Si la orientacion es negativa hay que hacer el circo de la complementaria
-                            //invertida y todo eso
+                            //If orientation is negative we have to do all the magic regarding
+                            //complementary inverted and so on
                             SymbolList symL = DNATools.createDNA(tempSeq);
                             symL = DNATools.reverseComplement(symL);
                             gene.setSequence(symL.seqString().toUpperCase());
 
                             if (sePuedeTraducirAProteina) {
-                                //Ahora traduzco la secuencia a proteina
+                                //Translatin sequence to protein
                                 symL = DNATools.toRNA(symL);
                                 symL = RNATools.translate(symL);
                                 gene.setProteinSequence(symL.seqString());
@@ -497,29 +480,29 @@ public class SolveOverlappings implements Executable {
 
                         }
 
-                        //Ahora saco el id de uniprot del hit y lo pongo en el primer nivel
+                        //Retrieving the uniprot id from the hit and storing it at predicted gene level
                         gene.setAnnotationUniprotId(gene.getHspSet().getHit().getUniprotID());
-                        //Cambio el hitdef a su sitio
+                        //Changing hitdef to its correct location
                         gene.setHitDef(gene.getHspSet().getHit().getHitDef());
-                        //Cambio tambien el evalue a su sitio
+                        //Changing the evalue to its correct location
                         gene.setEvalue(gene.getHspSet().getEvalue());
-                        //Ahora aprovecho y borro los hspset que no sirven ya para nada
+                        //Getting rid of hspset which are no longer necessary for anything
                         gene.asJDomElement().removeChild(HspSet.TAG_NAME);
                     }
                 }
 
-                //------------------------SEQUENCES PREDICTED RNAS---------------------------
+                //------------------------PREDICTED RNAS SEQUENCES---------------------------
                 //---------------------------------------------------------------------------
                 List<XMLElement> rnaContigList = resultadoRnas.getChildrenWith(ContigXML.TAG_NAME);
                 for (XMLElement xMLElement : rnaContigList) {
                     ContigXML contig = new ContigXML(xMLElement.asJDomElement());
-                    System.out.println("Obteniendo secuencia del contig: " + contig.getId());
+                    System.out.println("Retrieving sequence from contig: " + contig.getId());
                     String contigSequence = contigsMap.get(contig.getId());
                     List<XMLElement> rnaList = contig.getChildrenWith(PredictedRna.TAG_NAME);
                     for (XMLElement xMLElement1 : rnaList) {
                         PredictedRna rna = new PredictedRna(xMLElement1.asJDomElement());
 
-                        //Si la orientacion es positiva se coge tal cual
+                        //If orientation is positive positions can be taken directly
                         int beginPosition = rna.getStartPosition();
                         int endPosition = rna.getEndPosition();
 
@@ -537,8 +520,7 @@ public class SolveOverlappings implements Executable {
                         if (rna.getStrand().equals(PredictedRna.POSITIVE_STRAND)) {
                             rna.setSequence(tempSeq);
                         } else {
-                            //Si la orientacion es negativa hay que hacer el circo de la complementaria
-                            //invertida y todo eso
+                            //All the magic regarding complemenary inverted seq if orientation is negative
                             SymbolList symL = DNATools.createDNA(tempSeq);
                             symL = DNATools.reverseComplement(symL);
                             rna.setSequence(symL.seqString());
@@ -561,7 +543,7 @@ public class SolveOverlappings implements Executable {
                 buffWriter.close();
                 fileWriter.close();
 
-                System.out.println("Fichero xml de salida creado con el nombre: " + outFileString);
+                System.out.println("XML output file successfully created with name: " + outFileString);
                 //System.out.println("Numero de solapamientos detectados: " + contadorSolapamientos);
 
             } catch (Exception e) {

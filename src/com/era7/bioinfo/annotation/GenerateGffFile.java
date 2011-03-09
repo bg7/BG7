@@ -27,7 +27,7 @@ import org.jdom.Element;
 
 /**
  *
- * @author ppareja
+ * @author Pablo Pareja Tobes <ppareja@era7.com>
  */
 public class GenerateGffFile implements Executable {
 
@@ -57,9 +57,9 @@ public class GenerateGffFile implements Executable {
     public static void main(String[] args) {
 
         if (args.length != 2) {
-            System.out.println("El programa espera dos parametros: \n"
-                    + "1. Nombre del archivo xml con los genes \n"
-                    + "2. Nombre del arhicvo gff\n");
+            System.out.println("This program expects two parameters: \n"
+                    + "1. Input predicted genes XML filename \n"
+                    + "2. Output GFF filename\n");
         } else {
 
             String inFileString = args[0];
@@ -73,7 +73,7 @@ public class GenerateGffFile implements Executable {
                 BufferedWriter outBuff = new BufferedWriter(new FileWriter(outFile));
 
 
-                //Escribo la cabecera en primer lugar
+                //writing header first
                 outBuff.write(GFF_HEADER + "\n");
                 Date currentDate = new Date();
                 outBuff.write(DATE_HEADER + currentDate.toString() + "\n");
@@ -86,7 +86,7 @@ public class GenerateGffFile implements Executable {
                 while ((tempSt = reader.readLine()) != null) {
                     stBuilder.append(tempSt);
                 }
-                //Cerrar archivo de entrada
+                //closing input file reader
                 reader.close();
 
                 Annotation annotation = new Annotation(stBuilder.toString());
@@ -94,7 +94,7 @@ public class GenerateGffFile implements Executable {
 
                 HashMap<String, TreeSet<GffLine>> linesPerContig = new HashMap<String, TreeSet<GffLine>>();
 
-                //-----------PATATIZACION DE LOS GENES-----------------
+                //-----------POTATIZING GENES----------------
                 List<Element> contigsGenes = annotation.asJDomElement().getChild(PredictedGenes.TAG_NAME).getChildren(ContigXML.TAG_NAME);
                 for (Element element : contigsGenes) {
                     ContigXML contig = new ContigXML(element);
@@ -155,7 +155,7 @@ public class GenerateGffFile implements Executable {
                 }
 
 
-                //-----------PATATIZACION DE LOS RNAS-----------------
+                //-----------POTATIZING RNAS-----------------
                 List<Element> contigsRnas = annotation.asJDomElement().getChild(PredictedRnas.TAG_NAME).getChildren(ContigXML.TAG_NAME);
                 for (Element element : contigsRnas) {
                     ContigXML contig = new ContigXML(element);
@@ -208,7 +208,7 @@ public class GenerateGffFile implements Executable {
 
 
                 outBuff.close();
-                System.out.println("Acabeeee!!! :D");
+                System.out.println("Done!!! :D");
 
 
             } catch (Exception e) {

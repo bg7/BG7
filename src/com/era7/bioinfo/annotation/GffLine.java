@@ -6,8 +6,8 @@
 package com.era7.bioinfo.annotation;
 
 /**
- *
- * @author ppareja
+ * 
+ * @author Pablo Pareja Tobes <ppareja@era7.com>
  */
 public class GffLine implements Comparable<GffLine> {
 
@@ -44,8 +44,8 @@ public class GffLine implements Comparable<GffLine> {
         }else if(this.startPosition > o.startPosition){
             return 1;
         }else{
-            //--->> MUY IMPORTANTE ESTO ES UNA TRAMPILLA PARA PODER USARLO
-            // EN EL PROGRAMA GENERARARCHIVOGFF 
+            //--->> VERY IMPORTANT, THIS IS A TRICK FOR USING THIS
+            // CLASS IN THE PROGRAM GenerateGffFile
             return 1;
         }
     }
