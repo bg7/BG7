@@ -23,8 +23,8 @@ import java.util.List;
 import org.jdom.Element;
 
 /**
- *
- * @author ppareja
+ * 
+ * @author Pablo Pareja Tobes <ppareja@era7.com>
  */
 public class PotatizeGenes implements Executable{
 

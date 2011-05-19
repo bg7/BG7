@@ -39,7 +39,7 @@ public class FillDataFromUniprot implements Executable {
     public static void main(String[] args) {
 
         if (args.length != 2) {
-            System.out.println("El programa espera dos parametros: \n"
+            System.out.println("This program expects two parameters: \n"
                     + "1. Name of the XML file with predicted genes \n"
                     + "2. Output XML filename with uniprot data incorporated\n");
         } else {

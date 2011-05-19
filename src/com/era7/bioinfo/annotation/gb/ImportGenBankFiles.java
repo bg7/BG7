@@ -4,6 +4,7 @@
  */
 package com.era7.bioinfo.annotation.gb;
 
+import com.era7.lib.bioinfo.bioinfoutil.genbank.GBCommon;
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
 import com.era7.lib.bioinfoxml.Annotation;
 import com.era7.lib.bioinfoxml.ContigXML;
@@ -62,7 +63,7 @@ public class ImportGenBankFiles implements Executable {
                     Annotation annotation = importGenBankFile(file);
                     writeFile(annotation,file);
                 } else {
-                    System.out.println("El archivo proporcionado no tiene extension '.gb'");
+                    System.out.println("The file provided does not have " + GBCommon.GEN_BANK_FILE_EXTENSION + " extension");
                 }
             }
         }
@@ -71,11 +72,11 @@ public class ImportGenBankFiles implements Executable {
     private static void writeFile(Annotation annotation, File file){
         BufferedWriter writer = null;
         try {
-            String outFileName = file.getName().split("\\.gb")[0] + ".xml";
+            String outFileName = file.getName().split("\\"+ GBCommon.GEN_BANK_FILE_EXTENSION)[0] + ".xml";
             writer = new BufferedWriter(new FileWriter(new File(outFileName)));
             writer.write(annotation.toString());
             writer.close();
-            System.out.println("Archivo " + outFileName + " creado con exito! :)");
+            System.out.println("File " + outFileName + " created successfully! :)");
         } catch (IOException ex) {
             Logger.getLogger(ImportGenBankFiles.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

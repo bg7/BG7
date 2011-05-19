@@ -4,6 +4,7 @@
  */
 package com.era7.bioinfo.annotation.gb;
 
+import com.era7.lib.bioinfo.bioinfoutil.genbank.GBCommon;
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
 import com.era7.lib.bioinfoxml.Annotation;
 import com.era7.lib.bioinfoxml.ContigXML;
