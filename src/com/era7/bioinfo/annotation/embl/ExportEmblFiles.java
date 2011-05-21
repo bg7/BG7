@@ -175,7 +175,7 @@ public class ExportEmblFiles implements Executable {
         //-------------------------ID line-----------------------------------
         String idLineSt = "";
         idLineSt += "ID" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES);
-        idLineSt += currentContig.getId() + "; " + currentContig.getId() + "; ";
+        //idLineSt += currentContig.getId() + "; " + currentContig.getId() + "; ";
         idLineSt += emblXml.getId() + "\n";        
         outBuff.write(idLineSt);
         
@@ -364,7 +364,7 @@ public class ExportEmblFiles implements Executable {
         } else if (value.length() == (LINE_MAX_LENGTH - header.length())) {
             result += value + "\n";
             if (putQuotationMarksInTheEnd) {
-                result += getWhiteSpaces(numberOfWhiteSpacesForIndentation) + "\"\n";
+                result += "FT" + getWhiteSpaces(numberOfWhiteSpacesForIndentation) + "\"\n";
             }
         } else {
             result += value.substring(0, (LINE_MAX_LENGTH - header.length())) + "\n";
@@ -399,33 +399,41 @@ public class ExportEmblFiles implements Executable {
         StringBuilder geneStBuilder = new StringBuilder();
         boolean negativeStrand = gene.getStrand().equals(PredictedGene.NEGATIVE_STRAND);
 
-        String positionsString = "";
+        String genePositionsString = "";
+        String cdsPositionsString = "";
 
 
         if (negativeStrand) {
 
-            positionsString += "complement(";
+            genePositionsString += "complement(";
             if (!gene.getEndIsCanonical()) {
-                positionsString += "<";
+                genePositionsString += "<";
             }
-            positionsString += gene.getEndPosition() + "..";
-
+            cdsPositionsString = genePositionsString;
+            
+            genePositionsString += gene.getEndPosition() + "..";
+            cdsPositionsString += (gene.getEndPosition() - 3) + "..";
+            
             if (!gene.getStartIsCanonical()) {
-                positionsString += ">";
+                genePositionsString += ">";
+                cdsPositionsString += ">";
             }
-            positionsString += gene.getStartPosition() + ")";
+            genePositionsString += gene.getStartPosition() + ")";
+            cdsPositionsString += gene.getStartPosition() + ")";
 
         } else {
 
             if (!gene.getStartIsCanonical()) {
-                positionsString += "<";
+                genePositionsString += "<";
             }
-            positionsString += gene.getStartPosition() + "..";
+            genePositionsString += gene.getStartPosition() + "..";
             if (!gene.getEndIsCanonical()) {
-                positionsString += ">";
+                genePositionsString += ">";
             }
+            cdsPositionsString = genePositionsString;
 
-            positionsString += gene.getEndPosition();
+            genePositionsString += gene.getEndPosition();
+            cdsPositionsString += gene.getEndPosition() + 3;
 
         }
 
@@ -433,7 +441,7 @@ public class ExportEmblFiles implements Executable {
         String tempGeneStr = "FT   "
                 + "gene"
                 + getWhiteSpaces(12)
-                + positionsString + "\n";
+                + genePositionsString + "\n";
 
         geneStBuilder.append(tempGeneStr);
         geneStBuilder.append(patatizaEnLineas("FT" + 
@@ -446,7 +454,7 @@ public class ExportEmblFiles implements Executable {
                 + "CDS"
                 + getWhiteSpaces(13);
 
-        tempCDSString += positionsString + "\n";
+        tempCDSString += cdsPositionsString + "\n";
         geneStBuilder.append(tempCDSString);
 
         geneStBuilder.append(patatizaEnLineas("FT" + 
@@ -457,9 +465,16 @@ public class ExportEmblFiles implements Executable {
 
         if (gene.getProteinSequence() != null) {
             if (!gene.getProteinSequence().equals("")) {
+                
+                String protSeq = gene.getProteinSequence();
+                
+                if(!protSeq.substring(0, 1).toUpperCase().equals("M")){
+                    protSeq = "M" + protSeq.substring(1);
+                }
+                
                 geneStBuilder.append(patatizaEnLineas( "FT" +
                         getWhiteSpaces(19) + "/translation=\"",
-                        gene.getProteinSequence(),
+                        protSeq,
                         19,
                         true));
             }
