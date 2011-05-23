@@ -32,7 +32,7 @@ import org.jdom.Element;
  * @author Pablo Pareja Tobes <ppareja@era7.com>
  */
 public class ExportEmblFiles implements Executable {
-    
+
     public static final int DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES = 3;
     public static final int LINE_MAX_LENGTH = 80;
 
@@ -63,10 +63,13 @@ public class ExportEmblFiles implements Executable {
             File annotationFile = new File(annotationFileString);
             File fnaContigFile = new File(fnaContigFileString);
             File emblXmlFile = new File(emblXmlFileString);
-            
+
+            File mainOutFile = new File(outFileString + "MainOutFile.embl");
+
 
             try {
 
+                BufferedWriter mainOutBuff = new BufferedWriter(new FileWriter(mainOutFile));
 
                 //-----READING XML FILE WITH ANNOTATION DATA------------
                 BufferedReader reader = new BufferedReader(new FileReader(annotationFile));
@@ -80,9 +83,9 @@ public class ExportEmblFiles implements Executable {
 
                 Annotation annotation = new Annotation(stBuilder.toString());
                 //-------------------------------------------------------------
-                
+
                 //-----READING XML GENERAL INFO FILE------------
-                 reader = new BufferedReader(new FileReader(emblXmlFile));
+                reader = new BufferedReader(new FileReader(emblXmlFile));
                 stBuilder = new StringBuilder();
                 while ((tempSt = reader.readLine()) != null) {
                     stBuilder.append(tempSt);
@@ -124,7 +127,7 @@ public class ExportEmblFiles implements Executable {
                     ContigXML rnaContig = new ContigXML(element);
                     contigsRnaMap.put(rnaContig.getId(), rnaContig);
                 }
-                
+
                 //-----------CONTIGS LOOP-----------------------
 
                 for (Element elem : contigList) {
@@ -136,7 +139,7 @@ public class ExportEmblFiles implements Executable {
                     //with no annotations can be identified
                     contigsMap.remove(currentContig.getId());
 
-                    exportContigToEmbl(currentContig, emblXML, outFileString, mainSequence,contigsRnaMap);
+                    exportContigToEmbl(currentContig, emblXML, outFileString, mainSequence, contigsRnaMap, mainOutBuff);
 
                 }
 
@@ -149,10 +152,12 @@ public class ExportEmblFiles implements Executable {
                     ContigXML currentContig = new ContigXML();
                     currentContig.setId(tempKey);
                     String mainSequence = contigsMap.get(currentContig.getId());
-                    exportContigToEmbl(currentContig, emblXML, outFileString, mainSequence,contigsRnaMap);
+                    exportContigToEmbl(currentContig, emblXML, outFileString, mainSequence, contigsRnaMap, mainOutBuff);
 
                 }
 
+                //closing main out file
+                mainOutBuff.close();
 
                 System.out.println("Embl files succesfully created! :)");
 
@@ -167,68 +172,71 @@ public class ExportEmblFiles implements Executable {
             EmblXML emblXml,
             String outFileString,
             String mainSequence,
-            HashMap<String, ContigXML> contigsRnaMap) throws IOException, XMLElementException {
+            HashMap<String, ContigXML> contigsRnaMap,
+            BufferedWriter mainOutFileBuff) throws IOException, XMLElementException {
 
         File outFile = new File(outFileString + currentContig.getId() + ".embl");
-        BufferedWriter outBuff = new BufferedWriter(new FileWriter(outFile));
+
+
+        StringBuilder fileStringBuilder = new StringBuilder();
 
         //-------------------------ID line-----------------------------------
         String idLineSt = "";
         idLineSt += "ID" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES);
         //idLineSt += currentContig.getId() + "; " + currentContig.getId() + "; ";
-        idLineSt += emblXml.getId() + "\n";        
-        outBuff.write(idLineSt);
-        
-        outBuff.write("XX" + "\n");
-        
-        outBuff.write("DE" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES) +
-                emblXml.getDefinition() + " " + currentContig.getId() + "\n");
-        
-        outBuff.write("XX" + "\n");
-        
-        outBuff.write("AC" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES) +
-                ";" + "\n");
-        
-        outBuff.write("XX" + "\n");
-        
-        outBuff.write("KW" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES) +
-                "." + "\n");
-        
-        outBuff.write("XX" + "\n");
-        
-        outBuff.write("OS" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES) +
-                emblXml.getOrganism() + "\n");
-        
+        idLineSt += emblXml.getId() + "\n";
+        fileStringBuilder.append(idLineSt);
+
+        fileStringBuilder.append("XX" + "\n");
+
+        fileStringBuilder.append(("DE" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES)
+                + emblXml.getDefinition() + " " + currentContig.getId() + "\n"));
+
+        fileStringBuilder.append(("XX" + "\n"));
+
+        fileStringBuilder.append(("AC" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES)
+                + ";" + "\n"));
+
+        fileStringBuilder.append("XX" + "\n");
+
+        fileStringBuilder.append(("KW" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES)
+                + "." + "\n"));
+
+        fileStringBuilder.append(("XX" + "\n"));
+
+        fileStringBuilder.append(("OS" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES)
+                + emblXml.getOrganism() + "\n"));
+
         String[] lineageSplit = emblXml.getOrganismCompleteTaxonomyLineage().split(";");
-        String tempLineageLine = "OC" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES); 
-        
+        String tempLineageLine = "OC" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES);
+
         for (String lineageSt : lineageSplit) {
-            if((tempLineageLine.length() + lineageSt.length() + 1) < LINE_MAX_LENGTH){
-                tempLineageLine += lineageSt + ";";                
-            }else{
-                outBuff.write(tempLineageLine + "\n");
-                if(lineageSt.charAt(0) == ' '){
+            if ((tempLineageLine.length() + lineageSt.length() + 1) < LINE_MAX_LENGTH) {
+                tempLineageLine += lineageSt + ";";
+            } else {
+                fileStringBuilder.append((tempLineageLine + "\n"));
+                if (lineageSt.charAt(0) == ' ') {
                     lineageSt = lineageSt.substring(1);
                 }
                 tempLineageLine = "OC" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES) + lineageSt + ";";
-            }            
+            }
         }
-        if(tempLineageLine.length() > 0){
-            outBuff.write(tempLineageLine + "\n");
+        if (tempLineageLine.length() > 0) {
+            fileStringBuilder.append((tempLineageLine + "\n"));
         }
 
-        outBuff.write("XX" + "\n");
-        
-        outBuff.write("FH   Key             Location/Qualifiers" + "\n");
-        
+        fileStringBuilder.append(("XX" + "\n"));
+
+        fileStringBuilder.append(("FH   Key             Location/Qualifiers" + "\n"));
+
         String sourceSt = "FT   source          ";
         sourceSt += "1.." + mainSequence.length() + "\n";
-        outBuff.write(sourceSt);
+        fileStringBuilder.append(sourceSt);
 
-        outBuff.write("FT                   /organism=\"" + emblXml.getOrganism() + "\"" + "\n");
-        outBuff.write("FT                   /mol_type=\"" + emblXml.getMolType() + "\"" + "\n");
-        outBuff.write("FT                   /strain=\"" + emblXml.getStrain() + "\"" + "\n");
-        
+        fileStringBuilder.append(("FT                   /organism=\"" + emblXml.getOrganism() + "\"" + "\n"));
+        fileStringBuilder.append(("FT                   /mol_type=\"" + emblXml.getMolType() + "\"" + "\n"));
+        fileStringBuilder.append(("FT                   /strain=\"" + emblXml.getStrain() + "\"" + "\n"));
+
 
         //------Hashmap with key = gene/rna id and the value =
         //---- respective String exactly as is must be written to the result file---------------------------
@@ -278,13 +286,13 @@ public class ExportEmblFiles implements Executable {
 
         //Once genes & rnas are sorted, we just have to write them
         for (Feature f : featuresTreeSet) {
-            outBuff.write(genesRnasMixedUpMap.get(f.getId()));
+            fileStringBuilder.append(genesRnasMixedUpMap.get(f.getId()));
         }
 
 
 
         //--------------ORIGIN-----------------------------------------
-        outBuff.write("SQ   Sequence " + mainSequence.length() + " BP;" + "\n");
+        fileStringBuilder.append(("SQ   Sequence " + mainSequence.length() + " BP;" + "\n"));
         int maxDigits = 10;
         int positionCounter = 1;
         int maxBasesPerLine = 60;
@@ -296,7 +304,7 @@ public class ExportEmblFiles implements Executable {
 //                    System.out.println(contigsMap.get(currentContig.getId()).length());
 
         for (currentBase = 0; (currentBase + maxBasesPerLine) < mainSequence.length(); positionCounter += maxBasesPerLine) {
-            
+
             String tempLine = getWhiteSpaces(5);
             for (int i = 1; i <= (maxBasesPerLine / seqFragmentLength); i++) {
                 tempLine += " " + mainSequence.substring(currentBase, currentBase + seqFragmentLength);
@@ -304,11 +312,11 @@ public class ExportEmblFiles implements Executable {
             }
             String posSt = String.valueOf(positionCounter - 1 + maxBasesPerLine);
             tempLine += getWhiteSpaces(maxDigits - posSt.length()) + posSt;
-            outBuff.write(tempLine + "\n");
+            fileStringBuilder.append((tempLine + "\n"));
         }
 
         if (currentBase < mainSequence.length()) {
-                        
+
             String lastLine = getWhiteSpaces(5);
             while (currentBase < mainSequence.length()) {
                 if ((currentBase + seqFragmentLength) < mainSequence.length()) {
@@ -316,22 +324,27 @@ public class ExportEmblFiles implements Executable {
                 } else {
                     lastLine += " " + mainSequence.substring(currentBase, mainSequence.length());
                 }
-                
+
                 currentBase += seqFragmentLength;
             }
             String posSt = String.valueOf(mainSequence.length());
             lastLine += getWhiteSpaces(LINE_MAX_LENGTH - posSt.length() - lastLine.length() + 1) + posSt;
-            
-            outBuff.write(lastLine + "\n");
+
+            fileStringBuilder.append((lastLine + "\n"));
         }
 
         //--------------------------------------------------------------
 
 
         //--- finally I have to add the string "//" in the last line--
-        outBuff.write("//\n");
+        fileStringBuilder.append("//\n");
 
+        BufferedWriter outBuff = new BufferedWriter(new FileWriter(outFile));
+        outBuff.write(fileStringBuilder.toString());
         outBuff.close();
+
+        mainOutFileBuff.write(fileStringBuilder.toString());
+        mainOutFileBuff.flush();
 
     }
 
@@ -392,9 +405,8 @@ public class ExportEmblFiles implements Executable {
         }
         return result;
     }
-    
 
-    private static String getGeneStringForEmbl(PredictedGene gene) {
+    private static String getGeneStringForEmbl(PredictedGene gene) throws XMLElementException {
 
         StringBuilder geneStBuilder = new StringBuilder();
         boolean negativeStrand = gene.getStrand().equals(PredictedGene.NEGATIVE_STRAND);
@@ -410,10 +422,16 @@ public class ExportEmblFiles implements Executable {
                 genePositionsString += "<";
             }
             cdsPositionsString = genePositionsString;
-            
+
             genePositionsString += gene.getEndPosition() + "..";
-            cdsPositionsString += (gene.getEndPosition() - 3) + "..";
-            
+
+            if (gene.getEndPosition() > 4) {
+                cdsPositionsString += (gene.getEndPosition() - 3) + "..";
+            } else {
+                cdsPositionsString = genePositionsString;
+            }
+
+
             if (!gene.getStartIsCanonical()) {
                 genePositionsString += ">";
                 cdsPositionsString += ">";
@@ -444,39 +462,46 @@ public class ExportEmblFiles implements Executable {
                 + genePositionsString + "\n";
 
         geneStBuilder.append(tempGeneStr);
-        geneStBuilder.append(patatizaEnLineas("FT" + 
-                getWhiteSpaces(19) + "/product=\"",
+        geneStBuilder.append(patatizaEnLineas("FT"
+                + getWhiteSpaces(19) + "/product=\"",
                 gene.getProteinNames(),
                 19,
                 true));
 
-        String tempCDSString = "FT" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES)
-                + "CDS"
-                + getWhiteSpaces(13);
-
-        tempCDSString += cdsPositionsString + "\n";
-        geneStBuilder.append(tempCDSString);
-
-        geneStBuilder.append(patatizaEnLineas("FT" + 
-                getWhiteSpaces(19) + "/product=\"",
-                gene.getProteinNames(),
-                19,
-                true));
+//        String tempCDSString = "FT" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES)
+//                + "CDS"
+//                + getWhiteSpaces(13);
+//
+//        tempCDSString += cdsPositionsString + "\n";
+//        geneStBuilder.append(tempCDSString);
+//
+//        geneStBuilder.append(patatizaEnLineas("FT" + 
+//                getWhiteSpaces(19) + "/product=\"",
+//                gene.getProteinNames(),
+//                19,
+//                true));
 
         if (gene.getProteinSequence() != null) {
             if (!gene.getProteinSequence().equals("")) {
                 
-                String protSeq = gene.getProteinSequence();
-                
-                if(!protSeq.substring(0, 1).toUpperCase().equals("M")){
-                    protSeq = "M" + protSeq.substring(1);
+                boolean includeSequence = gene.getEndIsCanonical() && gene.getStartIsCanonical()
+                        && (gene.getExtraStopCodons() == null)
+                        && (gene.getFrameshifts() == null);
+
+                if (includeSequence) {
+                    String protSeq = gene.getProteinSequence();
+
+                    if (!protSeq.substring(0, 1).toUpperCase().equals("M")) {
+                        protSeq = "M" + protSeq.substring(1);
+                    }
+
+                    geneStBuilder.append(patatizaEnLineas("FT"
+                            + getWhiteSpaces(19) + "/translation=\"",
+                            protSeq,
+                            19,
+                            true));
                 }
-                
-                geneStBuilder.append(patatizaEnLineas( "FT" +
-                        getWhiteSpaces(19) + "/translation=\"",
-                        protSeq,
-                        19,
-                        true));
+
             }
         }
 
@@ -516,29 +541,38 @@ public class ExportEmblFiles implements Executable {
 
         }
 
-        //gene part
-        String tempRnaStr = "FT   "
-                + "gene"
-                + getWhiteSpaces(12)
-                + positionsString + "\n";
+        //rna part
+//        String tempRnaStr = "FT   "
+//                + "gene"
+//                + getWhiteSpaces(12)
+//                + positionsString + "\n";
+//
+//        rnaStBuilder.append(tempRnaStr);
+//        rnaStBuilder.append(patatizaEnLineas("FT"
+//                + getWhiteSpaces(19) + "/product=\"",
+//                rna.getAnnotationUniprotId().split("\\|")[3],
+//                19,
+//                true));
 
-        rnaStBuilder.append(tempRnaStr);
-        rnaStBuilder.append(patatizaEnLineas( "FT" + 
-                getWhiteSpaces(19) + "/product=\"",
-                rna.getAnnotationUniprotId().split("\\|")[3],
-                19,
-                true));
-
+        String rnaProduct = rna.getAnnotationUniprotId().split("\\|")[3];
+        String rnaValue = "rna";
+        
+        if(rnaProduct.toLowerCase().contains("ribosomal")){
+            rnaValue = "rRNA";
+        }else if(rnaProduct.toLowerCase().contains("trna")){
+            rnaValue = "tRNA";
+        }
+        
         String tempRNAString = "FT   "
-                + "rna"
+                + rnaValue
                 + getWhiteSpaces(13);
 
         tempRNAString += positionsString + "\n";
         rnaStBuilder.append(tempRNAString);
 
-        rnaStBuilder.append(patatizaEnLineas( "FT" + 
-                getWhiteSpaces(19) + "/product=\"",
-                rna.getAnnotationUniprotId().split("\\|")[3],
+        rnaStBuilder.append(patatizaEnLineas("FT"
+                + getWhiteSpaces(19) + "/product=\"",
+                rnaProduct,
                 19,
                 true));
 
