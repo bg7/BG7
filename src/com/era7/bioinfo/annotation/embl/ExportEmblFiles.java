@@ -392,7 +392,7 @@ public class ExportEmblFiles implements Executable {
                 result += "FT" + getWhiteSpaces(numberOfWhiteSpacesForIndentation)
                         + value + "\n";
                 if (putQuotationMarksInTheEnd) {
-                    result += getWhiteSpaces(numberOfWhiteSpacesForIndentation) + "\"\n";
+                    result += "FT" + getWhiteSpaces(numberOfWhiteSpacesForIndentation) + "\"\n";
                 }
             } else {
                 result += "FT" + getWhiteSpaces(numberOfWhiteSpacesForIndentation)
