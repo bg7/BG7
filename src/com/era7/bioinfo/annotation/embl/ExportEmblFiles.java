@@ -35,6 +35,8 @@ public class ExportEmblFiles implements Executable {
 
     public static final int DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES = 3;
     public static final int LINE_MAX_LENGTH = 80;
+    
+    public static int GENE_AND_RNA_COUNTER = 1;
 
     public void execute(ArrayList<String> array) {
         String[] args = new String[array.size()];
@@ -68,6 +70,8 @@ public class ExportEmblFiles implements Executable {
 
 
             try {
+                
+                int geneAndRnaCounter = 1;
 
                 BufferedWriter mainOutBuff = new BufferedWriter(new FileWriter(mainOutFile));
 
@@ -259,7 +263,7 @@ public class ExportEmblFiles implements Executable {
                 tempFeature.setEnd(gene.getStartPosition());
             }
             featuresTreeSet.add(tempFeature);
-            genesRnasMixedUpMap.put(gene.getId(), getGeneStringForEmbl(gene));
+            genesRnasMixedUpMap.put(gene.getId(), getGeneStringForEmbl(gene,emblXml.getLocusTagPrefix()));
 
         }
         //--------------------------------------------------------------
@@ -280,7 +284,7 @@ public class ExportEmblFiles implements Executable {
                     tempFeature.setEnd(rna.getStartPosition());
                 }
                 featuresTreeSet.add(tempFeature);
-                genesRnasMixedUpMap.put(rna.getId(), getRnaStringForEmbl(rna));
+                genesRnasMixedUpMap.put(rna.getId(), getRnaStringForEmbl(rna, emblXml.getLocusTagPrefix()));
             }
         }
 
@@ -406,7 +410,8 @@ public class ExportEmblFiles implements Executable {
         return result;
     }
 
-    private static String getGeneStringForEmbl(PredictedGene gene) throws XMLElementException {
+    private static String getGeneStringForEmbl(PredictedGene gene,
+                                               String locusTagPrefix) throws XMLElementException {
 
         StringBuilder geneStBuilder = new StringBuilder();
         boolean negativeStrand = gene.getStrand().equals(PredictedGene.NEGATIVE_STRAND);
@@ -456,30 +461,52 @@ public class ExportEmblFiles implements Executable {
         }
 
         //gene part
-        String tempGeneStr = "FT   "
-                + "gene"
-                + getWhiteSpaces(12)
-                + genePositionsString + "\n";
-
-        geneStBuilder.append(tempGeneStr);
-        geneStBuilder.append(patatizaEnLineas("FT"
-                + getWhiteSpaces(19) + "/product=\"",
-                gene.getProteinNames(),
-                19,
-                true));
-
-//        String tempCDSString = "FT" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES)
-//                + "CDS"
-//                + getWhiteSpaces(13);
+//        String tempGeneStr = "FT   "
+//                + "gene"
+//                + getWhiteSpaces(12)
+//                + genePositionsString + "\n";
 //
-//        tempCDSString += cdsPositionsString + "\n";
-//        geneStBuilder.append(tempCDSString);
-//
-//        geneStBuilder.append(patatizaEnLineas("FT" + 
-//                getWhiteSpaces(19) + "/product=\"",
+//        geneStBuilder.append(tempGeneStr);
+//        geneStBuilder.append(patatizaEnLineas("FT"
+//                + getWhiteSpaces(19) + "/product=\"",
 //                gene.getProteinNames(),
 //                19,
 //                true));
+//        
+//        geneStBuilder.append(patatizaEnLineas("FT"
+//                + getWhiteSpaces(19) + "/locus_tag=\"",
+//                getLocusTagNumberAsText(locusTagPrefix, GENE_AND_RNA_COUNTER),
+//                19,
+//                true));
+//        
+//        GENE_AND_RNA_COUNTER++;
+
+        String tempCDSString = "FT" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES)
+                + "CDS"
+                + getWhiteSpaces(13);
+
+        tempCDSString += cdsPositionsString + "\n";
+        geneStBuilder.append(tempCDSString);
+        
+        geneStBuilder.append(patatizaEnLineas("FT"
+                + getWhiteSpaces(19) + "/locus_tag=\"",
+                getLocusTagNumberAsText(locusTagPrefix, GENE_AND_RNA_COUNTER),
+                19,
+                true));
+        
+        GENE_AND_RNA_COUNTER++;
+
+        geneStBuilder.append(patatizaEnLineas("FT" + 
+                getWhiteSpaces(19) + "/product=\"",
+                gene.getProteinNames(),
+                19,
+                true));
+        
+        if(!gene.getEndIsCanonical() || gene.getStartIsCanonical() || (gene.getFrameshifts() != null)
+                || (gene.getExtraStopCodons() != null)){
+            
+            geneStBuilder.append(("FT" + getWhiteSpaces(19) + "/pseudo" + "\n"));
+        }
 
         if (gene.getProteinSequence() != null) {
             if (!gene.getProteinSequence().equals("")) {
@@ -509,7 +536,8 @@ public class ExportEmblFiles implements Executable {
 
     }
 
-    private static String getRnaStringForEmbl(PredictedRna rna) {
+    private static String getRnaStringForEmbl(PredictedRna rna,
+                                              String locusTagPrefix) {
 
         StringBuilder rnaStBuilder = new StringBuilder();
         boolean negativeStrand = rna.getStrand().equals(PredictedRna.NEGATIVE_STRAND);
@@ -554,6 +582,9 @@ public class ExportEmblFiles implements Executable {
 //                19,
 //                true));
 
+        //System.out.println("rna.getId() = " + rna.getId());
+        //System.out.println("rna.getAnnotationUniprotId() = " + rna.getAnnotationUniprotId());
+        
         String rnaProduct = rna.getAnnotationUniprotId().split("\\|")[3];
         String rnaValue = "rna";
         
@@ -569,14 +600,35 @@ public class ExportEmblFiles implements Executable {
 
         tempRNAString += positionsString + "\n";
         rnaStBuilder.append(tempRNAString);
+        
+        rnaStBuilder.append(patatizaEnLineas("FT"
+                + getWhiteSpaces(19) + "/locus_tag=\"",
+                getLocusTagNumberAsText(locusTagPrefix, GENE_AND_RNA_COUNTER),
+                19,
+                true));
+        
+        GENE_AND_RNA_COUNTER++;
 
         rnaStBuilder.append(patatizaEnLineas("FT"
                 + getWhiteSpaces(19) + "/product=\"",
                 rnaProduct,
                 19,
                 true));
+        
 
         return rnaStBuilder.toString();
 
+    }
+    
+    
+    private static String getLocusTagNumberAsText(String prefix, int number){
+        String numberSt = String.valueOf(number);
+        String result = prefix;
+        
+        for (int i = 0; i < (5 - numberSt.length()); i++) {
+            result += "0";
+        }
+        
+        return (result + numberSt);        
     }
 }
