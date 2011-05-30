@@ -502,7 +502,7 @@ public class ExportEmblFiles implements Executable {
                 19,
                 true));
         
-        if(!gene.getEndIsCanonical() || gene.getStartIsCanonical() || (gene.getFrameshifts() != null)
+        if(!gene.getEndIsCanonical() || !gene.getStartIsCanonical() || (gene.getFrameshifts() != null)
                 || (gene.getExtraStopCodons() != null)){
             
             geneStBuilder.append(("FT" + getWhiteSpaces(19) + "/pseudo" + "\n"));
