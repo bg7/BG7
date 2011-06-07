@@ -64,9 +64,14 @@ public class ExportGenBankFiles implements Executable {
             File genBankXmlFile = new File(genBankXmlFileString);
 
             File mainOutFile = new File(args[3] + GBCommon.GEN_BANK_FILE_EXTENSION);
+            
+            File allContigsFile = new File(args[3] + "_all" + GBCommon.GEN_BANK_FILE_EXTENSION);
 
             try {
 
+                
+                //---Writer for file containing all gbks together----
+                BufferedWriter allContigsOutBuff = new BufferedWriter(new FileWriter(allContigsFile));
 
                 //-----READING XML FILE WITH ANNOTATION DATA------------
                 BufferedReader reader = new BufferedReader(new FileReader(annotationFile));
@@ -218,7 +223,7 @@ public class ExportGenBankFiles implements Executable {
                     //with no annotations can be identified
                     contigsMap.remove(currentContig.getId());
 
-                    exportContigToGenBank(currentContig, genBankXml, outFileString, mainSequence,contigsRnaMap);
+                    exportContigToGenBank(currentContig, genBankXml, outFileString, mainSequence,contigsRnaMap,allContigsOutBuff);
 
                 }
 
@@ -231,10 +236,12 @@ public class ExportGenBankFiles implements Executable {
                     ContigXML currentContig = new ContigXML();
                     currentContig.setId(tempKey);
                     String mainSequence = contigsMap.get(currentContig.getId());
-                    exportContigToGenBank(currentContig, genBankXml, outFileString, mainSequence,contigsRnaMap);
+                    exportContigToGenBank(currentContig, genBankXml, outFileString, mainSequence,contigsRnaMap,allContigsOutBuff);
 
                 }
 
+                //---closing all contigs out buff----
+                allContigsOutBuff.close();
 
                 System.out.println("Gbk files succesfully created! :)");
 
@@ -249,10 +256,13 @@ public class ExportGenBankFiles implements Executable {
             GenBankXML genBankXml,
             String outFileString,
             String mainSequence,
-            HashMap<String, ContigXML> contigsRnaMap) throws IOException, XMLElementException {
+            HashMap<String, ContigXML> contigsRnaMap,
+            BufferedWriter allContigsOutBuff) throws IOException, XMLElementException {
 
         File outFile = new File(outFileString + currentContig.getId() + GBCommon.GEN_BANK_FILE_EXTENSION);
         BufferedWriter outBuff = new BufferedWriter(new FileWriter(outFile));
+        
+        StringBuilder outStringBuilder = new StringBuilder();
 
         //-------------------------locus line-----------------------------------
         //in this case the format is a bit more restrictive so we have to write
@@ -274,6 +284,8 @@ public class ExportGenBankFiles implements Executable {
             locusLineSt += genBankXml.getStrandedType();
         }
         locusLineSt += genBankXml.getDnaType() + getWhiteSpaces(1);
+        
+        
         if (genBankXml.getLinear()) {
             locusLineSt += GBCommon.LINEAR_STR + getWhiteSpaces(2);
         } else {
@@ -281,7 +293,7 @@ public class ExportGenBankFiles implements Executable {
         }
         locusLineSt += getWhiteSpaces(1) + genBankXml.getGenBankDivision() + getWhiteSpaces(1);
         locusLineSt += genBankXml.getModificationDate() + "\n";
-        outBuff.write(locusLineSt);
+        outStringBuilder.append(locusLineSt);
 //                    outBuff.write(GBCommon.LOCUS_STR
 //                            + getWhiteSpaceIndentationForString(GBCommon.LOCUS_STR,
 //                            GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION)
@@ -293,31 +305,31 @@ public class ExportGenBankFiles implements Executable {
 //                            + genBankXml.getGenBankDivision() + GBCommon.LOCUS_LINE_SEPARATOR
 //                            + genBankXml.getModificationDate()
 //                            + "\n");
-        outBuff.write(GBCommon.DEFINITION_STR
+        outStringBuilder.append((GBCommon.DEFINITION_STR
                 + getWhiteSpaceIndentationForString(GBCommon.DEFINITION_STR,
                 GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION)
                 + genBankXml.getDefinition()
-                + ". " + currentContig.getId() + "\n");
-        outBuff.write(GBCommon.ACCESSION_STR
+                + ". " + currentContig.getId() + "\n"));
+        outStringBuilder.append((GBCommon.ACCESSION_STR
                 + getWhiteSpaceIndentationForString(GBCommon.ACCESSION_STR,
                 GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION)
-                + currentContig.getId() + "\n");
+                + currentContig.getId() + "\n"));
 
-        outBuff.write(GBCommon.VERSION_STR
+        outStringBuilder.append((GBCommon.VERSION_STR
                 + getWhiteSpaceIndentationForString(GBCommon.VERSION_STR,
                 GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION)
-                + currentContig.getId() + ".1" + "\n");
+                + currentContig.getId() + ".1" + "\n"));
 
-        outBuff.write(GBCommon.KEYWORDS_STR
+        outStringBuilder.append((GBCommon.KEYWORDS_STR
                 + getWhiteSpaceIndentationForString(GBCommon.KEYWORDS_STR,
                 GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION)
-                + genBankXml.getKeywords() + "\n");
+                + genBankXml.getKeywords() + "\n"));
 
-        outBuff.write(GBCommon.SOURCE_STR
+        outStringBuilder.append((GBCommon.SOURCE_STR
                 + getWhiteSpaceIndentationForString(GBCommon.SOURCE_STR, GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION)
-                + genBankXml.getOrganism() + "\n");
+                + genBankXml.getOrganism() + "\n"));
 
-        outBuff.write(
+        outStringBuilder.append(
                 patatizaEnLineas(GBCommon.FIRST_LEVEL_INDENTATION
                 + GBCommon.ORGANISM_STR
                 + getWhiteSpaceIndentationForString(GBCommon.FIRST_LEVEL_INDENTATION
@@ -326,19 +338,19 @@ public class ExportGenBankFiles implements Executable {
                 GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION,
                 false));
 
-        outBuff.write(GBCommon.FEATURES_STR
+        outStringBuilder.append((GBCommon.FEATURES_STR
                 + getWhiteSpaceIndentationForString(GBCommon.FEATURES_STR,
                 GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_FEATURES)
-                + "Location/Qualifiers" + "\n");
+                + "Location/Qualifiers" + "\n"));
 
-        outBuff.write(GBCommon.FIRST_LEVEL_INDENTATION_FEATURES
+        outStringBuilder.append((GBCommon.FIRST_LEVEL_INDENTATION_FEATURES
                 + GBCommon.SOURCE_FEATURES_STR
                 + getWhiteSpaceIndentationForString(GBCommon.SOURCE_FEATURES_STR + GBCommon.FIRST_LEVEL_INDENTATION_FEATURES,
                 GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_FEATURES)
-                + "1.." + mainSequence.length() + "\n");
+                + "1.." + mainSequence.length() + "\n"));
 
-        outBuff.write(getWhiteSpaces(GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_FEATURES)
-                + "/organism=\"" + genBankXml.getOrganism() + "\"\n");
+        outStringBuilder.append((getWhiteSpaces(GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_FEATURES)
+                + "/organism=\"" + genBankXml.getOrganism() + "\"\n"));
 
 
 
@@ -390,13 +402,13 @@ public class ExportGenBankFiles implements Executable {
 
         //Once genes & rnas are sorted, we just have to write them
         for (Feature f : featuresTreeSet) {
-            outBuff.write(genesRnasMixedUpMap.get(f.getId()));
+            outStringBuilder.append(genesRnasMixedUpMap.get(f.getId()));
         }
 
 
 
         //--------------ORIGIN-----------------------------------------
-        outBuff.write(GBCommon.ORIGIN_STR + "\n");
+        outStringBuilder.append((GBCommon.ORIGIN_STR + "\n"));
         int maxDigits = 9;
         int positionCounter = 1;
         int maxBasesPerLine = 60;
@@ -415,7 +427,7 @@ public class ExportGenBankFiles implements Executable {
                 tempLine += " " + mainSequence.substring(currentBase, currentBase + seqFragmentLength);
                 currentBase += seqFragmentLength;
             }
-            outBuff.write(tempLine + "\n");
+            outStringBuilder.append((tempLine + "\n"));
         }
 
         if (currentBase < mainSequence.length()) {
@@ -430,16 +442,19 @@ public class ExportGenBankFiles implements Executable {
 
                 currentBase += seqFragmentLength;
             }
-            outBuff.write(lastLine + "\n");
+            outStringBuilder.append((lastLine + "\n"));
         }
 
         //--------------------------------------------------------------
 
 
         //--- finally I have to add the string "//" in the last line--
-        outBuff.write("//\n");
-
+        outStringBuilder.append("//\n");
+        
+        outBuff.write(outStringBuilder.toString());
         outBuff.close();
+        
+        allContigsOutBuff.write(outStringBuilder.toString());
 
     }
 
