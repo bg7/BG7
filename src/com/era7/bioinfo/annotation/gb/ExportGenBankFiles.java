@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 import org.jdom.Element;
 
@@ -214,17 +215,30 @@ public class ExportGenBankFiles implements Executable {
 
                 //-----------CONTIGS LOOP-----------------------
 
+                //---ordering contigs----
+                HashMap<String, ContigXML> contigXMLMap = new HashMap<String, ContigXML>();
+                
                 for (Element elem : contigList) {
-
+                    
                     ContigXML currentContig = new ContigXML(elem);
-
-                    String mainSequence = contigsMap.get(currentContig.getId());
+                    
+                    contigXMLMap.put(currentContig.getId(), currentContig);
+                }
+                
+                Set<String> idsSet = contigXMLMap.keySet();
+                SortedSet<String> idsSorted = new TreeSet<String>();
+                idsSorted.addAll(idsSet);
+                
+                for (String key : idsSorted) {
+                    
+                    ContigXML contig = contigXMLMap.get(key);
+                    
+                    String mainSequence = contigsMap.get(contig.getId());
                     //removing the sequence from the map so that afterwards contigs
                     //with no annotations can be identified
-                    contigsMap.remove(currentContig.getId());
+                    contigsMap.remove(contig.getId());
 
-                    exportContigToGenBank(currentContig, genBankXml, outFileString, mainSequence,contigsRnaMap,allContigsOutBuff);
-
+                    exportContigToGenBank(contig, genBankXml, outFileString, mainSequence,contigsRnaMap,allContigsOutBuff);
                 }
 
                 System.out.println("There are " + contigsMap.size() + " contigs with no annotations...");
