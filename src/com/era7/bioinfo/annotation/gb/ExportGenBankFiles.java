@@ -65,12 +65,12 @@ public class ExportGenBankFiles implements Executable {
             File genBankXmlFile = new File(genBankXmlFileString);
 
             File mainOutFile = new File(args[3] + GBCommon.GEN_BANK_FILE_EXTENSION);
-            
+
             File allContigsFile = new File(args[3] + "_all" + GBCommon.GEN_BANK_FILE_EXTENSION);
 
             try {
 
-                
+
                 //---Writer for file containing all gbks together----
                 BufferedWriter allContigsOutBuff = new BufferedWriter(new FileWriter(allContigsFile));
 
@@ -134,6 +134,13 @@ public class ExportGenBankFiles implements Executable {
                 //-----------WRITING GENERAL FILE------------------
                 BufferedWriter mainOutBuff = new BufferedWriter(new FileWriter(mainOutFile));
 
+                String linearSt = GBCommon.LINEAR_STR + getWhiteSpaces(2);
+                
+                if(!genBankXml.getLinear()){   
+                    linearSt += GBCommon.CIRCULAR_STR;
+                }
+                
+                
                 //------------------------------------------------------
                 //------------------------locus line------------------
                 mainOutBuff.write(GBCommon.LOCUS_STR
@@ -142,7 +149,7 @@ public class ExportGenBankFiles implements Executable {
                         + genBankXml.getLocusName() + GBCommon.LOCUS_LINE_SEPARATOR
                         + contigsMap.size() + " " + GBCommon.CONTIGS_SIZE_STR + GBCommon.LOCUS_LINE_SEPARATOR
                         + GBCommon.DNA_STR + GBCommon.LOCUS_LINE_SEPARATOR
-                        + GBCommon.LINEAR_STR + GBCommon.LOCUS_LINE_SEPARATOR
+                        + linearSt + GBCommon.LOCUS_LINE_SEPARATOR
                         + genBankXml.getGenBankDivision() + GBCommon.LOCUS_LINE_SEPARATOR
                         + genBankXml.getModificationDate()
                         + "\n");
@@ -187,7 +194,7 @@ public class ExportGenBankFiles implements Executable {
                         + "/organism=\"" + genBankXml.getOrganism() + "\"\n");
 
 
-                Set<String> keySet = contigsMap.keySet();                
+                Set<String> keySet = contigsMap.keySet();
                 List<String> keySetList = new ArrayList<String>(keySet);
                 Collections.sort(keySetList);
                 String contigsIdsList = "";
@@ -217,28 +224,28 @@ public class ExportGenBankFiles implements Executable {
 
                 //---ordering contigs----
                 HashMap<String, ContigXML> contigXMLMap = new HashMap<String, ContigXML>();
-                
+
                 for (Element elem : contigList) {
-                    
+
                     ContigXML currentContig = new ContigXML(elem);
-                    
+
                     contigXMLMap.put(currentContig.getId(), currentContig);
                 }
-                
+
                 Set<String> idsSet = contigXMLMap.keySet();
                 SortedSet<String> idsSorted = new TreeSet<String>();
                 idsSorted.addAll(idsSet);
-                
+
                 for (String key : idsSorted) {
-                    
+
                     ContigXML contig = contigXMLMap.get(key);
-                    
+
                     String mainSequence = contigsMap.get(contig.getId());
                     //removing the sequence from the map so that afterwards contigs
                     //with no annotations can be identified
                     contigsMap.remove(contig.getId());
 
-                    exportContigToGenBank(contig, genBankXml, outFileString, mainSequence,contigsRnaMap,allContigsOutBuff);
+                    exportContigToGenBank(contig, genBankXml, outFileString, mainSequence, contigsRnaMap, allContigsOutBuff);
                 }
 
                 System.out.println("There are " + contigsMap.size() + " contigs with no annotations...");
@@ -250,7 +257,7 @@ public class ExportGenBankFiles implements Executable {
                     ContigXML currentContig = new ContigXML();
                     currentContig.setId(tempKey);
                     String mainSequence = contigsMap.get(currentContig.getId());
-                    exportContigToGenBank(currentContig, genBankXml, outFileString, mainSequence,contigsRnaMap,allContigsOutBuff);
+                    exportContigToGenBank(currentContig, genBankXml, outFileString, mainSequence, contigsRnaMap, allContigsOutBuff);
 
                 }
 
@@ -275,7 +282,7 @@ public class ExportGenBankFiles implements Executable {
 
         File outFile = new File(outFileString + currentContig.getId() + GBCommon.GEN_BANK_FILE_EXTENSION);
         BufferedWriter outBuff = new BufferedWriter(new FileWriter(outFile));
-        
+
         StringBuilder outStringBuilder = new StringBuilder();
 
         //-------------------------locus line-----------------------------------
@@ -298,8 +305,8 @@ public class ExportGenBankFiles implements Executable {
             locusLineSt += genBankXml.getStrandedType();
         }
         locusLineSt += genBankXml.getDnaType() + getWhiteSpaces(1);
-        
-        
+
+
         if (genBankXml.getLinear()) {
             locusLineSt += GBCommon.LINEAR_STR + getWhiteSpaces(2);
         } else {
@@ -464,10 +471,10 @@ public class ExportGenBankFiles implements Executable {
 
         //--- finally I have to add the string "//" in the last line--
         outStringBuilder.append("//\n");
-        
+
         outBuff.write(outStringBuilder.toString());
         outBuff.close();
-        
+
         allContigsOutBuff.write(outStringBuilder.toString());
 
     }
