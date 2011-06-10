@@ -137,7 +137,7 @@ public class ExportGenBankFiles implements Executable {
                 String linearSt = GBCommon.LINEAR_STR + getWhiteSpaces(2);
                 
                 if(!genBankXml.getLinear()){   
-                    linearSt += GBCommon.CIRCULAR_STR;
+                    linearSt = GBCommon.CIRCULAR_STR;
                 }
                 
                 
