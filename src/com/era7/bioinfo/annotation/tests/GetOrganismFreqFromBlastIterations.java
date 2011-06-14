@@ -5,7 +5,6 @@
 package com.era7.bioinfo.annotation.tests;
 
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
-import com.era7.lib.bioinfoxml.BlastOutput;
 import com.era7.lib.bioinfoxml.Hit;
 import com.era7.lib.bioinfoxml.Iteration;
 import java.io.BufferedReader;
