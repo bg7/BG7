@@ -108,7 +108,7 @@ public class PredictGenes implements Executable {
                 HashMap<String, Integer> cuentaOrganismos = new HashMap<String, Integer>();
 
 
-                //Leer datos archivo fna con contigs
+                //Reading data from fna file
 
                 BufferedReader fnaReader = new BufferedReader(new FileReader(fnaFile));
                 String tempFna;

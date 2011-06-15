@@ -114,12 +114,16 @@ public class Export5ColumnsGenBankFiles implements Executable {
                         Feature tempFeature = new Feature();
                         tempFeature.setType(Feature.ORF_FEATURE_TYPE);
                         tempFeature.setId(gene.getId());
+
+
                         if (gene.getStrand().equals(PredictedGene.POSITIVE_STRAND)) {
                             tempFeature.setBegin(gene.getStartPosition());
                             tempFeature.setEnd(gene.getEndPosition());
+                            tempFeature.setStrand('+');
                         } else {
                             tempFeature.setBegin(gene.getEndPosition());
                             tempFeature.setEnd(gene.getStartPosition());
+                            tempFeature.setStrand('-');
                         }
                         featuresTreeSet.add(tempFeature);
                     }
@@ -134,41 +138,53 @@ public class Export5ColumnsGenBankFiles implements Executable {
                             Feature tempFeature = new Feature();
                             tempFeature.setType(Feature.RNA_FEATURE_TYPE);
                             tempFeature.setId(rna.getId());
-                            if (rna.getStrand().equals(PredictedGene.POSITIVE_STRAND)) {
+
+
+                            if (rna.getStrand().equals(PredictedRna.POSITIVE_STRAND)) {
                                 tempFeature.setBegin(rna.getStartPosition());
                                 tempFeature.setEnd(rna.getEndPosition());
+                                tempFeature.setStrand('+');
                             } else {
                                 tempFeature.setBegin(rna.getEndPosition());
                                 tempFeature.setEnd(rna.getStartPosition());
+                                tempFeature.setStrand('-');
                             }
                             featuresTreeSet.add(tempFeature);
                         }
                     }
-                    
-                    
+
+
                     //---------here featuresTreeSet should have both contig genes and
                     //--- rnas already ordered by position-----------
                     for (Feature feature : featuresTreeSet) {
-                        
-                        if(feature.getType().equals(Feature.ORF_FEATURE_TYPE)){
-                            
-                            //--------gene------------
-                            outBuff.write(feature.getBegin() + "\t" + feature.getEnd() + "\t" + "gene" + "\n");
-                            outBuff.write("\t\t\t" + "locus_tag" + "\t" + locusTagPrefixSt + feature.getId() + "\n");
-                            
-                            //--------CDS------------
-                            outBuff.write(feature.getBegin() + "\t" + feature.getEnd() + "\t" + "CDS" + "\n");
-                            outBuff.write("\t\t\t" + "protein_id" + "\t" + locusTagPrefixSt + feature.getId() + "\n");
-                                    
-                        }else if(feature.getType().equals(Feature.RNA_FEATURE_TYPE)){
-                            
-                            //--------rna------------
-                            outBuff.write(feature.getBegin() + "\t" + feature.getEnd() + "\t" + "rna" + "\n");
-                            outBuff.write("\t\t\t" + "locus_tag" + "\t" + locusTagPrefixSt + feature.getId() + "\n");
-                            
+
+                        int begin = feature.getBegin();
+                        int end = feature.getEnd();
+
+                        if (feature.getStrand() == '-') {
+                            begin = feature.getEnd();
+                            end = feature.getBegin();
                         }
-                        
-                    }                     
+
+                        if (feature.getType().equals(Feature.ORF_FEATURE_TYPE)) {
+
+                            //--------gene------------
+                            outBuff.write(begin + "\t" + end + "\t" + "gene" + "\n");
+                            outBuff.write("\t\t\t" + "locus_tag" + "\t" + locusTagPrefixSt + feature.getId() + "\n");
+
+                            //--------CDS------------
+                            outBuff.write(begin + "\t" + end + "\t" + "CDS" + "\n");
+                            outBuff.write("\t\t\t" + "protein_id" + "\t" + locusTagPrefixSt + feature.getId() + "\n");
+
+                        } else if (feature.getType().equals(Feature.RNA_FEATURE_TYPE)) {
+
+                            //--------rna------------
+                            outBuff.write(begin + "\t" + end + "\t" + "rna" + "\n");
+                            outBuff.write("\t\t\t" + "locus_tag" + "\t" + locusTagPrefixSt + feature.getId() + "\n");
+
+                        }
+
+                    }
 
                 }
 
