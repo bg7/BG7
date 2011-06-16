@@ -71,7 +71,7 @@
     nbproject/build-impl.xml file.
 
     -->
-    <target name="-post-jar">
+<!--    <target name="-post-jar">
         <jar jarfile="jars/GetOrganismFreqFromBlastIterations.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
             <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
@@ -82,7 +82,7 @@
                 <attribute name="Main-Class" value="com.era7.bioinfo.annotation.tests.GetOrganismFreqFromBlastIterations"/>
             </manifest>
         </jar>
-    </target>
+    </target>-->
 <!--    <target name="-post-jar">
         <jar jarfile="jars/ExportGenBankFiles.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
@@ -95,6 +95,30 @@
             </manifest>
         </jar>
     </target>-->
+<!--    <target name="-post-jar">
+        <jar jarfile="jars/Export5ColumnsGenBankFiles.jar">
+            <zipfileset src="${dist.jar}" excludes="META-INF/*" />
+            <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
+                        excludes="META-INF/*" />
+            <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
+                        excludes="META-INF/*" />
+            <manifest>
+                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.gb.Export5ColumnsGenBankFiles"/>
+            </manifest>
+        </jar>
+    </target>-->
+    <target name="-post-jar">
+        <jar jarfile="jars/Control5ColumnsGenBankFilesQuality.jar">
+            <zipfileset src="${dist.jar}" excludes="META-INF/*" />
+            <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
+                        excludes="META-INF/*" />
+            <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
+                        excludes="META-INF/*" />
+            <manifest>
+                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.gb.Control5ColumnsGenBankFilesQuality"/>
+            </manifest>
+        </jar>
+    </target>
 <!--    <target name="-post-jar">
         <jar jarfile="jars/ImportGeneBankFiles.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />

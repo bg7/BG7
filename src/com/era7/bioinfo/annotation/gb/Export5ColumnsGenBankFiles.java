@@ -19,6 +19,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -84,55 +85,61 @@ public class Export5ColumnsGenBankFiles implements Executable {
                 //-----------CONTIGS LOOP-----------------------
 
                 //---ordering contigs----
-                HashMap<String, ContigXML> contigXMLMap = new HashMap<String, ContigXML>();
+                HashMap<String, ContigXML> contigsGeneMap = new HashMap<String, ContigXML>();
 
                 for (Element elem : contigList) {
 
                     ContigXML currentContig = new ContigXML(elem);
 
-                    contigXMLMap.put(currentContig.getId(), currentContig);
+                    contigsGeneMap.put(currentContig.getId(), currentContig);
                 }
 
-                Set<String> idsSet = contigXMLMap.keySet();
+                Set<String> idsSet = new HashSet<String>();
+                idsSet.addAll(contigsGeneMap.keySet());
+                idsSet.addAll(contigsRnaMap.keySet());
+                
                 SortedSet<String> idsSorted = new TreeSet<String>();
                 idsSorted.addAll(idsSet);
 
                 for (String key : idsSorted) {
 
-                    ContigXML currentContig = contigXMLMap.get(key);
+                    ContigXML currentGeneContig = contigsGeneMap.get(key);
+                    ContigXML currentRnaContig = contigsRnaMap.get(key);
 
                     //----writing features line-----
-                    outBuff.write(">Features " + currentContig.getId() + "\n");
+                    outBuff.write(">Features " + key + "\n");
 
                     TreeSet<Feature> featuresTreeSet = new TreeSet<Feature>();
 
                     //----------------------GENES LOOP----------------------------
-                    List<Element> genesList = currentContig.asJDomElement().getChildren(PredictedGene.TAG_NAME);
-                    for (Element element : genesList) {
+                    if (currentGeneContig != null) {
+                        List<Element> genesList = currentGeneContig.asJDomElement().getChildren(PredictedGene.TAG_NAME);
+                        for (Element element : genesList) {
 
-                        PredictedGene gene = new PredictedGene(element);
-                        Feature tempFeature = new Feature();
-                        tempFeature.setType(Feature.ORF_FEATURE_TYPE);
-                        tempFeature.setId(gene.getId());
+                            PredictedGene gene = new PredictedGene(element);
+                            Feature tempFeature = new Feature();
+                            tempFeature.setType(Feature.ORF_FEATURE_TYPE);
+                            tempFeature.setId(gene.getId());
 
 
-                        if (gene.getStrand().equals(PredictedGene.POSITIVE_STRAND)) {
-                            tempFeature.setBegin(gene.getStartPosition());
-                            tempFeature.setEnd(gene.getEndPosition());
-                            tempFeature.setStrand('+');
-                        } else {
-                            tempFeature.setBegin(gene.getEndPosition());
-                            tempFeature.setEnd(gene.getStartPosition());
-                            tempFeature.setStrand('-');
+                            if (gene.getStrand().equals(PredictedGene.POSITIVE_STRAND)) {
+                                tempFeature.setBegin(gene.getStartPosition());
+                                tempFeature.setEnd(gene.getEndPosition());
+                                tempFeature.setStrand('+');
+                            } else {
+                                tempFeature.setBegin(gene.getEndPosition());
+                                tempFeature.setEnd(gene.getStartPosition());
+                                tempFeature.setStrand('-');
+                            }
+                            featuresTreeSet.add(tempFeature);
                         }
-                        featuresTreeSet.add(tempFeature);
                     }
+
                     //--------------------------------------------------------------
 
                     //Now rnas are added (if there are any) so that everything can be sort afterwards
-                    ContigXML contig = contigsRnaMap.get(currentContig.getId());
-                    if (contig != null) {
-                        List<Element> rnas = contig.asJDomElement().getChildren(PredictedRna.TAG_NAME);
+                    if (currentRnaContig != null) {
+                        List<Element> rnas = currentRnaContig.asJDomElement().getChildren(PredictedRna.TAG_NAME);
                         for (Element tempElem : rnas) {
                             PredictedRna rna = new PredictedRna(tempElem);
                             Feature tempFeature = new Feature();
