@@ -54,16 +54,18 @@ public class Export5ColumnsGenBankFiles implements Executable {
 
     public static void main(String[] args) {
 
-        if (args.length != 3) {
-            System.out.println("This program expects 3 parameters: \n"
+        if (args.length != 4) {
+            System.out.println("This program expects 4 parameters: \n"
                     + "1. Gene annotation XML result filename \n"
                     + "2. GenomeProject ID\n"
-                    + "3. Locus tag prefix\n");
+                    + "3. Locus tag prefix\n"
+                    + "4. Protein ID prefix\n");
         } else {
 
             String annotationFileSt = args[0];
             String genomeProjectIdSt = args[1];
             String locusTagPrefixSt = args[2];
+            String proteinIdPrefix = args[3];
 
 
             File annotationFile = new File(annotationFileSt);
@@ -88,28 +90,44 @@ public class Export5ColumnsGenBankFiles implements Executable {
 
                 List<Element> contigList = annotation.asJDomElement().getChild(PredictedGenes.TAG_NAME).getChildren(ContigXML.TAG_NAME);
                 List<Element> contigListRna = annotation.asJDomElement().getChild(PredictedRnas.TAG_NAME).getChildren(ContigXML.TAG_NAME);
+
                 HashMap<String, ContigXML> contigsRnaMap = new HashMap<String, ContigXML>();
+                HashMap<String, ContigXML> contigsGeneMap = new HashMap<String, ContigXML>();
+
+                HashMap<String, PredictedGene> predictedGenesMap = new HashMap<String, PredictedGene>();
+                HashMap<String, PredictedRna> predictedRnasMap = new HashMap<String, PredictedRna>();
+
+
                 for (Element element : contigListRna) {
+
                     ContigXML rnaContig = new ContigXML(element);
                     contigsRnaMap.put(rnaContig.getId(), rnaContig);
+
+                    //------------adding rnas to the map--------------
+                    List<Element> rnas = rnaContig.asJDomElement().getChildren(PredictedRna.TAG_NAME);
+                    for (Element tempElem : rnas) {
+                        PredictedRna rna = new PredictedRna(tempElem);
+                        predictedRnasMap.put(rna.getId(), rna);
+                    }
                 }
-
-                //-----------CONTIGS LOOP-----------------------
-
-                //---ordering contigs----
-                HashMap<String, ContigXML> contigsGeneMap = new HashMap<String, ContigXML>();
 
                 for (Element elem : contigList) {
 
                     ContigXML currentContig = new ContigXML(elem);
-
                     contigsGeneMap.put(currentContig.getId(), currentContig);
+
+                    //------------adding genes to the map--------------
+                    List<Element> genes = currentContig.asJDomElement().getChildren(PredictedGene.TAG_NAME);
+                    for (Element tempElem : genes) {
+                        PredictedGene gene = new PredictedGene(tempElem);
+                        predictedGenesMap.put(gene.getId(), gene);
+                    }
                 }
 
                 Set<String> idsSet = new HashSet<String>();
                 idsSet.addAll(contigsGeneMap.keySet());
                 idsSet.addAll(contigsRnaMap.keySet());
-                
+
                 SortedSet<String> idsSorted = new TreeSet<String>();
                 idsSorted.addAll(idsSet);
 
@@ -187,19 +205,56 @@ public class Export5ColumnsGenBankFiles implements Executable {
 
                         if (feature.getType().equals(Feature.ORF_FEATURE_TYPE)) {
 
+                            PredictedGene gene = predictedGenesMap.get(feature.getId());
+
                             //--------gene------------
                             outBuff.write(begin + "\t" + end + "\t" + "gene" + "\n");
-                            outBuff.write("\t\t\t" + "locus_tag" + "\t" + locusTagPrefixSt + feature.getId() + "\n");
+                            outBuff.write("\t\t\t" + "locus_tag" + "     " + locusTagPrefixSt + feature.getId() + "\n");
+
+                            String pseudoReasonsSt = "";
+                            boolean isPseudo = false;
+                            
+                            if (!gene.getEndIsCanonical()){
+                                isPseudo = true;
+                                pseudoReasonsSt += "non canonical end,";
+                            }
+                            if(!gene.getStartIsCanonical()){
+                                isPseudo = true;
+                                pseudoReasonsSt += " non canonical start,";
+                            }
+                            if(gene.getFrameshifts() != null){
+                                isPseudo = true;
+                                pseudoReasonsSt += " frameshift,";
+                            }
+                            if(gene.getExtraStopCodons() != null){
+                                isPseudo = true;
+                                pseudoReasonsSt += " intragenic stops";
+                            }
+                            
+                            if(pseudoReasonsSt.endsWith(",")){
+                                //getting rid of last comma character
+                                pseudoReasonsSt = pseudoReasonsSt.substring(0,pseudoReasonsSt.length()-1);
+                            }
+                                
+                            
+                            if (isPseudo) {
+                                outBuff.write("\t\t\t" + "pseudo" + "\n");
+                                outBuff.write("\t\t\t" + "note" + "\t" + pseudoReasonsSt + "\n");
+                            }
 
                             //--------CDS------------
                             outBuff.write(begin + "\t" + end + "\t" + "CDS" + "\n");
-                            outBuff.write("\t\t\t" + "protein_id" + "\t" + locusTagPrefixSt + feature.getId() + "\n");
+                            outBuff.write("\t\t\t" + "product" + "\t" + gene.getProteinNames() + "\n");
+                            outBuff.write("\t\t\t" + "EC_number" + "\t" + gene.getEcNumbers() + "\n");
+                            outBuff.write("\t\t\t" + "protein_id" + "     " + proteinIdPrefix + locusTagPrefixSt + feature.getId() + "\n");
 
                         } else if (feature.getType().equals(Feature.RNA_FEATURE_TYPE)) {
 
+                            PredictedRna rna = predictedRnasMap.get(feature.getId());
+
                             //--------rna------------
-                            outBuff.write(begin + "\t" + end + "\t" + "rna" + "\n");
-                            outBuff.write("\t\t\t" + "locus_tag" + "\t" + locusTagPrefixSt + feature.getId() + "\n");
+                            outBuff.write(begin + "\t" + end + "\t" + "xRNA" + "\n");
+                            outBuff.write("\t\t\t" + "locus_tag" + "     " + locusTagPrefixSt + feature.getId() + "\n");
 
                         }
 
