@@ -252,9 +252,30 @@ public class Export5ColumnsGenBankFiles implements Executable {
 
                             PredictedRna rna = predictedRnasMap.get(feature.getId());
 
-                            //--------rna------------
-                            outBuff.write(begin + "\t" + end + "\t" + "xRNA" + "\n");
+                            //--------gene------------
+                            outBuff.write(begin + "\t" + end + "\t" + "gene" + "\n");
                             outBuff.write("\t\t\t" + "locus_tag" + "     " + locusTagPrefixSt + feature.getId() + "\n");
+                            
+                            //----figuring out kind of RNA---
+                            String[] tempArray = rna.getAnnotationUniprotId().split("\\|") ;
+                            String rnaKind = "xRNA";
+                            String rnaProduct = "xRNA";
+                            
+                            if(tempArray != null && tempArray.length > 3 ){
+                                String str = tempArray[3];
+                                if(str.toLowerCase().indexOf("trna") >= 0){
+                                    rnaKind = "tRNA";
+                                    rnaProduct = str;
+                                }else if(str.toLowerCase().indexOf("ribosomal") >= 0){
+                                    rnaKind = "rRNA";
+                                    rnaProduct = str;
+                                }
+                            }
+                            
+                            
+                            //--------rna------------
+                            outBuff.write(begin + "\t" + end + "\t" + rnaKind + "\n");
+                            outBuff.write("\t\t\t" + "product" + "\t" + rnaProduct + "\n");
 
                         }
 
