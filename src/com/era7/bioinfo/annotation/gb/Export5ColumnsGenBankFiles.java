@@ -246,7 +246,7 @@ public class Export5ColumnsGenBankFiles implements Executable {
                             outBuff.write(begin + "\t" + end + "\t" + "CDS" + "\n");
                             outBuff.write("\t\t\t" + "product" + "\t" + gene.getProteinNames() + "\n");
                             outBuff.write("\t\t\t" + "EC_number" + "\t" + gene.getEcNumbers() + "\n");
-                            outBuff.write("\t\t\t" + "protein_id" + "     " + proteinIdPrefix + locusTagPrefixSt + feature.getId() + "\n");
+                            outBuff.write("\t\t\t" + "protein_id" + "\t" + proteinIdPrefix + locusTagPrefixSt + feature.getId() + "\n");
 
                         } else if (feature.getType().equals(Feature.RNA_FEATURE_TYPE)) {
 
