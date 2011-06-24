@@ -71,7 +71,7 @@
     nbproject/build-impl.xml file.
 
     -->
-    <target name="-post-jar">
+<!--    <target name="-post-jar">
         <jar jarfile="jars/RemoveDismissedGenes.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
             <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
@@ -82,7 +82,7 @@
                 <attribute name="Main-Class" value="com.era7.bioinfo.annotation.RemoveDismissedGenes"/>
             </manifest>
         </jar>
-    </target>
+    </target>-->
 <!--    <target name="-post-jar">
         <jar jarfile="jars/GetOrganismFreqFromBlastIterations.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
@@ -297,7 +297,7 @@
             </manifest>
         </jar>
     </target>-->
-<!--    <target name="-post-jar">
+    <target name="-post-jar">
         <jar jarfile="jars/CompleteAnnotation.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
             <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
@@ -308,11 +308,12 @@
             <zipfileset src="lib/commons-logging-1.1.1.jar" excludes="META-INF/*" />
             <zipfileset src="lib/commons-codec-1.4.jar" excludes="META-INF/*" />
             <zipfileset src="lib/biojava.jar" excludes="META-INF/*" />
+            <zipfileset src="lib/Bio4jModel-1.0-jar-with-dependencies.jar" excludes="META-INF/*" />
             <manifest>
                 <attribute name="Main-Class" value="com.era7.bioinfo.annotation.CompleteAnnotation"/>
             </manifest>
         </jar>
-    </target>-->
+    </target>
 <!--    <target name="-post-jar">
         <jar jarfile="jars/AutomaticQualityControl.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
