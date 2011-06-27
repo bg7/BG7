@@ -143,14 +143,14 @@
             </manifest>
         </jar>
     </target>-->
-<!--    <target name="-post-jar">
+    <target name="-post-jar">
         <jar jarfile="jars/DetectPotatos.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
             <manifest>
-                <attribute name="Main-Class" value="com.era7.bioinfo.tests.DetectPotatos"/>
+                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.tests.DetectPotatos"/>
             </manifest>
         </jar>
-    </target>-->
+    </target>
 <!--    <target name="-post-jar">
         <jar jarfile="jars/ControlGenBankFilesQuality.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
@@ -297,7 +297,7 @@
             </manifest>
         </jar>
     </target>-->
-    <target name="-post-jar">
+<!--    <target name="-post-jar">
         <jar jarfile="jars/CompleteAnnotation.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
             <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
@@ -313,7 +313,7 @@
                 <attribute name="Main-Class" value="com.era7.bioinfo.annotation.CompleteAnnotation"/>
             </manifest>
         </jar>
-    </target>
+    </target>-->
 <!--    <target name="-post-jar">
         <jar jarfile="jars/AutomaticQualityControl.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
