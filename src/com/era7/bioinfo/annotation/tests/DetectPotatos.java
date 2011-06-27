@@ -51,7 +51,7 @@ public class DetectPotatos {
                         }
                     }
 
-                    if (barsCounter >= 3) {
+                    if (barsCounter != 3) {
                         System.out.println("Line: " + counter);
                     }
                 }
