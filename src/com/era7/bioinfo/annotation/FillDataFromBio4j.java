@@ -21,6 +21,7 @@ import com.era7.bioinfo.bio4jmodel.nodes.InterproNode;
 import com.era7.bioinfo.bio4jmodel.nodes.KeywordNode;
 import com.era7.bioinfo.bio4jmodel.nodes.ProteinNode;
 import com.era7.bioinfo.bio4jmodel.nodes.SubcellularLocationNode;
+import com.era7.bioinfo.bio4jmodel.nodes.citation.ArticleNode;
 import com.era7.bioinfo.bio4jmodel.relationships.comment.DomainCommentRel;
 import com.era7.bioinfo.bio4jmodel.relationships.comment.FunctionCommentRel;
 import com.era7.bioinfo.bio4jmodel.relationships.comment.PathwayCommentRel;
@@ -230,6 +231,17 @@ public class FillDataFromBio4j implements Executable {
             functionSt = functionSt.substring(0,functionSt.length() - 2);
         }
         gene.setCommentFunction(functionSt);
+        
+        //-----citations-------
+        String pubmedIdSt = "";
+        List<ArticleNode> citations = protein.getArticleCitations();
+        for (ArticleNode articleNode : citations) {
+            pubmedIdSt += articleNode.getPubmedId() + ", ";
+        }
+        if(pubmedIdSt.length() > 0){
+            pubmedIdSt = pubmedIdSt.substring(0,pubmedIdSt.length() - 2);
+        }
+        gene.setPubmedId(pubmedIdSt);
         
     }
 }
