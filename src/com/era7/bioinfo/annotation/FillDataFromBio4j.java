@@ -27,7 +27,6 @@ import com.era7.bioinfo.bio4jmodel.relationships.comment.PathwayCommentRel;
 import com.era7.bioinfo.bio4jmodel.util.Bio4jManager;
 import com.era7.bioinfo.bio4jmodel.util.NodeRetriever;
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
-import com.era7.lib.bioinfo.bioinfoutil.uniprot.UniprotProteinRetreiver;
 import com.era7.lib.bioinfoxml.Annotation;
 import com.era7.lib.bioinfoxml.ContigXML;
 import com.era7.lib.bioinfoxml.PredictedGene;
@@ -136,6 +135,7 @@ public class FillDataFromBio4j implements Executable {
     
     private static void completePredicteedGeneData(ProteinNode protein, PredictedGene gene){
         
+        System.out.println("retrieving data from: " + gene.getAnnotationUniprotId());
         
         gene.setLength(protein.getLength());
         gene.setOrganism(protein.getOrganism().getScientificName());
