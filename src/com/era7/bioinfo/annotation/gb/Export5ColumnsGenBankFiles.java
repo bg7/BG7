@@ -207,46 +207,60 @@ public class Export5ColumnsGenBankFiles implements Executable {
 
                             PredictedGene gene = predictedGenesMap.get(feature.getId());
 
+                            String beginSt = "" + begin;
+                            String endSt = "" + end;
+
+                            if (!gene.getEndIsCanonical()) {
+                                if (feature.getStrand() == '-') {
+                                    beginSt = "<" + beginSt;
+                                } else {
+                                    endSt = ">" + endSt;
+                                }
+                            }
+                            if (!gene.getStartIsCanonical()) {
+                                if (feature.getStrand() == '-') {
+                                    endSt = ">" + endSt;
+                                } else {
+                                    beginSt = "<" + beginSt;
+                                }
+                            }
+
                             //--------gene------------
-                            outBuff.write(begin + "\t" + end + "\t" + "gene" + "\n");
+                            outBuff.write(beginSt + "\t" + endSt + "\t" + "gene" + "\n");
                             outBuff.write("\t\t\t" + "locus_tag" + "     " + locusTagPrefixSt + feature.getId() + "\n");
 
                             String pseudoReasonsSt = "";
-                            boolean isPseudo = false;
-                            
-                            if (!gene.getEndIsCanonical()){
-                                isPseudo = true;
-                                pseudoReasonsSt += "non canonical end,";
-                            }
-                            if(!gene.getStartIsCanonical()){
-                                isPseudo = true;
-                                pseudoReasonsSt += " non canonical start,";
-                            }
-                            if(gene.getFrameshifts() != null){
-                                isPseudo = true;
+                            boolean hasFrameshiftOrIntragenicStops = false;
+
+                            if (gene.getFrameshifts() != null) {
+                                hasFrameshiftOrIntragenicStops = true;
                                 pseudoReasonsSt += " frameshift,";
                             }
-                            if(gene.getExtraStopCodons() != null){
-                                isPseudo = true;
+                            if (gene.getExtraStopCodons() != null) {
+                                hasFrameshiftOrIntragenicStops = true;
                                 pseudoReasonsSt += " intragenic stops";
                             }
-                            
-                            if(pseudoReasonsSt.endsWith(",")){
+
+                            if (pseudoReasonsSt.endsWith(",")) {
                                 //getting rid of last comma character
-                                pseudoReasonsSt = pseudoReasonsSt.substring(0,pseudoReasonsSt.length()-1);
-                            }
-                                
-                            
-                            if (isPseudo) {
-                                outBuff.write("\t\t\t" + "pseudo" + "\n");
-                                outBuff.write("\t\t\t" + "note" + "\t" + pseudoReasonsSt + "\n");
+                                pseudoReasonsSt = pseudoReasonsSt.substring(0, pseudoReasonsSt.length() - 1);
                             }
 
-                            //--------CDS------------
-                            outBuff.write(begin + "\t" + end + "\t" + "CDS" + "\n");
-                            outBuff.write("\t\t\t" + "product" + "\t" + gene.getProteinNames() + "\n");
-                            outBuff.write("\t\t\t" + "EC_number" + "\t" + gene.getEcNumbers() + "\n");
-                            outBuff.write("\t\t\t" + "protein_id" + "\t" + proteinIdPrefix + locusTagPrefixSt + feature.getId() + "\n");
+
+                            if (hasFrameshiftOrIntragenicStops) {
+                                outBuff.write("\t\t\t" + "gene_desc" + "\t" + gene.getProteinNames() + "\n");
+                                outBuff.write("\t\t\t" + "note" + "\t" + pseudoReasonsSt + "\n");
+                            } else {
+                                //--------CDS------------
+                                outBuff.write(beginSt + "\t" + endSt + "\t" + "CDS" + "\n");
+                                outBuff.write("\t\t\t" + "product" + "\t" + gene.getProteinNames() + "\n");
+                                if(gene.getEcNumbers() != null && !gene.getEcNumbers().isEmpty()){
+                                    outBuff.write("\t\t\t" + "EC_number" + "\t" + gene.getEcNumbers() + "\n");
+                                }      
+                                outBuff.write("\t\t\t" + "protein_id" + "\t" + proteinIdPrefix + locusTagPrefixSt + feature.getId() + "\n");
+                            }
+
+
 
                         } else if (feature.getType().equals(Feature.RNA_FEATURE_TYPE)) {
 
@@ -255,24 +269,24 @@ public class Export5ColumnsGenBankFiles implements Executable {
                             //--------gene------------
                             outBuff.write(begin + "\t" + end + "\t" + "gene" + "\n");
                             outBuff.write("\t\t\t" + "locus_tag" + "     " + locusTagPrefixSt + feature.getId() + "\n");
-                            
+
                             //----figuring out kind of RNA---
-                            String[] tempArray = rna.getAnnotationUniprotId().split("\\|") ;
+                            String[] tempArray = rna.getAnnotationUniprotId().split("\\|");
                             String rnaKind = "xRNA";
                             String rnaProduct = "xRNA";
-                            
-                            if(tempArray != null && tempArray.length > 3 ){
+
+                            if (tempArray != null && tempArray.length > 3) {
                                 String str = tempArray[3];
-                                if(str.toLowerCase().indexOf("trna") >= 0){
+                                if (str.toLowerCase().indexOf("trna") >= 0) {
                                     rnaKind = "tRNA";
                                     rnaProduct = str;
-                                }else if(str.toLowerCase().indexOf("ribosomal") >= 0){
+                                } else if (str.toLowerCase().indexOf("ribosomal") >= 0) {
                                     rnaKind = "rRNA";
                                     rnaProduct = str;
                                 }
                             }
-                            
-                            
+
+
                             //--------rna------------
                             outBuff.write(begin + "\t" + end + "\t" + rnaKind + "\n");
                             outBuff.write("\t\t\t" + "product" + "\t" + rnaProduct + "\n");

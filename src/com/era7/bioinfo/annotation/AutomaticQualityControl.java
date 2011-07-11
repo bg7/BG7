@@ -74,6 +74,7 @@ public class AutomaticQualityControl implements Executable {
                     + "4. Initial Blast XML results filename (the one used at the very beginning of the semiautomatic annotation process)\n");
         } else {
 
+            
 
             BufferedWriter outBuff = null;
 
@@ -84,13 +85,18 @@ public class AutomaticQualityControl implements Executable {
                 File outFile = new File(args[2]);
                 File blastFile = new File(args[3]);
 
+                
+                
+                
                 //Primero cargo todos los datos del archivo xml del blast
                 BufferedReader buffReader = new BufferedReader(new FileReader(blastFile));
                 StringBuilder stBuilder = new StringBuilder();
-                String line = null;
-                while ((line = buffReader.readLine()) != null) {
+                String line = null;                               
+                
+                while ((line = buffReader.readLine()) != null) {                    
                     stBuilder.append(line);
-                }
+                }                
+                
                 buffReader.close();
                 System.out.println("Creating blastoutput...");
                 BlastOutput blastOutput = new BlastOutput(stBuilder.toString());
@@ -105,7 +111,8 @@ public class AutomaticQualityControl implements Executable {
                 //freeing some memory
                 blastOutput = null;
                 //------------------------------------------------------------------------
-
+                
+                
                 //Initializing writer for output file
                 outBuff = new BufferedWriter(new FileWriter(outFile));
 
@@ -145,6 +152,7 @@ public class AutomaticQualityControl implements Executable {
                 }
                 outBuff.write("\n");
 
+                
                 for (Element elem : contigs) {
                     ContigXML contig = new ContigXML(elem);
 
@@ -389,6 +397,7 @@ public class AutomaticQualityControl implements Executable {
                     }
 
                 }
+                
 
 
             } catch (Exception ex) {

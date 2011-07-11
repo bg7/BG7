@@ -16,6 +16,7 @@
  */
 package com.era7.bioinfo.annotation.tests;
 
+import com.era7.lib.era7xmlapi.model.XMLElement;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
@@ -29,9 +30,10 @@ public class DetectPotatos {
 
 
 
-        if (args.length != 1) {
+        if (args.length != 2) {
             System.out.println("The parameteres for this program are:" + "\n"
-                    + "1.- Name of the file");
+                    + "1.- Name of the file" + "\n"
+                    + "2.- Number of bars expected");
         } else {
 
 
@@ -39,10 +41,12 @@ public class DetectPotatos {
             String line = null;
 
             int counter = 0;
+            int numberOfBars = Integer.parseInt(args[1]);
 
             while ((line = reader.readLine()) != null) {
                 counter++;
                 if (line.trim().startsWith("<Iteration_query-def>")) {
+                    
                     char[] array = line.trim().toCharArray();
                     int barsCounter = 0;
                     for (char c : array) {
@@ -51,9 +55,10 @@ public class DetectPotatos {
                         }
                     }
 
-                    if (barsCounter != 3) {
+                    if (barsCounter != numberOfBars) {
                         System.out.println("Line: " + counter);
                     }
+                    
                 }
 
             }
