@@ -201,7 +201,7 @@ public class ExportEmblFiles implements Executable {
         String idLineSt = "";
         idLineSt += "ID" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES);
         //idLineSt += currentContig.getId() + "; " + currentContig.getId() + "; ";
-        idLineSt += emblXml.getId() + currentContig.getLength() + " BP." + "\n";
+        idLineSt += emblXml.getId() + mainSequence.length() + " BP." + "\n";
         fileStringBuilder.append(idLineSt);
 
         fileStringBuilder.append("XX" + "\n");
