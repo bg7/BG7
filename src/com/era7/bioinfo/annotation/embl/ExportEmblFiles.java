@@ -60,12 +60,13 @@ public class ExportEmblFiles implements Executable {
 
     public static void main(String[] args) {
 
-        if (args.length != 4) {
-            System.out.println("This program expects 4 parameters: \n"
+        if (args.length != 5) {
+            System.out.println("This program expects 5 parameters: \n"
                     + "1. Gene annotation XML result filename \n"
                     + "2. Embl general info XML filename\n"
                     + "3. FNA file with both header and contig sequence\n"
-                    + "4. Prefix string for output files\n");
+                    + "4. Prefix string for output files\n"
+                    + "5. Initial ID value for genes/rnas (integer)");
         } else {
 
 
@@ -73,7 +74,7 @@ public class ExportEmblFiles implements Executable {
             String emblXmlFileString = args[1];
             String fnaContigFileString = args[2];
             String outFileString = args[3];
-
+            
             File annotationFile = new File(annotationFileString);
             File fnaContigFile = new File(fnaContigFileString);
             File emblXmlFile = new File(emblXmlFileString);
@@ -83,7 +84,7 @@ public class ExportEmblFiles implements Executable {
 
             try {
                 
-                int geneAndRnaCounter = 1;
+                GENE_AND_RNA_COUNTER = Integer.parseInt(args[4]);
 
                 BufferedWriter mainOutBuff = new BufferedWriter(new FileWriter(mainOutFile));
 
@@ -200,7 +201,7 @@ public class ExportEmblFiles implements Executable {
         String idLineSt = "";
         idLineSt += "ID" + getWhiteSpaces(DEFAULT_INDENTATION_NUMBER_OF_WHITESPACES);
         //idLineSt += currentContig.getId() + "; " + currentContig.getId() + "; ";
-        idLineSt += emblXml.getId() + "\n";
+        idLineSt += emblXml.getId() + currentContig.getLength() + " BP." + "\n";
         fileStringBuilder.append(idLineSt);
 
         fileStringBuilder.append("XX" + "\n");
