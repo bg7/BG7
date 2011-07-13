@@ -211,18 +211,14 @@ public class Export5ColumnsGenBankFiles implements Executable {
                             String endSt = "" + end;
 
                             if (!gene.getEndIsCanonical()) {
-                                if (feature.getStrand() == '-') {
-                                    beginSt = "<" + beginSt;
-                                } else {
-                                    endSt = ">" + endSt;
-                                }
+
+                                endSt = ">" + endSt;
+
                             }
                             if (!gene.getStartIsCanonical()) {
-                                if (feature.getStrand() == '-') {
-                                    endSt = ">" + endSt;
-                                } else {
-                                    beginSt = "<" + beginSt;
-                                }
+
+                                beginSt = "<" + beginSt;
+
                             }
 
                             //--------gene------------
@@ -254,9 +250,9 @@ public class Export5ColumnsGenBankFiles implements Executable {
                                 //--------CDS------------
                                 outBuff.write(beginSt + "\t" + endSt + "\t" + "CDS" + "\n");
                                 outBuff.write("\t\t\t" + "product" + "\t" + gene.getProteinNames() + "\n");
-                                if(gene.getEcNumbers() != null && !gene.getEcNumbers().isEmpty()){
+                                if (gene.getEcNumbers() != null && !gene.getEcNumbers().isEmpty()) {
                                     outBuff.write("\t\t\t" + "EC_number" + "\t" + gene.getEcNumbers() + "\n");
-                                }      
+                                }
                                 outBuff.write("\t\t\t" + "protein_id" + "\t" + proteinIdPrefix + locusTagPrefixSt + feature.getId() + "\n");
                             }
 
