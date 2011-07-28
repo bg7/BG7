@@ -331,17 +331,36 @@ public class SolveOverlappings implements Executable {
                             ArrayList<Hsp> hsps = hit.getHitHsps();
 
                             for (Hsp hsp : hsps) {
-                                HspSet hspSet = new HspSet();
-                                hspSet.addHsp(hsp);
+                                
+                                int queryFrom = hsp.getQueryFrom();
+                                int queryTo = hsp.getQueryTo();
+                                boolean hspOrientation = hsp.getHitFrame() > 0;
+                                //checking positions are in the order indicated by the hit-frame value
+                                //if not, we have to swap them
+                                if(hspOrientation){
+                                    if(queryFrom > queryTo){
+                                        int swap = queryFrom;
+                                        queryFrom = queryTo;
+                                        queryTo = swap;
+                                    }
+                                }else{
+                                    if(queryTo > queryFrom){
+                                        int swap = queryFrom;
+                                        queryFrom = queryTo;
+                                        queryTo = swap;
+                                    }
+                                }                               
+                                
+                                
                                 PredictedRna rna = new PredictedRna();
                                 rna.setHitDef(iteration.getQueryDef());
                                 // the hitdef 'chorizo' where the id of the genome element (besides more things) can be found
                                 //is stored in the same tag as the one for the uniprot id
                                 rna.setAnnotationUniprotId(hit.getHitDef());
-                                rna.setStartPosition(hspSet.getHspQueryFrom());
-                                rna.setEndPosition(hspSet.getHspQueryTo());
-                                rna.setEvalue(hspSet.getEvalue());
-                                rna.setStrand(hspSet.getOrientation());
+                                rna.setStartPosition(queryFrom);
+                                rna.setEndPosition(queryTo);
+                                rna.setEvalue(hsp.getEvalueDoubleFormat());
+                                rna.setStrand(hspOrientation);
                                 rna.setId("r" + contadorRnas);
                                 rnas.add(rna);
 
