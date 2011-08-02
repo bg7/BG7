@@ -51,7 +51,7 @@ public class PotatizeGenes implements Executable{
                             "Protein names" + SEPARATOR + "Organism" + SEPARATOR +
                             "Comment (FUNCTION)" + SEPARATOR +
                             "EC numbers" + SEPARATOR + "InterPro" + SEPARATOR +
-                            "Gene Ontology" + SEPARATOR + "Pathway" + SEPARATOR +
+                            "Gene Ontology" + SEPARATOR + "Gene Ontology ID" + SEPARATOR + "Pathway" + SEPARATOR +
                             "Protein family" + SEPARATOR + "Keywords" + SEPARATOR +
                             "Length" + SEPARATOR + "Subcellular locations" + SEPARATOR +
                             "PubMed ID" + SEPARATOR + "Strand" + SEPARATOR +
@@ -121,7 +121,7 @@ public class PotatizeGenes implements Executable{
                         outBuff.write(gene.getProteinNames() + SEPARATOR + gene.getOrganism() + SEPARATOR);
                         outBuff.write(gene.getCommentFunction() + SEPARATOR + gene.getEcNumbers() + SEPARATOR);
                         //outBuff.write(gene.getEcNumbers() + SEPARATOR);
-                        outBuff.write(gene.getInterpro() + SEPARATOR + gene.getGeneOntology() + SEPARATOR);
+                        outBuff.write(gene.getInterpro() + SEPARATOR + gene.getGeneOntology() + SEPARATOR + gene.getGeneOntologyId() + SEPARATOR);
                         outBuff.write(gene.getPathway() + SEPARATOR + gene.getProteinFamily() + SEPARATOR);
                         outBuff.write(gene.getKeywords() + SEPARATOR + gene.getLength() + SEPARATOR + gene.getSubcellularLocations() + SEPARATOR);
                         outBuff.write(gene.getPubmedId() + SEPARATOR + gene.getStrand() + SEPARATOR);

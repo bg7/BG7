@@ -25,6 +25,7 @@ import com.era7.bioinfo.bio4jmodel.nodes.citation.ArticleNode;
 import com.era7.bioinfo.bio4jmodel.relationships.comment.DomainCommentRel;
 import com.era7.bioinfo.bio4jmodel.relationships.comment.FunctionCommentRel;
 import com.era7.bioinfo.bio4jmodel.relationships.comment.PathwayCommentRel;
+import com.era7.bioinfo.bio4jmodel.relationships.comment.SimilarityCommentRel;
 import com.era7.bioinfo.bio4jmodel.util.Bio4jManager;
 import com.era7.bioinfo.bio4jmodel.util.NodeRetriever;
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
@@ -138,6 +139,7 @@ public class FillDataFromBio4j implements Executable {
         
         System.out.println("retrieving data from: " + gene.getAnnotationUniprotId());
         
+        gene.setAccession(protein.getAccession());
         gene.setLength(protein.getLength());
         gene.setOrganism(protein.getOrganism().getScientificName());
         gene.setSequence(protein.getSequence());
@@ -162,6 +164,22 @@ public class FillDataFromBio4j implements Executable {
         gene.setProteinNames(proteinNamesSt);
         //--------------------------------------
         
+        
+        //--------protein family----------
+        List<SimilarityCommentRel> similarityList = protein.getSimilarityComment();
+        String familySt = "";
+        for (SimilarityCommentRel similarityCommentRel : similarityList) {
+            String textSt = similarityCommentRel.getText();            
+            if(textSt.toLowerCase().indexOf("belongs to") >= 0){
+                familySt += textSt + ",";
+            }
+        }
+        if(!familySt.isEmpty()){
+            familySt = familySt.substring(0,familySt.length() - 1);
+        }
+        gene.setProteinFamily(familySt);
+        
+        //-----------------------------
         
         //-----subcellular locations------
         String subcellLocsSt = "";
