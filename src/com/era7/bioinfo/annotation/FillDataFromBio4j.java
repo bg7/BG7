@@ -141,8 +141,26 @@ public class FillDataFromBio4j implements Executable {
         gene.setLength(protein.getLength());
         gene.setOrganism(protein.getOrganism().getScientificName());
         gene.setSequence(protein.getSequence());
-        gene.setProteinNames(protein.getFullName() + ", " +
-                            protein.getShortName());
+        //------------protein names---------------
+        String proteinNamesSt = "";
+        ArrayList<String> names = new ArrayList<String>();        
+        if(!protein.getName().isEmpty()){
+            names.add(protein.getName());
+        }
+        if(!protein.getFullName().isEmpty()){
+            names.add(protein.getFullName());
+        }
+        if(!protein.getShortName().isEmpty()){
+            names.add(protein.getShortName());
+        }
+        for (String nameSt : names) {
+            proteinNamesSt += nameSt + ",";
+        }
+        if(proteinNamesSt.length() > 0){
+            proteinNamesSt = proteinNamesSt.substring(0, proteinNamesSt.length() - 1);
+        }
+        gene.setProteinNames(proteinNamesSt);
+        //--------------------------------------
         
         
         //-----subcellular locations------
