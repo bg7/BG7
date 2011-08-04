@@ -204,7 +204,7 @@ public class ExportGenBankFiles implements Executable {
                         + "1.." + contigsMap.size() + "\n");
                 mainOutBuff.write(getWhiteSpaces(GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_FEATURES)
                         + "/organism=\"" + genBankXml.getOrganism() +
-                        " " + genBankXml.getLocusName() + "\"\n");
+                        " " + genBankXml.getAccession() + "\"\n");
 
 
                 Set<String> keySet = contigsMap.keySet();
