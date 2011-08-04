@@ -385,7 +385,7 @@ public class ExportGenBankFiles implements Executable {
 
         outStringBuilder.append((getWhiteSpaces(GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_FEATURES)
                 + "/organism=\"" + genBankXml.getOrganism() +
-                " " + genBankXml.getLocusName() + "\"\n"));
+                " " + genBankXml.getAccession() + "\"\n"));
 
 
 
