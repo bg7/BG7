@@ -18,6 +18,7 @@ package com.era7.bioinfo.annotation;
 
 import com.era7.lib.bioinfo.bioinfoutil.CodonUtil;
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
+import com.era7.lib.bioinfo.bioinfoutil.seq.SeqUtil;
 import com.era7.lib.bioinfoxml.BlastOutput;
 import com.era7.lib.bioinfoxml.Codon;
 import com.era7.lib.bioinfoxml.ContigXML;
@@ -39,8 +40,6 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.biojava.bio.seq.DNATools;
-import org.biojava.bio.symbol.SymbolList;
 import org.jdom.Element;
 
 /**
@@ -160,9 +159,7 @@ public class PredictGenes implements Executable {
                 System.out.println("Calculating complementary inverted sequences....");
 
                 for (String key : contigSequencesMap.keySet()) {
-                    SymbolList symL = DNATools.createDNA(contigSequencesMap.get(key));
-                    symL = DNATools.reverseComplement(symL);
-                    contigsSequencesMapComplementaryInverted.put(key, symL.seqString());
+                    contigsSequencesMapComplementaryInverted.put(key, SeqUtil.getComplementaryInverted(contigSequencesMap.get(key)));
                 }
                 //-----------------------------------------------------
 

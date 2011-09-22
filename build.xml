@@ -7,7 +7,7 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="SemiautomaticGeneAnnotation" default="default" basedir=".">
+<project name="BG7" default="default" basedir=".">
     <description>Builds, tests, and runs the project SemiautomaticGeneAnnotation.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
@@ -95,7 +95,7 @@
             </manifest>
         </jar>
     </target>-->
-<!--    <target name="-post-jar">
+    <target name="-post-jar">
         <jar jarfile="jars/ExportGenBankFiles.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
             <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
@@ -106,7 +106,7 @@
                 <attribute name="Main-Class" value="com.era7.bioinfo.annotation.gb.ExportGenBankFiles"/>
             </manifest>
         </jar>
-    </target>-->
+    </target>
 <!--    <target name="-post-jar">
         <jar jarfile="jars/Export5ColumnsGenBankFiles.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
@@ -170,7 +170,6 @@
             excludes="META-INF/*" />
             <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
             excludes="META-INF/*" />
-            <zipfileset src="lib/biojava.jar"  excludes="META-INF/*" />
             <manifest>
                 <attribute name="Main-Class" value="com.era7.bioinfo.annotation.PredictGenes"/>
             </manifest>
@@ -183,7 +182,6 @@
             excludes="META-INF/*" />
             <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
             excludes="META-INF/*" />
-            <zipfileset src="lib/biojava.jar"  excludes="META-INF/*" />
             <manifest>
                 <attribute name="Main-Class" value="com.era7.bioinfo.annotation.HspSetTester"/>
             </manifest>
@@ -220,7 +218,6 @@
                         excludes="META-INF/*" />
             <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
                         excludes="META-INF/*" />
-            <zipfileset src="lib/biojava.jar" excludes="META-INF/*" />
             <manifest>
                 <attribute name="Main-Class" value="com.era7.bioinfo.annotation.SolveOverlappings"/>
             </manifest>
@@ -297,7 +294,7 @@
             </manifest>
         </jar>
     </target>-->
-    <target name="-post-jar">
+<!--    <target name="-post-jar">
         <jar jarfile="jars/CompleteAnnotation.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
             <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
@@ -307,13 +304,12 @@
             <zipfileset src="lib/commons-httpclient-3.1.jar" excludes="META-INF/*" />
             <zipfileset src="lib/commons-logging-1.1.1.jar" excludes="META-INF/*" />
             <zipfileset src="lib/commons-codec-1.4.jar" excludes="META-INF/*" />
-            <zipfileset src="lib/biojava.jar" excludes="META-INF/*" />
             <zipfileset src="lib/Bio4jModel-1.0-jar-with-dependencies.jar" excludes="META-INF/*" />
             <manifest>
                 <attribute name="Main-Class" value="com.era7.bioinfo.annotation.CompleteAnnotation"/>
             </manifest>
         </jar>
-    </target>
+    </target>-->
 <!--    <target name="-post-jar">
         <jar jarfile="jars/AutomaticQualityControl.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />

@@ -19,6 +19,7 @@ package com.era7.bioinfo.annotation;
 import com.era7.lib.bioinfo.bioinfoutil.Entry;
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
 import com.era7.lib.bioinfo.bioinfoutil.Pair;
+import com.era7.lib.bioinfo.bioinfoutil.seq.SeqUtil;
 import com.era7.lib.bioinfoxml.*;
 import com.era7.lib.era7xmlapi.model.XMLElement;
 import java.io.BufferedReader;
@@ -31,9 +32,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
-import org.biojava.bio.seq.DNATools;
-import org.biojava.bio.seq.RNATools;
-import org.biojava.bio.symbol.SymbolList;
 import org.jdom.Element;
 
 /**
@@ -498,9 +496,7 @@ public class SolveOverlappings implements Executable {
                         } else {
                             //If orientation is negative we have to do all the magic regarding
                             //complementary inverted and so on
-                            SymbolList symL = DNATools.createDNA(tempSeq);
-                            symL = DNATools.reverseComplement(symL);
-                            gene.setSequence(symL.seqString().toUpperCase());
+                            gene.setSequence(SeqUtil.getComplementaryInverted(tempSeq).toUpperCase());
 
                             if (sePuedeTraducirAProteina) {
                                 //Translatin sequence to protein
@@ -552,9 +548,7 @@ public class SolveOverlappings implements Executable {
                             rna.setSequence(tempSeq);
                         } else {
                             //All the magic regarding complemenary inverted seq if orientation is negative
-                            SymbolList symL = DNATools.createDNA(tempSeq);
-                            symL = DNATools.reverseComplement(symL);
-                            rna.setSequence(symL.seqString());
+                            rna.setSequence(SeqUtil.getComplementaryInverted(tempSeq));
                         }
                     }
                 }
