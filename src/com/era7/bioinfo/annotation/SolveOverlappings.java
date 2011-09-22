@@ -51,13 +51,14 @@ public class SolveOverlappings implements Executable {
     public static void main(String[] args) {
 
 
-        if (args.length != 5) {
+        if (args.length != 6) {
             System.out.println("This program expects five parameters: \n"
                     + "1. Predicted genes XML input file \n"
                     + "2. Output XML file with solved overlappings\n"
                     + "3. Number of bases overlapping threshold (integer)\n"
                     + "4. Input blast XML file with the rnas \n"
-                    + "5. Input FNA file with the sequences of the contigs\n");
+                    + "5. Input FNA file with the sequences of the contigs\n"
+                    + "6. Genetic code file");
         } else {
             String inFileString = args[0];
             String outFileString = args[1];
@@ -81,6 +82,8 @@ public class SolveOverlappings implements Executable {
 
                 PredictedGenes resultadoGenes = new PredictedGenes();
                 PredictedRnas resultadoRnas = new PredictedRnas();
+                
+                File geneticCodeFile = new File(args[5]);
 
                 //reading predicted genes xml file
                 BufferedReader reader = new BufferedReader(new FileReader(inFile));
@@ -480,16 +483,13 @@ public class SolveOverlappings implements Executable {
                         sePuedeTraducirAProteina = gene.getEndIsCanonical() && gene.getStartIsCanonical()
                                 && (gene.getFrameshifts() == null) && (gene.getExtraStopCodons() == null);
 
+                        String seqTranslation = SeqUtil.translateDNAtoProtein(tempSeq, geneticCodeFile);
 
                         if (gene.getStrand().equals(PredictedGene.POSITIVE_STRAND)) {
                             gene.setSequence(tempSeq);
 
                             if (sePuedeTraducirAProteina) {
-                                //Translating sequence to protein
-                                SymbolList symL = DNATools.createDNA(tempSeq);
-                                symL = DNATools.toRNA(symL);
-                                symL = RNATools.translate(symL);
-                                gene.setProteinSequence(symL.seqString());
+                                gene.setProteinSequence(seqTranslation);
                             }
 
 
@@ -499,10 +499,7 @@ public class SolveOverlappings implements Executable {
                             gene.setSequence(SeqUtil.getComplementaryInverted(tempSeq).toUpperCase());
 
                             if (sePuedeTraducirAProteina) {
-                                //Translatin sequence to protein
-                                symL = DNATools.toRNA(symL);
-                                symL = RNATools.translate(symL);
-                                gene.setProteinSequence(symL.seqString());
+                                gene.setProteinSequence(seqTranslation);
                             }
 
                         }
