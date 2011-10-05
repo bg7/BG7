@@ -95,7 +95,7 @@
             </manifest>
         </jar>
     </target>-->
-    <target name="-post-jar">
+<!--    <target name="-post-jar">
         <jar jarfile="jars/ExportGenBankFiles.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
             <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
@@ -106,7 +106,7 @@
                 <attribute name="Main-Class" value="com.era7.bioinfo.annotation.gb.ExportGenBankFiles"/>
             </manifest>
         </jar>
-    </target>
+    </target>-->
 <!--    <target name="-post-jar">
         <jar jarfile="jars/Export5ColumnsGenBankFiles.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
@@ -211,7 +211,7 @@
             </manifest>
         </jar>
     </target>-->
-<!--    <target name="-post-jar">
+    <target name="-post-jar">
         <jar jarfile="jars/SolveOverlappings.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
             <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
@@ -222,7 +222,7 @@
                 <attribute name="Main-Class" value="com.era7.bioinfo.annotation.SolveOverlappings"/>
             </manifest>
         </jar>
-    </target>-->
+    </target>
 <!--    <target name="-post-jar">
         <jar jarfile="jars/ExportEmblFiles.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
