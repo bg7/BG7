@@ -2,9 +2,9 @@
 	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.PredictGenes</class_full_name>
 		<arguments>
-			<argument>K12_tBLASTn_Uniprot_selected_PROT_vs_K12_contigs_7.xml</argument>
-			<argument>NC_000913.fna</argument>
-			<argument>K12_genesPredichos.xml</argument>
+			<argument>XX_proteins_tBLASTn.xml</argument>
+			<argument>XX_sequences.fna</argument>
+			<argument>XX_PredictedGenes.xml</argument>
 			<argument>400</argument>
 			<argument>true</argument>
 		</arguments>
@@ -12,125 +12,92 @@
 	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.RemoveDuplicatedGenes</class_full_name>
 		<arguments>
-			<argument>K12_genesPredichos.xml</argument>
-			<argument>K12_sinDuplicados.xml</argument>
-			<argument>K12_eliminados.xml</argument>
+			<argument>XX_PredictedGenes.xml</argument>
+			<argument>XX_NoDuplicates.xml</argument>
+			<argument>XX_DiscardedGenes.xml</argument>
 		</arguments>
 	</execution>
 	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.SolveOverlappings</class_full_name>
 		<arguments>
-			<argument>K12_sinDuplicados.xml</argument>
-			<argument>K12_solapamientosResueltos.xml</argument>
+			<argument>XX_NoDuplicates.xml</argument>
+			<argument>XX_SolvedOverlaps.xml</argument>
 			<argument>102</argument>
-			<argument>K12_blastn_RNA_vs_K12_Contigs_7.xml</argument>
-			<argument>NC_000913.fna</argument>
+			<argument>XX_RNA_blastn.xml</argument>
+			<argument>XX_sequences.fna</argument>
+			<argument>genetic_code.txt</argument>
 		</arguments>
 	</execution>
 	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.GenerateFastaFiles</class_full_name>
 		<arguments>
-			<argument>K12_solapamientosResueltos.xml</argument>
-			<argument>K12_protein_nucleotide_sequences.fasta</argument>
-			<argument>K12_protein_aminoacid_sequences.fasta</argument>
+			<argument>XX_SolvedOverlaps.xml</argument>
+			<argument>XX_protein_nucleotide_sequences.fasta</argument>
+			<argument>XX_protein_aminoacid_sequences.fasta</argument>
 		</arguments>
 	</execution>	
-		<execution>
-		<class_full_name>com.era7.bioinfo.annotation.FillDataFromBio4j</class_full_name> 
+	<execution>
+		<class_full_name>com.era7.bioinfo.annotation.FillDataFromUniprot</class_full_name> 
 		<arguments>
-			<argument>/mnt/bio4j_volume/bio4jdb</argument>
-			<argument>K12_solapamientosResueltos.xml</argument> 
-			<argument>K12_SPG_Annotation_for_Era7_viewer.xml</argument> 
+			<argument>XX_SolvedOverlaps.xml</argument> 
+			<argument>XX_Annotation_Dismissed_incl.xml</argument> 
+		</arguments>
+	</execution>
+		<execution>
+		<class_full_name>com.era7.bioinfo.annotation.RemoveDismissedGenes</class_full_name>
+		<arguments>
+			<argument>XX_Annotation_Dismissed_incl.xml</argument>
+			<argument>XX_Annotation.xml</argument>
 		</arguments>
 	</execution>
 	<execution>
+	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.GenerateGffFile</class_full_name>
 		<arguments>
-			<argument>K12_SPG_Annotation_for_Era7_viewer.xml</argument>
-			<argument>K12_Annotation_GFF.gff</argument>
+			<argument>XX_Annotation.xml</argument>
+			<argument>XX_Annotation_GFF.gff</argument>
 		</arguments>
 	</execution>
 	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.PotatizeGenes</class_full_name>
 		<arguments>
-			<argument>K12_SPG_Annotation_for_Era7_viewer.xml</argument>
-			<argument>K12_Annotation.txt</argument>
+			<argument>XX_Annotation.xml</argument>
+			<argument>XX_Annotation.txt</argument>
 		</arguments>
 	</execution>
-	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.RemoveDismissedGenes</class_full_name>
-		<arguments>
-			<argument>Input annotation XML file</argument>
-			<argument>Output XML file (without dismissed genes)</argument>
-		</arguments>
-	</execution>
-	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.GetIntergenicSequences</class_full_name>
 		<arguments>
-			<argument>K12_SPG_Annotation_for_Era7_viewer.xml</argument>
-			<argument>NC_000913.fna</argument>
-			<argument>K12_Intergenic.xml</argument>
-			<argument>K12_Intergenic.fasta</argument>			
+			<argument>XX_Annotation.xml</argument>
+			<argument>XX_sequences.fna</argument>
+			<argument>XX_Intergenic.xml</argument>
+			<argument>XX_Intergenic.fasta</argument>			
 		</arguments>
 	</execution>
 	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.gb.ExportGenBankFiles</class_full_name>
 		<arguments>
-			<argument>K12_SPG_Annotation_for_Era7_viewer.xml</argument>
-			<argument>contigGeneralInfo.xml</argument>
-			<argument>fnaFile.fna</argument>
-			<argument>prefix</argument>			
-		</arguments>
-	</execution>
-	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.embl.ExportEmblFiles</class_full_name>
-		<arguments>
-			<argument>K12_SPG_Annotation_for_Era7_viewer.xml</argument>
-			<argument>emblGeneralInfo.xml</argument>
-			<argument>fnaFile.fna</argument>
-			<argument>prefix</argument>			
-		</arguments>
-	</execution>
-	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.gb.ControlGenBankFilesQuality</class_full_name>
-		<arguments>
-			<argument>Folder/file path to contigs xml file(s)</argument>
-			<argument>Folder/file path to contigs gbk file(s)</argument>		
-		</arguments>
-	</execution>
-	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.gb.Export5ColumnsGenBankFiles</class_full_name>
-		<arguments>
-			<argument>K12_SPG_Annotation_for_Era7_viewer.xml</argument>
-			<argument>GenomeProjectID</argument>
-			<argument>LocusTagPrefix</argument>
-			<argument>ProteinIdPrefix</argument>			
-		</arguments>
-	</execution>
-	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.gb.Control5ColumnsGenBankFilesQuality</class_full_name>
-		<arguments>
-			<argument>Annotation xml file</argument>
-			<argument>.tbl file</argument>		
-			<argument>prefix used in tbl file</argument>		
+			<argument>XX_Annotation.xml</argument>
+			<argument>XX_GenBankGeneralInfo.xml</argument>
+			<argument>XX_sequences.fna</argument>
+			<argument>XX</argument>			
 		</arguments>
 	</execution>
 	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.BasicQualityControl</class_full_name>
 		<arguments>
-			<argument>K12_genesPredichos.xml</argument>
-			<argument>K12_eliminados.xml</argument>
-			<argument>K12_sinDuplicados.xml</argument>
-			<argument>K12_Control_de_calidad_basico.xml</argument>			
+			<argument>XX_PredictedGenes.xml</argument>
+			<argument>XX_DiscardedGenes.xml</argument>
+			<argument>XX_NoDuplicates.xml</argument>
+			<argument>XX_BasicControlQuality.xml</argument>			
 		</arguments>
 	</execution>
 	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.AutomaticQualityControl</class_full_name>
 		<arguments>
-			<argument>K12_SPG_Annotation_for_Era7_viewer.xml</argument>
-			<argument>K12_ReferenceProteins.fasta</argument>
-			<argument>K12_Control_de_calidad.txt</argument>
-			<argument>K12_tBLASTn_Uniprot_selected_PROT_vs_K12_contigs_7.xml</argument>			
+			<argument>XX_Annotation.xml</argument>
+			<argument>XX_ReferenceProteins.fasta</argument>
+			<argument>XX_ControlQuality.txt</argument>
+			<argument>XX_proteins_tBLASTn.xml</argument>			
 		</arguments>
 	</execution>	
 </scheduled_executions>

@@ -19,6 +19,7 @@ package com.era7.bioinfo.annotation;
 import com.era7.lib.bioinfo.bioinfoutil.Entry;
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
 import com.era7.lib.bioinfo.bioinfoutil.Pair;
+import com.era7.lib.bioinfo.bioinfoutil.seq.SeqUtil;
 import com.era7.lib.bioinfoxml.*;
 import com.era7.lib.era7xmlapi.model.XMLElement;
 import java.io.BufferedReader;
@@ -31,9 +32,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
-import org.biojava.bio.seq.DNATools;
-import org.biojava.bio.seq.RNATools;
-import org.biojava.bio.symbol.SymbolList;
 import org.jdom.Element;
 
 /**
@@ -42,6 +40,7 @@ import org.jdom.Element;
  */
 public class SolveOverlappings implements Executable {
 
+    @Override
     public void execute(ArrayList<String> array) {
         String[] args = new String[array.size()];
         for (int i = 0; i < array.size(); i++) {
@@ -53,13 +52,14 @@ public class SolveOverlappings implements Executable {
     public static void main(String[] args) {
 
 
-        if (args.length != 5) {
-            System.out.println("This program expects five parameters: \n"
+        if (args.length != 6) {
+            System.out.println("This program expects six parameters: \n"
                     + "1. Predicted genes XML input file \n"
                     + "2. Output XML file with solved overlappings\n"
                     + "3. Number of bases overlapping threshold (integer)\n"
                     + "4. Input blast XML file with the rnas \n"
-                    + "5. Input FNA file with the sequences of the contigs\n");
+                    + "5. Input FNA file with the sequences of the contigs\n"
+                    + "6. Genetic code file");
         } else {
             String inFileString = args[0];
             String outFileString = args[1];
@@ -84,6 +84,8 @@ public class SolveOverlappings implements Executable {
                 PredictedGenes resultadoGenes = new PredictedGenes();
                 PredictedRnas resultadoRnas = new PredictedRnas();
 
+                File geneticCodeFile = new File(args[5]);
+                
                 //reading predicted genes xml file
                 BufferedReader reader = new BufferedReader(new FileReader(inFile));
                 String temp;
@@ -482,31 +484,32 @@ public class SolveOverlappings implements Executable {
                         sePuedeTraducirAProteina = gene.getEndIsCanonical() && gene.getStartIsCanonical()
                                 && (gene.getFrameshifts() == null) && (gene.getExtraStopCodons() == null);
 
+                        String seqTranslation = SeqUtil.translateDNAtoProtein(tempSeq, geneticCodeFile);
 
                         if (gene.getStrand().equals(PredictedGene.POSITIVE_STRAND)) {
                             gene.setSequence(tempSeq);
 
                             if (sePuedeTraducirAProteina) {
                                 //Translating sequence to protein
-                                SymbolList symL = DNATools.createDNA(tempSeq);
-                                symL = DNATools.toRNA(symL);
-                                symL = RNATools.translate(symL);
-                                gene.setProteinSequence(symL.seqString());
+//                                SymbolList symL = DNATools.createDNA(tempSeq);
+//                                symL = DNATools.toRNA(symL);
+//                                symL = RNATools.translate(symL);
+//                                gene.setProteinSequence(symL.seqString());
+                                gene.setProteinSequence(seqTranslation);
                             }
 
 
                         } else {
                             //If orientation is negative we have to do all the magic regarding
                             //complementary inverted and so on
-                            SymbolList symL = DNATools.createDNA(tempSeq);
-                            symL = DNATools.reverseComplement(symL);
-                            gene.setSequence(symL.seqString().toUpperCase());
+                            gene.setSequence(SeqUtil.getComplementaryInverted(tempSeq).toUpperCase());
 
                             if (sePuedeTraducirAProteina) {
-                                //Translatin sequence to protein
-                                symL = DNATools.toRNA(symL);
-                                symL = RNATools.translate(symL);
-                                gene.setProteinSequence(symL.seqString());
+//                                //Translating sequence to protein
+//                                symL = DNATools.toRNA(symL);
+//                                symL = RNATools.translate(symL);
+//                                gene.setProteinSequence(symL.seqString());
+                                gene.setProteinSequence(seqTranslation);
                             }
 
                         }
@@ -552,9 +555,7 @@ public class SolveOverlappings implements Executable {
                             rna.setSequence(tempSeq);
                         } else {
                             //All the magic regarding complemenary inverted seq if orientation is negative
-                            SymbolList symL = DNATools.createDNA(tempSeq);
-                            symL = DNATools.reverseComplement(symL);
-                            rna.setSequence(symL.seqString());
+                            rna.setSequence(SeqUtil.getComplementaryInverted(tempSeq));
                         }
                     }
                 }

@@ -40,6 +40,7 @@ import org.jdom.Element;
  */
 public class ControlGenBankFilesQuality implements Executable {
 
+    @Override
     public void execute(ArrayList<String> array) {
         String[] args = new String[array.size()];
         for (int i = 0; i < array.size(); i++) {
