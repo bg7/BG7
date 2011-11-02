@@ -1,7 +1,6 @@
-
 ## bg7 ##
 
-bg7 is a bacterial genome annotation system, designed from the start with NGS data in mind. If you want to know more about bg7: (http://bg7.ohnosequences.com)
+bg7 is a bacterial genome annotation system, designed from the start with NGS data in mind. If you want to know more about bg7: http://bg7.ohnosequences.com
 
 #### project layout ####
 
