@@ -5,7 +5,7 @@
 #
 # ### requirements ###
 # this script requires a standard bg7 install, with $BG7_HOME set.
-# 
+# Inside there, you should have
 
 # standard stuff. We should also be using `set -o nounset`. This prevents you from using unset variables.
 # 
