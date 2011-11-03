@@ -6,7 +6,7 @@
 			<argument>XX_sequences.fna</argument>
 			<argument>XX_PredictedGenes.xml</argument>
 			<argument>400</argument>
-			<argument>true</argument>
+			<argument>false</argument>
 		</arguments>
 	</execution>
 	<execution>
@@ -91,13 +91,5 @@
 			<argument>XX_BasicControlQuality.xml</argument>			
 		</arguments>
 	</execution>
-	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.AutomaticQualityControl</class_full_name>
-		<arguments>
-			<argument>XX_Annotation.xml</argument>
-			<argument>XX_ReferenceProteins.fasta</argument>
-			<argument>XX_ControlQuality.txt</argument>
-			<argument>XX_proteins_tBLASTn.xml</argument>			
-		</arguments>
-	</execution>	
+	
 </scheduled_executions>
