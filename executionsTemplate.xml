@@ -90,6 +90,5 @@
 			<argument>XX_NoDuplicates.xml</argument>
 			<argument>XX_BasicControlQuality.xml</argument>			
 		</arguments>
-	</execution>
-	
+	</execution>	
 </scheduled_executions>
