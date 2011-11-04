@@ -75,7 +75,8 @@ while [ "$1" != "" ]; do
         echo "genome file provided does not exist!"
         exit 1  
       fi
-      genome=`dirname $1`/`basename $1`     													
+      # get full path
+      genome=$(readlink -f "$1")    													
     ;;
     -G | --genbank_data ) shift
       if [ "$1" = "" ]; then
@@ -86,7 +87,7 @@ while [ "$1" != "" ]; do
         echo "genbank data file provided does not exist!"
         exit 1  
       fi
-      genbank_data="$1"                               
+      genbank_data=$(readlink -f "$1")                                
     ;;
     -p | --proteins)  shift
       if [ "$1" = "" ]; then
@@ -97,7 +98,7 @@ while [ "$1" != "" ]; do
         echo "proteins file provided does not exist!"
         exit 1
       fi
-      proteins=`dirname $1`/`basename $1`
+      proteins=$(readlink -f "$1") 
     ;;
     -r | --rnas)  shift
       if [ "$1" = "" ]; then
@@ -108,7 +109,7 @@ while [ "$1" != "" ]; do
         echo "RNAs file provided does not exist!"
         exit 1
       fi
-      rnas=$1
+      rnas=$(readlink -f "$1") 
     ;;
     -c | --genetic_code)  shift
       if [ "$1" = "" ]; then
@@ -119,7 +120,7 @@ while [ "$1" != "" ]; do
         echo "genetic code file provided does not exist!"
         exit 1
       fi
-      genetic_code=$1
+      genetic_code=$(readlink -f "$1") 
     ;;
     -h | --help )           usage
       exit 1
@@ -130,10 +131,10 @@ while [ "$1" != "" ]; do
         exit 1
       fi
       if [ ! -d $1 ]; then 
-        echo "output folder provided does not exist!"
-        exit 1
+        echo "output folder provided does not exist! will try to create it"
+        mkdir -p $(readlink -f "$1")
       fi
-      output_folder=`dirname $1`/`basename $1`
+      output_folder=$(readlink -f "$1")
     ;;
     -h | --help )           usage
       exit 1
