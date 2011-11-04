@@ -230,17 +230,20 @@ rnasVsContigsOutputPath="${output_folder}/${rnasVsContigsOutputName}"
 # creating blast db for RNAs
 echo "creating RNAs blast db"
 makeblastdb -in "${rnas}" -dbtype "nucl" -out "${name}.rnas.db" -logfile "${name}.rnas.db.log"
+echo "RNA blast db created: $output_folder/${name}.rnas.db"
+echo "if you want, you can check makeblastdb log: $output_folder/${name}.rnas.db.log"
 # run blastn
 echo "running blastn: RNAs vs genome sequence"
 blastn -query "${genome}" -db "${name}.rnas.db" -outfmt "5" -evalue "1e-20" -max_target_seqs "1" -out "${rnasVsContigsOutputName}" -num_threads "${cores}"
-
+echo "done! will do a basic results check now"
 # check end element etc
-echo "basic blast results check"
+echo "checking if blast xml output file looks ok..."
 rnaBlastOk=$(tail -n 1 ${rnasVsContigsOutputPath} | grep -c '</BlastOutput>')
 if [ ! "${rnaBlastOk}" = 1 ]; then
   echo "looks like the RNA vs contigs blast didn't work"
   exit 1
 fi
+echo "done! everything looks ok"
 # remove first two lines, I don't know why
 sed '2d' $rnasVsContigsOutputPath > $rnasVsContigsOutputPath.tmp
 mv $rnasVsContigsOutputPath.tmp $rnasVsContigsOutputPath
@@ -256,7 +259,8 @@ cd $output_folder
 # creating blast db for proteins
 echo "creating blast db with genome sequences"
 makeblastdb -in "${genome}" -dbtype nucl -out "${name}.genome.db" -logfile "${name}.genome.db.log"
-
+echo "genome blast db created: $output_folder/${name}.genome.db"
+echo "you can check makeblastdb log: $output_folder/${name}.genome.db.log"
 # output file vars, needed to adhere to file naming conventions
 proteinsVsContigsSuffix="_proteins_tBLASTn.xml"
 proteinsVsContigsOutName=$name$proteinsVsContigsSuffix
@@ -269,12 +273,14 @@ tblastn -query "${proteins}" -db "${name}.genome.db" -outfmt "5" -evalue "1e-30"
 
 # #### check tblastn results ####
 # here we do a basic check, to see if the tblastn results look good. What we do is checking that the end line has the corresponding closing tag for BLAST xml output. If not, inform and leave.
-echo "basic blast results check"
+echo "done! will do a basic results check now"
+echo "checking if blast xml output file looks ok..."
 proteinBlastOk=`tail -n 1 ${proteinsVsContigsOutPath} | grep -c '</BlastOutput>'`
 if [ ! "${proteinBlastOk}" = 1 ]; then
   echo "looks like tblastn proteins vs contigs didn't work"
   exit 1
 fi
+echo "done! everything looks ok"
 # remove first line, I don't know why. It looks like jdom has some ugly bug when parsing an xml file with a link to a nonexistant DTD. In this case, removing the first 2 lines from the xml will make things work (no DTD declaration).
 sed '2d' $proteinsVsContigsOutPath > $proteinsVsContigsOutPath.tmp
 mv $proteinsVsContigsOutPath.tmp $proteinsVsContigsOutPath
@@ -288,6 +294,7 @@ cp $genbank_data $output_folder/${name}_GenBankExternalData.xml
 # ## create executions.xml ##
 # we have everything set, now we need to create the xml file which defines the execution, named (somewhat unexpectedly) `executions.xml`.
 # We'll do that through a HERE document; not the most orthodox way to create an xml file, but again, _it works_.
+echo "Now I will create the executions.xml file that will drive bg7 execution"
 cat > $output_folder/executions.xml << EOF
 <scheduled_executions>
   <execution>
@@ -385,11 +392,12 @@ cat > $output_folder/executions.xml << EOF
 </scheduled_executions>
 EOF
 
+echo "you can take a look at it, if you want: $output_folder/executions.xml"
 # ugly hack, executions.xml should be a param
 cp $BG7_HOME/jar/bg7.jar $output_folder/
 # run bg7!
 # I will add memory conf through the script later on, no time for this now
-echo "running bg7"
+echo "running bg7 now!"
 java -d64 -Xmx6G -Xms1G -jar $output_folder/bg7.jar
 # clean up
 rm -f $output_folder/bg7.jar
