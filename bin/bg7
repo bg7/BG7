@@ -198,26 +198,25 @@ fi
 # everything looks ok. let's create output folder
 mkdir -p $output_folder
 
-# log params
+# log params to a params log file. This will be in the output folder
 param_log="params.log"
-echo "logging your params to ${output_folder}/${param_log}"
-touch $output_folder/params.log
-echo "--project_name ${name}
---genome ${genome}
---proteins ${proteins}
---rnas ${rnas}
---genetic_code ${genetic_code}
---genbank_data ${genbank_data}
---output_folder ${output_folder}
-" >> ${output_folder}/${param_log}
+params_log_file="${output_folder}/${param_log}"
+echo "logging your params to $params_log_file"
+touch $params_log_file
+echo "--project_name ${name}" >> $params_log_file
+echo "--genome ${genome}" >> $params_log_file
+echo "--proteins ${proteins}" >> $params_log_file
+echo "--rnas ${rnas}" >> $params_log_file
+echo "--genetic_code ${genetic_code}" >> $params_log_file
+echo "--genbank_data ${genbank_data}" >> $params_log_file
+echo "--output_folder ${output_folder}" >> $params_log_file
 
 # ## BLAST runs ##
 # here we run blast for RNAs and proteins.
 # get number of processors; you need to set this manually for BLAST
 cores=$(grep -c processor /proc/cpuinfo)
 echo "it looks like this machine has ${cores} cores, will use that for blast settings"
-echo "cores used for BLAST: ${cores}
-" > ${output_folder}/${param_log}
+echo "cores used for BLAST: ${cores}" >> $params_log_file
 # ### RNAs vs contigs run ###
 #
 # first, we run RNAs vs contigs
