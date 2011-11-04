@@ -75,7 +75,7 @@ while [ "$1" != "" ]; do
         echo "genome file provided does not exist!"
         exit 1  
       fi
-      genome="$1"     													
+      genome=`dirname $1`/`basename $1`     													
     ;;
     -G | --genbank_data ) shift
       if [ "$1" = "" ]; then
@@ -97,7 +97,7 @@ while [ "$1" != "" ]; do
         echo "proteins file provided does not exist!"
         exit 1
       fi
-      proteins=$1
+      proteins=`dirname $1`/`basename $1`
     ;;
     -r | --rnas)  shift
       if [ "$1" = "" ]; then
@@ -208,7 +208,7 @@ echo "--project_name ${name}
 --genetic_code ${genetic_code}
 --genbank_data ${genbank_data}
 --output_folder ${output_folder}
-" > ${output_folder}/${param_log}
+" >> ${output_folder}/${param_log}
 
 # ## BLAST runs ##
 # here we run blast for RNAs and proteins.
@@ -390,7 +390,7 @@ cp $BG7_HOME/jar/bg7.jar $output_folder/
 # run bg7!
 # I will add memory conf through the script later on, no time for this now
 echo "running bg7"
-java -d64 -Xmx60G -Xms10G -jar $output_folder/bg7.jar
+java -d64 -Xmx6G -Xms1G -jar $output_folder/bg7.jar
 # clean up
 rm -f $output_folder/bg7.jar
 
