@@ -49,8 +49,7 @@ import org.jdom.Element;
  */
 public class PredictGenes implements Executable {
 
-    public static int DIF_SPAN = 30;
-
+    //public static int DIF_SPAN = 30;
     public void execute(ArrayList<String> array) {
         String[] args = new String[array.size()];
         for (int i = 0; i < array.size(); i++) {
@@ -69,13 +68,14 @@ public class PredictGenes implements Executable {
     public static void main(String[] args) throws XMLElementException {
 
 
-        if (args.length != 5) {
-            System.out.println("This program expects five parameters: \n"
+        if (args.length != 6) {
+            System.out.println("This program expects six parameters: \n"
                     + "1. BlastOutput XML filename \n"
                     + "2. Contigs FNA filename \n"
                     + "3. Output results XML filename \n"
                     + "4. Maximum gene length (integer)\n"
-                    + "5. Flag (boolean) indicating if this genome corresponds to a virus (true/false)\n");
+                    + "5. Flag (boolean) indicating if this genome corresponds to a virus (true/false)\n"
+                    + "6. Dif span (integer)\n");
         } else {
             String blastOutputFileString = args[0];
             String fnaFileString = args[1];
@@ -83,7 +83,7 @@ public class PredictGenes implements Executable {
 
             int MAXIMA_LONGITUD_GEN = 0;
             try {
-                System.out.println("args[3] = " + args[3]);
+                //System.out.println("args[3] = " + args[3]);
                 MAXIMA_LONGITUD_GEN = Integer.parseInt(args[3]);
             } catch (NumberFormatException ex) {
                 System.out.println("The parameter 'Maximum gene length' provided is not an integer");
@@ -91,6 +91,19 @@ public class PredictGenes implements Executable {
             }
             if (MAXIMA_LONGITUD_GEN <= 0) {
                 System.out.println("A number greater than 0 must be provided for the parameter 'Maximum gene length'");
+                System.exit(-1);
+            }
+
+            int DIF_SPAN = 0;
+            try {
+                //System.out.println("args[3] = " + args[3]);
+                DIF_SPAN = Integer.parseInt(args[5]);
+            } catch (NumberFormatException ex) {
+                System.out.println("The parameter 'Dif span' provided is not an integer");
+                System.exit(-1);
+            }
+            if (DIF_SPAN <= 0) {
+                System.out.println("A number greater than 0 must be provided for the parameter 'Dif span'");
                 System.exit(-1);
             }
 
