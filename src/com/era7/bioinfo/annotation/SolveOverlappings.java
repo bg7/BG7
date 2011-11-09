@@ -483,8 +483,7 @@ public class SolveOverlappings implements Executable {
                         boolean sePuedeTraducirAProteina = true;
                         sePuedeTraducirAProteina = gene.getEndIsCanonical() && gene.getStartIsCanonical()
                                 && (gene.getFrameshifts() == null) && (gene.getExtraStopCodons() == null);
-
-                        String seqTranslation = SeqUtil.translateDNAtoProtein(tempSeq, geneticCodeFile);
+                       
 
                         if (gene.getStrand().equals(PredictedGene.POSITIVE_STRAND)) {
                             gene.setSequence(tempSeq);
@@ -495,6 +494,7 @@ public class SolveOverlappings implements Executable {
 //                                symL = DNATools.toRNA(symL);
 //                                symL = RNATools.translate(symL);
 //                                gene.setProteinSequence(symL.seqString());
+                                String seqTranslation = SeqUtil.translateDNAtoProtein(tempSeq, geneticCodeFile);
                                 gene.setProteinSequence(seqTranslation);
                             }
 
@@ -502,13 +502,15 @@ public class SolveOverlappings implements Executable {
                         } else {
                             //If orientation is negative we have to do all the magic regarding
                             //complementary inverted and so on
-                            gene.setSequence(SeqUtil.getComplementaryInverted(tempSeq).toUpperCase());
+                            String complementaryInvertedSeq = SeqUtil.getComplementaryInverted(tempSeq).toUpperCase();
+                            gene.setSequence(complementaryInvertedSeq);
 
                             if (sePuedeTraducirAProteina) {
 //                                //Translating sequence to protein
 //                                symL = DNATools.toRNA(symL);
 //                                symL = RNATools.translate(symL);
 //                                gene.setProteinSequence(symL.seqString());
+                                String seqTranslation = SeqUtil.translateDNAtoProtein(complementaryInvertedSeq, geneticCodeFile);
                                 gene.setProteinSequence(seqTranslation);
                             }
 
