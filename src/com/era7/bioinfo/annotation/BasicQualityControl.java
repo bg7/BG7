@@ -161,8 +161,7 @@ public class BasicQualityControl implements Executable {
                 }else{
                     outBuff.write("The sum does NOT match up! :(\n");
                 }
-
-
+                
                 outBuff.close();
 
 
