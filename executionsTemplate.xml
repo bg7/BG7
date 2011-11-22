@@ -7,6 +7,7 @@
 			<argument>XX_PredictedGenes.xml</argument>
 			<argument>400</argument>
 			<argument>false</argument>
+			<argument>30</argument>
 		</arguments>
 	</execution>
 	<execution>
