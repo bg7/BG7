@@ -240,7 +240,7 @@
             </manifest>
         </jar>
     </target>-->
-    <target name="-post-jar">
+<!--    <target name="-post-jar">
         <jar jarfile="jars/BG7.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
             <zipfileset src="lib/Era7BioinfoXML-1.0-jar-with-dependencies.jar"
@@ -254,7 +254,7 @@
                 <attribute name="Main-Class" value="com.era7.bioinfo.annotation.BG7"/>
             </manifest>
         </jar>
-    </target>
+    </target>-->
 <!--    <target name="-post-jar">
         <jar jarfile="jars/AutomaticQualityControl.jar">
             <zipfileset src="${dist.jar}" excludes="META-INF/*" />
@@ -301,4 +301,14 @@
             </manifest>
         </jar>
     </target>-->
+    <target name="-post-jar">
+        <jar jarfile="jars/FixFastaHeadersQC.jar">
+            <zipfileset src="${dist.jar}" excludes="META-INF/*" />
+            <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
+                        excludes="META-INF/*" />
+            <manifest>
+                <attribute name="Main-Class" value="com.era7.bioinfo.annotation.FixFastaHeadersQC"/>
+            </manifest>
+        </jar>
+    </target>
 </project>
