@@ -44,14 +44,13 @@
 			<argument>XX_Annotation_Dismissed_incl.xml</argument> 
 		</arguments>
 	</execution>
-		<execution>
+	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.RemoveDismissedGenes</class_full_name>
 		<arguments>
 			<argument>XX_Annotation_Dismissed_incl.xml</argument>
 			<argument>XX_Annotation.xml</argument>
 		</arguments>
 	</execution>
-	<execution>
 	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.GenerateGffFile</class_full_name>
 		<arguments>
@@ -60,12 +59,13 @@
 		</arguments>
 	</execution>
 	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.PotatizeGenes</class_full_name>
+		<class_full_name>com.era7.bioinfo.annotation.GenerateCSVFile</class_full_name>
 		<arguments>
 			<argument>XX_Annotation.xml</argument>
 			<argument>XX_Annotation.txt</argument>
 		</arguments>
 	</execution>
+	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.GetIntergenicSequences</class_full_name>
 		<arguments>
 			<argument>XX_Annotation.xml</argument>
