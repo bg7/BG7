@@ -120,32 +120,30 @@ public class GetIntergenicSequences implements Executable {
                 XMLElement xMLElement = new XMLElement(stringBuilder.toString());
                 stringBuilder.delete(0, stringBuilder.length());
                 System.out.println("done!");
-                
+
                 System.out.println("Extracting intergenic sequences...");
                 List<Element> contigList = xMLElement.asJDomElement().getChild(PredictedGenes.TAG_NAME).getChildren(ContigXML.TAG_NAME);
-                List<Element> rnaContigList = xMLElement.asJDomElement().getChild(PredictedRnas.TAG_NAME).getChildren(ContigXML.TAG_NAME);
-                
-                for (int i=0; i <rnaContigList.size(); i++){
+
+                //adding to list the contigs which have no genes predicted at all
+                for (String tempContigID : contigsMap.keySet()) {
                     
-                    Element rnaContigElem = rnaContigList.get(i);
-                    //System.out.println("rna: " + rnaContigElem.getChildText("id"));
-                                        
                     boolean found = false;
-                    ContigXML rnaContig = new ContigXML(rnaContigElem);
-                    for (Element geneContigElem : contigList) {
-                        ContigXML geneContig = new ContigXML(geneContigElem);
-                        if(rnaContig.getId().equals(geneContig.getId())){
-                            //System.out.println(rnaContig.getId() + " " + geneContig.getId());
+
+                    for (int i = 0; i < contigList.size(); i++) {
+                        ContigXML tempContigXML = new ContigXML(contigList.get(i));
+                        if (tempContigXML.getId().equals(tempContigID)) {
                             found = true;
                             break;
                         }
                     }
+                    
                     if(!found){
-                        //System.out.println(rnaContig.getId() + " not found");                        
-                        contigList.add((Element)rnaContigElem.clone());
+                        ContigXML newContigXML = new ContigXML();
+                        newContigXML.setId(tempContigID);
+                        contigList.add(newContigXML.asJDomElement());
                     }
                 }
-                
+
 
                 //----------CONTIGS LOOP---------------
                 for (Element element : contigList) {
@@ -189,7 +187,7 @@ public class GetIntergenicSequences implements Executable {
 
                         //first intergenic going from the beginning of the contig to the first predicted gene                        
                         currentGene = new PredictedGene(genes.get(0));
-                        
+
                         int begin = currentGene.getStartPosition();
                         if (currentGene.getStrand().equals(PredictedGene.NEGATIVE_STRAND)) {
                             begin = currentGene.getEndPosition();
@@ -207,8 +205,8 @@ public class GetIntergenicSequences implements Executable {
                             String header = HEADER + currentContig.getId() + SEPARATOR + intergenic.getBegin() + ".." + intergenic.getEnd() + "\n";
                             outFastaBuff.write(header + fastaFormat(intergenic.getSequence()));
                         }
-                        
-                        
+
+
                         lastGene = new PredictedGene(genes.get(0));
 
                         //--------------RETRIEVING INTERGENICS LOOP -----------
@@ -252,14 +250,14 @@ public class GetIntergenicSequences implements Executable {
 
                             lastGene = currentGene;
                         }
-                        
+
                         //now it's time to record the one between the last gene and the end of the contig                        
                         currentGene = new PredictedGene(genes.get(genes.size() - 1));
                         int end = currentGene.getEndPosition();
                         if (currentGene.getStrand().equals(PredictedGene.NEGATIVE_STRAND)) {
                             end = currentGene.getStartPosition();
                         }
-                        if(end != contigLength){
+                        if (end != contigLength) {
                             Intergenic intergenic = new Intergenic();
                             intergenic.setStrand(Intergenic.POSITIVE_STRAND);
                             intergenic.setBegin(end + 1);
@@ -270,9 +268,9 @@ public class GetIntergenicSequences implements Executable {
                             String header = HEADER + currentContig.getId() + SEPARATOR + intergenic.getBegin() + ".." + intergenic.getEnd() + "\n";
                             outFastaBuff.write(header + fastaFormat(intergenic.getSequence()));
                         }
-                        
+
                     }
-                    
+
                     contigResult.setLength(contigLength);
                     contigResult.setGapsPercentage(sumaBasesIntergenicas * 100.0 / contigLength);
                     outBuff.write(contigResult.toString() + "\n");
