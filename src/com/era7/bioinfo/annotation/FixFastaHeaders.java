@@ -65,7 +65,7 @@ public class FixFastaHeaders implements Executable {
                     
                     if(line.startsWith(">")){
                         
-                        outBuff.write(">" + projectPrefix + addUglyZeros(idCounter) + "|" + line.substring(1) + "\n");
+                        outBuff.write(">" + projectPrefix + addUglyZeros(idCounter) + " |" + line.substring(1) + "\n");
                         idCounter++;
                         
                     }else{
