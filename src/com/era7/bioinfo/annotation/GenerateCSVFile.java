@@ -164,7 +164,7 @@ public class GenerateCSVFile implements Executable{
                         outBuff.write(rna.getHitDef() + SEPARATOR + rna.getAnnotationUniprotId() + SEPARATOR);
                         outBuff.write(SEPARATOR + SEPARATOR);
                         outBuff.write(SEPARATOR + SEPARATOR);
-                        //outBuff.write(SEPARATOR);
+                        outBuff.write(SEPARATOR);
                         outBuff.write(SEPARATOR + SEPARATOR);
                         outBuff.write(SEPARATOR + SEPARATOR);
                         outBuff.write(SEPARATOR + SEPARATOR);
