@@ -302,7 +302,7 @@ public class ExportGenBankFiles implements Executable {
         //in this case the format is a bit more restrictive so we have to write
         //words in specific positions paying also attention to their separators
         String locusLineSt = "";
-        locusLineSt += GBCommon.LOCUS_STR + getWhiteSpaces(6);
+        locusLineSt += GBCommon.LOCUS_STR + getWhiteSpaces(7);
 //  --> This is how things were done before
 //        if (genBankXml.getLocusName().length() > 16) {
 //            locusLineSt += genBankXml.getLocusName().substring(0, 16);
