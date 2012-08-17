@@ -1,12 +1,21 @@
 <scheduled_executions>
 	<execution>
+		<class_full_name>com.era7.bioinfo.annotation.FixFastaHeaders</class_full_name>
+		<arguments>
+			<argument>XX_sequences.fna</argument>
+			<argument>XX_sequences_header_fixed.fna</argument>
+			<argument>XX</argument>
+		</arguments>
+	</execution>
+	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.PredictGenes</class_full_name>
 		<arguments>
 			<argument>XX_proteins_tBLASTn.xml</argument>
-			<argument>XX_sequences.fna</argument>
+			<argument>XX_sequences_header_fixed.fna</argument>
 			<argument>XX_PredictedGenes.xml</argument>
 			<argument>400</argument>
 			<argument>false</argument>
+			<argument>30</argument>
 		</arguments>
 	</execution>
 	<execution>
@@ -24,7 +33,7 @@
 			<argument>XX_SolvedOverlaps.xml</argument>
 			<argument>102</argument>
 			<argument>XX_RNA_blastn.xml</argument>
-			<argument>XX_sequences.fna</argument>
+			<argument>XX_sequences_header_fixed.fna</argument>
 			<argument>genetic_code.txt</argument>
 		</arguments>
 	</execution>
@@ -43,14 +52,13 @@
 			<argument>XX_Annotation_Dismissed_incl.xml</argument> 
 		</arguments>
 	</execution>
-		<execution>
+	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.RemoveDismissedGenes</class_full_name>
 		<arguments>
 			<argument>XX_Annotation_Dismissed_incl.xml</argument>
 			<argument>XX_Annotation.xml</argument>
 		</arguments>
 	</execution>
-	<execution>
 	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.GenerateGffFile</class_full_name>
 		<arguments>
@@ -59,16 +67,17 @@
 		</arguments>
 	</execution>
 	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.PotatizeGenes</class_full_name>
+		<class_full_name>com.era7.bioinfo.annotation.GenerateCSVFile</class_full_name>
 		<arguments>
 			<argument>XX_Annotation.xml</argument>
 			<argument>XX_Annotation.txt</argument>
 		</arguments>
 	</execution>
+	<execution>
 		<class_full_name>com.era7.bioinfo.annotation.GetIntergenicSequences</class_full_name>
 		<arguments>
 			<argument>XX_Annotation.xml</argument>
-			<argument>XX_sequences.fna</argument>
+			<argument>XX_sequences_header_fixed.fna</argument>
 			<argument>XX_Intergenic.xml</argument>
 			<argument>XX_Intergenic.fasta</argument>			
 		</arguments>
@@ -78,7 +87,7 @@
 		<arguments>
 			<argument>XX_Annotation.xml</argument>
 			<argument>XX_GenBankGeneralInfo.xml</argument>
-			<argument>XX_sequences.fna</argument>
+			<argument>XX_sequences_header_fixed.fna</argument>
 			<argument>XX</argument>			
 		</arguments>
 	</execution>

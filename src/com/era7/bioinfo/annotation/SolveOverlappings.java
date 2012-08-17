@@ -502,7 +502,7 @@ public class SolveOverlappings implements Executable {
                         } else {
                             //If orientation is negative we have to do all the magic regarding
                             //complementary inverted and so on
-                            String complementaryInvertedSeq = SeqUtil.getComplementaryInverted(tempSeq).toUpperCase();
+                            String complementaryInvertedSeq = SeqUtil.getComplementaryInverted(tempSeq);
                             gene.setSequence(complementaryInvertedSeq);
 
                             if (sePuedeTraducirAProteina) {
