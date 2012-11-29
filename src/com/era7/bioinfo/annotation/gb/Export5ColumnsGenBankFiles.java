@@ -18,24 +18,9 @@ package com.era7.bioinfo.annotation.gb;
 
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
 import com.era7.lib.bioinfo.bioinfoutil.model.Feature;
-import com.era7.lib.bioinfoxml.Annotation;
-import com.era7.lib.bioinfoxml.ContigXML;
-import com.era7.lib.bioinfoxml.PredictedGene;
-import com.era7.lib.bioinfoxml.PredictedGenes;
-import com.era7.lib.bioinfoxml.PredictedRna;
-import com.era7.lib.bioinfoxml.PredictedRnas;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import com.era7.lib.bioinfoxml.*;
+import java.io.*;
+import java.util.*;
 import org.jdom.Element;
 
 /**

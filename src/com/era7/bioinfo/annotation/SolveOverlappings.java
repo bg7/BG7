@@ -22,16 +22,8 @@ import com.era7.lib.bioinfo.bioinfoutil.Pair;
 import com.era7.lib.bioinfo.bioinfoutil.seq.SeqUtil;
 import com.era7.lib.bioinfoxml.*;
 import com.era7.lib.era7xmlapi.model.XMLElement;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.TreeSet;
+import java.io.*;
+import java.util.*;
 import org.jdom.Element;
 
 /**

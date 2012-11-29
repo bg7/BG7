@@ -16,30 +16,14 @@
  */
 package com.era7.bioinfo.annotation.gb;
 
-import com.era7.lib.bioinfo.bioinfoutil.genbank.GBCommon;
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
+import com.era7.lib.bioinfo.bioinfoutil.genbank.GBCommon;
 import com.era7.lib.bioinfo.bioinfoutil.model.Feature;
-import com.era7.lib.bioinfoxml.Annotation;
-import com.era7.lib.bioinfoxml.ContigXML;
-import com.era7.lib.bioinfoxml.PredictedGene;
-import com.era7.lib.bioinfoxml.PredictedGenes;
-import com.era7.lib.bioinfoxml.PredictedRna;
-import com.era7.lib.bioinfoxml.PredictedRnas;
+import com.era7.lib.bioinfoxml.*;
 import com.era7.lib.bioinfoxml.gb.GenBankXML;
 import com.era7.lib.era7xmlapi.model.XMLElementException;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.io.*;
+import java.util.*;
 import org.jdom.Element;
 
 /**
