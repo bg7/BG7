@@ -16,11 +16,7 @@
  */
 package com.era7.bioinfo.annotation;
 
-import com.era7.bioinfo.bio4jmodel.nodes.GoTermNode;
-import com.era7.bioinfo.bio4jmodel.nodes.InterproNode;
-import com.era7.bioinfo.bio4jmodel.nodes.KeywordNode;
-import com.era7.bioinfo.bio4jmodel.nodes.ProteinNode;
-import com.era7.bioinfo.bio4jmodel.nodes.SubcellularLocationNode;
+import com.era7.bioinfo.bio4jmodel.nodes.*;
 import com.era7.bioinfo.bio4jmodel.nodes.citation.ArticleNode;
 import com.era7.bioinfo.bio4jmodel.relationships.comment.DomainCommentRel;
 import com.era7.bioinfo.bio4jmodel.relationships.comment.FunctionCommentRel;
@@ -34,11 +30,7 @@ import com.era7.lib.bioinfoxml.ContigXML;
 import com.era7.lib.bioinfoxml.PredictedGene;
 import com.era7.lib.bioinfoxml.PredictedGenes;
 import com.era7.lib.era7xmlapi.model.XMLElement;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.jdom.Element;
