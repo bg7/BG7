@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2011  "BG7"
+ * Copyright (C) 2010-2013  "BG7"
  *
  * This file is part of BG7
  *
@@ -100,7 +100,7 @@ public class FillDataFromBio4j implements Executable {
 
                         ProteinNode proteinNode = nodeRetriever.getProteinNodeByAccession(gene.getAnnotationUniprotId());
 
-                        completePredicteedGeneData(proteinNode, gene);
+                        completePredictedGeneData(proteinNode, gene);
                         
                         System.out.println("gene = " + gene.getAnnotationUniprotId() + " completed!");
                     }
@@ -111,6 +111,8 @@ public class FillDataFromBio4j implements Executable {
 
                 }
 
+                bio4jManager.shutDown();
+                
                 BufferedWriter outBuff = new BufferedWriter(new FileWriter(outFile));
                 outBuff.write(annotation.toString());
                 outBuff.close();
@@ -120,15 +122,12 @@ public class FillDataFromBio4j implements Executable {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                System.exit(-1);
-            }finally{
-                bio4jManager.shutDown();
             }
 
         }
     }
     
-    private static void completePredicteedGeneData(ProteinNode protein, PredictedGene gene){
+    private static void completePredictedGeneData(ProteinNode protein, PredictedGene gene){
         
         System.out.println("retrieving data from: " + gene.getAnnotationUniprotId());
         
