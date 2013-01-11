@@ -16,14 +16,14 @@
  */
 package com.era7.bioinfo.annotation;
 
-import com.era7.bioinfo.bio4jmodel.nodes.*;
-import com.era7.bioinfo.bio4jmodel.nodes.citation.ArticleNode;
-import com.era7.bioinfo.bio4jmodel.relationships.comment.DomainCommentRel;
-import com.era7.bioinfo.bio4jmodel.relationships.comment.FunctionCommentRel;
-import com.era7.bioinfo.bio4jmodel.relationships.comment.PathwayCommentRel;
-import com.era7.bioinfo.bio4jmodel.relationships.comment.SimilarityCommentRel;
-import com.era7.bioinfo.bio4jmodel.util.Bio4jManager;
-import com.era7.bioinfo.bio4jmodel.util.NodeRetriever;
+import com.era7.bioinfo.bio4j.model.nodes.*;
+import com.era7.bioinfo.bio4j.model.nodes.citation.ArticleNode;
+import com.era7.bioinfo.bio4j.model.relationships.comment.DomainCommentRel;
+import com.era7.bioinfo.bio4j.model.relationships.comment.FunctionCommentRel;
+import com.era7.bioinfo.bio4j.model.relationships.comment.PathwayCommentRel;
+import com.era7.bioinfo.bio4j.model.relationships.comment.SimilarityCommentRel;
+import com.era7.bioinfo.bio4j.model.util.Bio4jManager;
+import com.era7.bioinfo.bio4j.model.util.NodeRetriever;
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
 import com.era7.lib.bioinfoxml.Annotation;
 import com.era7.lib.bioinfoxml.ContigXML;
@@ -43,6 +43,7 @@ public class FillDataFromBio4j implements Executable {
 
     
 
+    @Override
     public void execute(ArrayList<String> array) {
         String[] args = new String[array.size()];
         for (int i = 0; i < array.size(); i++) {
