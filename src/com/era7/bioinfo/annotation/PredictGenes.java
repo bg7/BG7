@@ -19,20 +19,7 @@ package com.era7.bioinfo.annotation;
 import com.era7.lib.bioinfo.bioinfoutil.CodonUtil;
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
 import com.era7.lib.bioinfo.bioinfoutil.seq.SeqUtil;
-<<<<<<< HEAD
-import com.era7.lib.bioinfoxml.BlastOutput;
-import com.era7.lib.bioinfoxml.Codon;
-import com.era7.lib.bioinfoxml.ContigXML;
-import com.era7.lib.bioinfoxml.Frameshift;
-import com.era7.lib.bioinfoxml.Hit;
-import com.era7.lib.bioinfoxml.Hsp;
-import com.era7.lib.bioinfoxml.HspSet;
-import com.era7.lib.bioinfoxml.Iteration;
-import com.era7.lib.bioinfoxml.PredictedGene;
-import com.era7.lib.bioinfoxml.PredictedGenes;
-=======
 import com.era7.lib.bioinfoxml.*;
->>>>>>> master
 import com.era7.lib.era7xmlapi.model.XMLElementException;
 import java.io.*;
 import java.util.ArrayList;

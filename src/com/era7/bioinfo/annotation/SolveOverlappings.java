@@ -22,21 +22,8 @@ import com.era7.lib.bioinfo.bioinfoutil.Pair;
 import com.era7.lib.bioinfo.bioinfoutil.seq.SeqUtil;
 import com.era7.lib.bioinfoxml.*;
 import com.era7.lib.era7xmlapi.model.XMLElement;
-<<<<<<< HEAD
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.TreeSet;
-=======
 import java.io.*;
 import java.util.*;
->>>>>>> master
 import org.jdom.Element;
 
 /**
@@ -58,11 +45,7 @@ public class SolveOverlappings implements Executable {
 
 
         if (args.length != 6) {
-<<<<<<< HEAD
-            System.out.println("This program expects five parameters: \n"
-=======
             System.out.println("This program expects six parameters: \n"
->>>>>>> master
                     + "1. Predicted genes XML input file \n"
                     + "2. Output XML file with solved overlappings\n"
                     + "3. Number of bases overlapping threshold (integer)\n"
@@ -92,8 +75,6 @@ public class SolveOverlappings implements Executable {
 
                 PredictedGenes resultadoGenes = new PredictedGenes();
                 PredictedRnas resultadoRnas = new PredictedRnas();
-                
-                File geneticCodeFile = new File(args[5]);
 
                 File geneticCodeFile = new File(args[5]);
                 
@@ -494,26 +475,18 @@ public class SolveOverlappings implements Executable {
                         boolean sePuedeTraducirAProteina = true;
                         sePuedeTraducirAProteina = gene.getEndIsCanonical() && gene.getStartIsCanonical()
                                 && (gene.getFrameshifts() == null) && (gene.getExtraStopCodons() == null);
-<<<<<<< HEAD
-
-                        String seqTranslation = SeqUtil.translateDNAtoProtein(tempSeq, geneticCodeFile);
-=======
                        
->>>>>>> master
 
                         if (gene.getStrand().equals(PredictedGene.POSITIVE_STRAND)) {
                             gene.setSequence(tempSeq);
 
                             if (sePuedeTraducirAProteina) {
-<<<<<<< HEAD
-=======
                                 //Translating sequence to protein
 //                                SymbolList symL = DNATools.createDNA(tempSeq);
 //                                symL = DNATools.toRNA(symL);
 //                                symL = RNATools.translate(symL);
 //                                gene.setProteinSequence(symL.seqString());
                                 String seqTranslation = SeqUtil.translateDNAtoProtein(tempSeq, geneticCodeFile);
->>>>>>> master
                                 gene.setProteinSequence(seqTranslation);
                             }
 
@@ -521,11 +494,6 @@ public class SolveOverlappings implements Executable {
                         } else {
                             //If orientation is negative we have to do all the magic regarding
                             //complementary inverted and so on
-<<<<<<< HEAD
-                            gene.setSequence(SeqUtil.getComplementaryInverted(tempSeq).toUpperCase());
-
-                            if (sePuedeTraducirAProteina) {
-=======
                             String complementaryInvertedSeq = SeqUtil.getComplementaryInverted(tempSeq);
                             gene.setSequence(complementaryInvertedSeq);
 
@@ -535,7 +503,6 @@ public class SolveOverlappings implements Executable {
 //                                symL = RNATools.translate(symL);
 //                                gene.setProteinSequence(symL.seqString());
                                 String seqTranslation = SeqUtil.translateDNAtoProtein(complementaryInvertedSeq, geneticCodeFile);
->>>>>>> master
                                 gene.setProteinSequence(seqTranslation);
                             }
 
