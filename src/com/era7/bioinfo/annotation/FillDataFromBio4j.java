@@ -25,6 +25,7 @@ import com.era7.bioinfo.bio4j.model.relationships.comment.SimilarityCommentRel;
 import com.era7.bioinfo.bio4j.model.util.Bio4jManager;
 import com.era7.bioinfo.bio4j.model.util.NodeRetriever;
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
+import com.era7.lib.bioinfo.bioinfoutil.blast.BlastExporter;
 import com.era7.lib.bioinfoxml.Annotation;
 import com.era7.lib.bioinfoxml.ContigXML;
 import com.era7.lib.bioinfoxml.PredictedGene;
@@ -41,7 +42,7 @@ import org.jdom.Element;
  */
 public class FillDataFromBio4j implements Executable {
 
-    
+    public static final int BLAST_INDENTATION_AMOUNT = 4;
 
     @Override
     public void execute(ArrayList<String> array) {
@@ -68,7 +69,7 @@ public class FillDataFromBio4j implements Executable {
             File inFile = new File(inFileString);
             File outFile = new File(outFileString);
 
-            Bio4jManager bio4jManager = null;
+            Bio4jManager bio4jManager;
             
             try {
                 
@@ -114,7 +115,7 @@ public class FillDataFromBio4j implements Executable {
                 bio4jManager.shutDown();
                 
                 BufferedWriter outBuff = new BufferedWriter(new FileWriter(outFile));
-                outBuff.write(annotation.toString());
+                outBuff.write(BlastExporter.prettyPrintBlast(annotation.toString(), BLAST_INDENTATION_AMOUNT));
                 outBuff.close();
 
                 System.out.println("Done!!! :D");

@@ -247,6 +247,8 @@
                         excludes="META-INF/*" />
             <zipfileset src="lib/BioinfoUtil-1.0-jar-with-dependencies.jar"
                         excludes="META-INF/*" />
+            <zipfileset src="lib/Bio4j-0.8-jar-with-dependencies.jar"
+                        excludes="META-INF/*" />
             <zipfileset src="lib/commons-httpclient-3.1.jar" excludes="META-INF/*" />
             <zipfileset src="lib/commons-logging-1.1.1.jar" excludes="META-INF/*" />
             <zipfileset src="lib/commons-codec-1.4.jar" excludes="META-INF/*" />
