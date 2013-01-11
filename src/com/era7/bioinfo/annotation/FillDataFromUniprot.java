@@ -23,11 +23,7 @@ import com.era7.lib.bioinfoxml.ContigXML;
 import com.era7.lib.bioinfoxml.PredictedGene;
 import com.era7.lib.bioinfoxml.PredictedGenes;
 import com.era7.lib.era7xmlapi.model.XMLElement;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.jdom.Element;
@@ -86,12 +82,20 @@ public class FillDataFromUniprot implements Executable {
                         PredictedGene gene = new PredictedGene(xMLElement.asJDomElement());
 
                         //System.out.println("gene.getAnnotationUniprotId() = " + gene.getAnnotationUniprotId());
-
-                        gene = UniprotProteinRetreiver.getUniprotDataFor(gene,false);
+                        
+                        
+                        try{
+                            gene = UniprotProteinRetreiver.getUniprotDataFor(gene,false);
+                            System.out.println("gene = " + gene.getAnnotationUniprotId() + " completed!");
+                        }catch(Exception e){
+                            System.out.println("There was an exception when retrieving the gene: " + gene.getAnnotationUniprotId());
+                            System.out.println("Its data could not be retrieved from Uniprot... :(");
+                        }
+                        
 
                         //System.out.println("gene = " + gene);
 
-                        System.out.println("gene = " + gene.getAnnotationUniprotId() + " completed!");
+                        
                     }
 
                     contadorContigs++;

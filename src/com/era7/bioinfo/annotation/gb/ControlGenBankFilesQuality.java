@@ -16,14 +16,9 @@
  */
 package com.era7.bioinfo.annotation.gb;
 
-import com.era7.lib.bioinfo.bioinfoutil.genbank.GBCommon;
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
-import com.era7.lib.bioinfoxml.Annotation;
-import com.era7.lib.bioinfoxml.ContigXML;
-import com.era7.lib.bioinfoxml.PredictedGene;
-import com.era7.lib.bioinfoxml.PredictedGenes;
-import com.era7.lib.bioinfoxml.PredictedRna;
-import com.era7.lib.bioinfoxml.PredictedRnas;
+import com.era7.lib.bioinfo.bioinfoutil.genbank.GBCommon;
+import com.era7.lib.bioinfoxml.*;
 import com.era7.lib.era7xmlapi.model.XMLElementException;
 import java.io.BufferedReader;
 import java.io.File;
@@ -40,6 +35,7 @@ import org.jdom.Element;
  */
 public class ControlGenBankFilesQuality implements Executable {
 
+    @Override
     public void execute(ArrayList<String> array) {
         String[] args = new String[array.size()];
         for (int i = 0; i < array.size(); i++) {

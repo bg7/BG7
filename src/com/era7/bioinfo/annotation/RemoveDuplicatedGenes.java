@@ -21,16 +21,8 @@ import com.era7.lib.bioinfo.bioinfoutil.model.Feature;
 import com.era7.lib.bioinfoxml.ContigXML;
 import com.era7.lib.bioinfoxml.PredictedGene;
 import com.era7.lib.bioinfoxml.PredictedGenes;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.TreeSet;
+import java.io.*;
+import java.util.*;
 import org.jdom.Element;
 
 /**

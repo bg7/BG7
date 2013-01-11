@@ -16,30 +16,14 @@
  */
 package com.era7.bioinfo.annotation.gb;
 
-import com.era7.lib.bioinfo.bioinfoutil.genbank.GBCommon;
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
+import com.era7.lib.bioinfo.bioinfoutil.genbank.GBCommon;
 import com.era7.lib.bioinfo.bioinfoutil.model.Feature;
-import com.era7.lib.bioinfoxml.Annotation;
-import com.era7.lib.bioinfoxml.ContigXML;
-import com.era7.lib.bioinfoxml.PredictedGene;
-import com.era7.lib.bioinfoxml.PredictedGenes;
-import com.era7.lib.bioinfoxml.PredictedRna;
-import com.era7.lib.bioinfoxml.PredictedRnas;
+import com.era7.lib.bioinfoxml.*;
 import com.era7.lib.bioinfoxml.gb.GenBankXML;
 import com.era7.lib.era7xmlapi.model.XMLElementException;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.io.*;
+import java.util.*;
 import org.jdom.Element;
 
 /**
@@ -302,11 +286,18 @@ public class ExportGenBankFiles implements Executable {
         //in this case the format is a bit more restrictive so we have to write
         //words in specific positions paying also attention to their separators
         String locusLineSt = "";
-        locusLineSt += GBCommon.LOCUS_STR + getWhiteSpaces(6);
-        if (genBankXml.getLocusName().length() > 16) {
-            locusLineSt += genBankXml.getLocusName().substring(0, 16);
+        locusLineSt += GBCommon.LOCUS_STR + getWhiteSpaces(7);
+//  --> This is how things were done before
+//        if (genBankXml.getLocusName().length() > 16) {
+//            locusLineSt += genBankXml.getLocusName().substring(0, 16);
+//        } else {
+//            locusLineSt += genBankXml.getLocusName() + getWhiteSpaces(16 - genBankXml.getLocusName().length());
+//        }
+        String contigIDSt = currentContig.getId();
+        if (contigIDSt.length() > 16) {
+            locusLineSt += contigIDSt.substring(0, 16);
         } else {
-            locusLineSt += genBankXml.getLocusName() + getWhiteSpaces(16 - genBankXml.getLocusName().length());
+            locusLineSt += contigIDSt + getWhiteSpaces(16 - contigIDSt.length());
         }
         String seqLength = String.valueOf(mainSequence.length());
         locusLineSt += getWhiteSpaces(1) + getWhiteSpaces(11 - seqLength.length()) + seqLength;
