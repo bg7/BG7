@@ -100,8 +100,12 @@ public class FillDataFromBio4j implements Executable {
                         PredictedGene gene = new PredictedGene(xMLElement.asJDomElement());
 
                         ProteinNode proteinNode = nodeRetriever.getProteinNodeByAccession(gene.getAnnotationUniprotId());
-
-                        completePredictedGeneData(proteinNode, gene);
+                        
+                        if(proteinNode != null){
+                            completePredictedGeneData(proteinNode, gene);
+                        }else{
+                            System.out.println("There was no protein found for accession: " + gene.getAnnotationUniprotId() + " ... :(");
+                        }                        
                         
                         System.out.println("gene = " + gene.getAnnotationUniprotId() + " completed!");
                     }
