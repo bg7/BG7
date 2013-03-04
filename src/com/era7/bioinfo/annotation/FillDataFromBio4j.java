@@ -16,14 +16,18 @@
  */
 package com.era7.bioinfo.annotation;
 
-import com.era7.bioinfo.bio4j.model.nodes.*;
-import com.era7.bioinfo.bio4j.model.nodes.citation.ArticleNode;
-import com.era7.bioinfo.bio4j.model.relationships.comment.DomainCommentRel;
-import com.era7.bioinfo.bio4j.model.relationships.comment.FunctionCommentRel;
-import com.era7.bioinfo.bio4j.model.relationships.comment.PathwayCommentRel;
-import com.era7.bioinfo.bio4j.model.relationships.comment.SimilarityCommentRel;
-import com.era7.bioinfo.bio4j.model.util.Bio4jManager;
-import com.era7.bioinfo.bio4j.model.util.NodeRetriever;
+import com.era7.bioinfo.bio4j.blueprints.model.nodes.GoTermNode;
+import com.era7.bioinfo.bio4j.blueprints.model.nodes.InterproNode;
+import com.era7.bioinfo.bio4j.blueprints.model.nodes.KeywordNode;
+import com.era7.bioinfo.bio4j.blueprints.model.nodes.ProteinNode;
+import com.era7.bioinfo.bio4j.blueprints.model.nodes.SubcellularLocationNode;
+import com.era7.bioinfo.bio4j.blueprints.model.nodes.citation.ArticleNode;
+import com.era7.bioinfo.bio4j.blueprints.model.relationships.comment.DomainCommentRel;
+import com.era7.bioinfo.bio4j.blueprints.model.relationships.comment.FunctionCommentRel;
+import com.era7.bioinfo.bio4j.blueprints.model.relationships.comment.PathwayCommentRel;
+import com.era7.bioinfo.bio4j.blueprints.model.relationships.comment.SimilarityCommentRel;
+import com.era7.bioinfo.bio4j.titan.model.util.Bio4jManager;
+import com.era7.bioinfo.bio4j.titan.model.util.NodeRetriever;
 import com.era7.lib.bioinfo.bioinfoutil.Executable;
 import com.era7.lib.bioinfo.bioinfoutil.blast.BlastExporter;
 import com.era7.lib.bioinfoxml.Annotation;
