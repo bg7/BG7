@@ -77,7 +77,7 @@ public class SolveOverlappings implements Executable {
                 PredictedRnas resultadoRnas = new PredictedRnas();
 
                 File geneticCodeFile = new File(args[5]);
-                
+
                 //reading predicted genes xml file
                 BufferedReader reader = new BufferedReader(new FileReader(inFile));
                 String temp;
@@ -265,9 +265,9 @@ public class SolveOverlappings implements Executable {
                             tempGene.setStatus(PredictedGene.STATUS_DISMISSED);
                             tempGene.setGeneDismissedBy(genQueDescarta);
                         } else {
-                            if(tempGene.getStatus() == null){
+                            if (tempGene.getStatus() == null) {
                                 tempGene.setStatus(PredictedGene.STATUS_SELECTED);
-                            }else if (!tempGene.getStatus().equals(PredictedGene.STATUS_SELECTED_MINOR_THRESHOLD)) {
+                            } else if (!tempGene.getStatus().equals(PredictedGene.STATUS_SELECTED_MINOR_THRESHOLD)) {
                                 tempGene.setStatus(PredictedGene.STATUS_SELECTED);
                             }
                         }
@@ -325,27 +325,27 @@ public class SolveOverlappings implements Executable {
                             ArrayList<Hsp> hsps = hit.getHitHsps();
 
                             for (Hsp hsp : hsps) {
-                                
+
                                 int queryFrom = hsp.getQueryFrom();
                                 int queryTo = hsp.getQueryTo();
                                 boolean hspOrientation = hsp.getHitFrame() > 0;
                                 //checking positions are in the order indicated by the hit-frame value
                                 //if not, we have to swap them
-                                if(hspOrientation){
-                                    if(queryFrom > queryTo){
+                                if (hspOrientation) {
+                                    if (queryFrom > queryTo) {
                                         int swap = queryFrom;
                                         queryFrom = queryTo;
                                         queryTo = swap;
                                     }
-                                }else{
-                                    if(queryTo > queryFrom){
+                                } else {
+                                    if (queryTo > queryFrom) {
                                         int swap = queryFrom;
                                         queryFrom = queryTo;
                                         queryTo = swap;
                                     }
-                                }                               
-                                
-                                
+                                }
+
+
                                 PredictedRna rna = new PredictedRna();
                                 rna.setHitDef(iteration.getQueryDef());
                                 // the hitdef 'chorizo' where the id of the genome element (besides more things) can be found
@@ -372,26 +372,30 @@ public class SolveOverlappings implements Executable {
                         for (int i = 0; i < rnasArray.length; i++) {
                             PredictedRna predictedRna = rnasArray[i];
                             boolean puedenSolapar = true;
-                            for (int j = i + 1; j < rnasArray.length && puedenSolapar; j++) {
-                                PredictedRna predictedRna2 = rnasArray[j];
-                                int end, begin2;
-                                end = predictedRna.getEndPosition();
-                                if (predictedRna.getStrand().equals(PredictedRna.NEGATIVE_STRAND)) {
-                                    end = predictedRna.getStartPosition();
-                                }
-                                begin2 = predictedRna2.getStartPosition();
-                                if (predictedRna2.getStrand().equals(PredictedRna.NEGATIVE_STRAND)) {
-                                    begin2 = predictedRna2.getEndPosition();
-                                }
-                                if (end < begin2) {
-                                    puedenSolapar = false;
-                                } else {
-                                    if (predictedRna.getEvalue() > predictedRna2.getEvalue()) {
-                                        indicesABorrar.add(i);
-                                        consoleBuff.write("this rna must be removed: \n" + predictedRna + "\n due to: \n" + predictedRna2 + "\n");
-                                    } else {
-                                        indicesABorrar.add(j);
-                                        consoleBuff.write("this rna must be removed: \n" + predictedRna2 + "\n due to: \n" + predictedRna + "\n");
+                            if (!indicesABorrar.contains(i)) {
+                                for (int j = i + 1; j < rnasArray.length && puedenSolapar; j++) {
+                                    if (!indicesABorrar.contains(j)) {
+                                        PredictedRna predictedRna2 = rnasArray[j];
+                                        int end, begin2;
+                                        end = predictedRna.getEndPosition();
+                                        if (predictedRna.getStrand().equals(PredictedRna.NEGATIVE_STRAND)) {
+                                            end = predictedRna.getStartPosition();
+                                        }
+                                        begin2 = predictedRna2.getStartPosition();
+                                        if (predictedRna2.getStrand().equals(PredictedRna.NEGATIVE_STRAND)) {
+                                            begin2 = predictedRna2.getEndPosition();
+                                        }
+                                        if (end < begin2) {
+                                            puedenSolapar = false;
+                                        } else {
+                                            if (predictedRna.getEvalue() > predictedRna2.getEvalue()) {
+                                                indicesABorrar.add(i);
+                                                consoleBuff.write("this rna must be removed: \n" + predictedRna + "\n due to: \n" + predictedRna2 + "\n");
+                                            } else {
+                                                indicesABorrar.add(j);
+                                                consoleBuff.write("this rna must be removed: \n" + predictedRna2 + "\n due to: \n" + predictedRna + "\n");
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -475,7 +479,7 @@ public class SolveOverlappings implements Executable {
                         boolean sePuedeTraducirAProteina = true;
                         sePuedeTraducirAProteina = gene.getEndIsCanonical() && gene.getStartIsCanonical()
                                 && (gene.getFrameshifts() == null) && (gene.getExtraStopCodons() == null);
-                       
+
 
                         if (gene.getStrand().equals(PredictedGene.POSITIVE_STRAND)) {
                             gene.setSequence(tempSeq);
