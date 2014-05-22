@@ -27,12 +27,8 @@
       <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\BG7\src\com\era7\bioinfo\annotation\gb\ExportGenBankFiles.java" afterPath="" />
       <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\BG7\src\com\era7\bioinfo\annotation\gb\GBCommon.java" afterPath="" />
       <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\BG7\src\com\era7\bioinfo\annotation\gb\ImportGenBankFiles.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/AutomaticQualityControl.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/AutomaticQualityControl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/BG7.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/BG7.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FillDataFromUniprot.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FillDataFromUniprot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FixFastaHeaders.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FixFastaHeaders.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/RemoveDismissedGenes.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/RemoveDismissedGenes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateCSVFile.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateCSVFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateFastaFiles.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateFastaFiles.java" />
     </list>
     <ignored path="bg7.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -111,13 +107,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FixFastaHeaders.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="FixFastaHeaders.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FixFastaHeaders.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.04450262" vertical-offset="17" max-vertical-offset="1496">
+            <state vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="1496">
               <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GenerateCSVFile.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateCSVFile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1288" max-vertical-offset="2924">
+              <caret line="96" column="28" selection-start-line="96" selection-start-column="28" selection-end-line="96" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GenerateFastaFiles.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateFastaFiles.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.42547426" vertical-offset="1203" max-vertical-offset="2890">
+              <caret line="95" column="35" selection-start-line="95" selection-start-column="35" selection-end-line="95" selection-end-column="35" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4269#4284#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -142,6 +163,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/BG7.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FillDataFromUniprot.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FixFastaHeaders.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateCSVFile.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateFastaFiles.java" />
       </list>
     </option>
   </component>
@@ -589,10 +612,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FixFastaHeaders.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.04450262" vertical-offset="17" max-vertical-offset="1496">
+        <state vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="1496">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateCSVFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1288" max-vertical-offset="2924">
+          <caret line="96" column="28" selection-start-line="96" selection-start-column="28" selection-end-line="96" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateFastaFiles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42547426" vertical-offset="1203" max-vertical-offset="2890">
+          <caret line="95" column="35" selection-start-line="95" selection-start-column="35" selection-end-line="95" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4269#4284#0" expanded="true" />
           </folding>
         </state>
       </provider>
