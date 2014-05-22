@@ -16,14 +16,15 @@
  */
 package com.era7.bioinfo.annotation.embl;
 
-import com.era7.lib.bioinfo.bioinfoutil.Executable;
-import com.era7.lib.bioinfo.bioinfoutil.model.Feature;
-import com.era7.lib.bioinfoxml.*;
-import com.era7.lib.bioinfoxml.embl.EmblXML;
-import com.era7.lib.era7xmlapi.model.XMLElementException;
 import java.io.*;
 import java.util.*;
-import org.jdom.Element;
+
+import com.ohnosequences.util.Executable;
+import com.ohnosequences.util.model.Feature;
+import com.ohnosequences.xml.api.model.XMLElementException;
+import com.ohnosequences.xml.model.*;
+import com.ohnosequences.xml.model.embl.EmblXML;
+import org.jdom2.Element;
 
 /**
  * 

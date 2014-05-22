@@ -16,15 +16,16 @@
  */
 package com.era7.bioinfo.annotation;
 
-import com.era7.lib.bioinfo.bioinfoutil.Entry;
-import com.era7.lib.bioinfo.bioinfoutil.Executable;
-import com.era7.lib.bioinfo.bioinfoutil.Pair;
-import com.era7.lib.bioinfo.bioinfoutil.seq.SeqUtil;
-import com.era7.lib.bioinfoxml.*;
-import com.era7.lib.era7xmlapi.model.XMLElement;
 import java.io.*;
 import java.util.*;
-import org.jdom.Element;
+
+import com.ohnosequences.util.Entry;
+import com.ohnosequences.util.Executable;
+import com.ohnosequences.util.Pair;
+import com.ohnosequences.util.seq.SeqUtil;
+import com.ohnosequences.xml.api.model.XMLElement;
+import com.ohnosequences.xml.model.*;
+import org.jdom2.Element;
 
 /**
  *

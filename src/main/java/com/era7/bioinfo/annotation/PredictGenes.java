@@ -16,18 +16,19 @@
  */
 package com.era7.bioinfo.annotation;
 
-import com.era7.lib.bioinfo.bioinfoutil.CodonUtil;
-import com.era7.lib.bioinfo.bioinfoutil.Executable;
-import com.era7.lib.bioinfo.bioinfoutil.seq.SeqUtil;
-import com.era7.lib.bioinfoxml.*;
-import com.era7.lib.era7xmlapi.model.XMLElementException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.jdom.Element;
+
+import com.ohnosequences.util.CodonUtil;
+import com.ohnosequences.util.Executable;
+import com.ohnosequences.util.seq.SeqUtil;
+import com.ohnosequences.xml.api.model.XMLElementException;
+import com.ohnosequences.xml.model.*;
+import org.jdom2.Element;
 
 /**
  * This is one of the most important programs/steps on the semi-automatic annotation
