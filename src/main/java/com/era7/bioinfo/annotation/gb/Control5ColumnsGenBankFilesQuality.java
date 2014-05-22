@@ -16,7 +16,6 @@
  */
 package com.era7.bioinfo.annotation.gb;
 
-import com.era7.lib.bioinfo.bioinfoutil.Executable;
 import com.era7.lib.bioinfo.bioinfoutil.model.Feature;
 import com.era7.lib.bioinfoxml.*;
 import java.io.BufferedReader;

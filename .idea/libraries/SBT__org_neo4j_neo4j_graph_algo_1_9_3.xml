@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: org.neo4j:neo4j-graph-algo:1.9.3">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.neo4j/neo4j-graph-algo/jars/neo4j-graph-algo-1.9.3.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.neo4j/neo4j-graph-algo/docs/neo4j-graph-algo-1.9.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/org.neo4j/neo4j-graph-algo/srcs/neo4j-graph-algo-1.9.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
