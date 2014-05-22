@@ -16,7 +16,8 @@
  */
 package com.era7.bioinfo.annotation;
 
-import com.era7.lib.bioinfo.bioinfoutil.Executable;
+import com.ohnosequences.util.Executable;
+
 import java.io.*;
 import java.util.ArrayList;
 

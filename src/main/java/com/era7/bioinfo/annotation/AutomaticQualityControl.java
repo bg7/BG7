@@ -16,9 +16,6 @@
  */
 package com.era7.bioinfo.annotation;
 
-import com.era7.lib.bioinfo.bioinfoutil.Executable;
-import com.era7.lib.bioinfoxml.*;
-import com.era7.lib.era7xmlapi.model.XMLElement;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,10 +23,12 @@ import java.util.List;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.ohnosequences.xml.model.*;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.jdom.Element;
+import org.jdom2.Element;
 
 /**
  * 

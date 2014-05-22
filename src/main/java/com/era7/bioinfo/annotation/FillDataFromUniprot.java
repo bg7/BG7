@@ -16,17 +16,15 @@
  */
 package com.era7.bioinfo.annotation;
 
-import com.era7.lib.bioinfo.bioinfoutil.Executable;
-import com.era7.lib.bioinfo.bioinfoutil.uniprot.UniprotProteinRetreiver;
-import com.era7.lib.bioinfoxml.Annotation;
-import com.era7.lib.bioinfoxml.ContigXML;
-import com.era7.lib.bioinfoxml.PredictedGene;
-import com.era7.lib.bioinfoxml.PredictedGenes;
-import com.era7.lib.era7xmlapi.model.XMLElement;
+import com.ohnosequences.util.Executable;
+import com.ohnosequences.util.uniprot.UniprotProteinRetreiver;
+import com.ohnosequences.xml.api.model.XMLElement;
+import com.ohnosequences.xml.model.*;
+import org.jdom2.Element;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import org.jdom.Element;
 
 /**
  *
@@ -85,7 +83,7 @@ public class FillDataFromUniprot implements Executable {
                         
                         
                         try{
-                            gene = UniprotProteinRetreiver.getUniprotDataFor(gene,false);
+                            gene = UniprotProteinRetreiver.getUniprotDataFor(gene, false);
                             System.out.println("gene = " + gene.getAnnotationUniprotId() + " completed!");
                         }catch(Exception e){
                             System.out.println("There was an exception when retrieving the gene: " + gene.getAnnotationUniprotId());

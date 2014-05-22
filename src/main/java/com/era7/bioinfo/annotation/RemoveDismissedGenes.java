@@ -16,16 +16,14 @@
  */
 package com.era7.bioinfo.annotation;
 
-import com.era7.lib.bioinfo.bioinfoutil.Executable;
-import com.era7.lib.bioinfoxml.Annotation;
-import com.era7.lib.bioinfoxml.ContigXML;
-import com.era7.lib.bioinfoxml.PredictedGene;
-import com.era7.lib.bioinfoxml.PredictedGenes;
-import com.era7.lib.era7xmlapi.model.XMLElement;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import org.jdom.Element;
+
+import com.ohnosequences.util.Executable;
+import com.ohnosequences.xml.api.model.XMLElement;
+import com.ohnosequences.xml.model.*;
+import org.jdom2.Element;
 
 /**
  *
