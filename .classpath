@@ -1,0 +1,8 @@
+<classpath>
+  <classpathentry kind="src" path="src\main\scala" output="target\classes"/>
+  <classpathentry kind="src" path="src\main\java" output="target\classes"/>
+  <classpathentry kind="src" path="src\test\scala" output="target\test-classes"/>
+  <classpathentry kind="src" path="src\test\java" output="target\test-classes"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="output" path="bin"/>
+</classpath>
