@@ -7,7 +7,7 @@ package com.era7.bioinfo.annotation.gb;
 
 /**
  *
- * @author ppareja
+ * @author <a href="mailto:ppareja@era7.com">Pablo Pareja Tobes</a>
  */
 public class GBCommon {
 

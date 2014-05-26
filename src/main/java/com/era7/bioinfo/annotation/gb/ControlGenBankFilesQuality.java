@@ -31,7 +31,7 @@ import org.jdom2.Element;
 
 /**
  *
- * @author ppareja
+ * @author <a href="mailto:ppareja@era7.com">Pablo Pareja Tobes</a>
  */
 public class ControlGenBankFilesQuality implements Executable {
 

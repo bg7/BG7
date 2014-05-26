@@ -28,7 +28,7 @@ import java.util.List;
 
 /**
  *
- * @author ppareja
+ * @author <a href="mailto:ppareja@era7.com">Pablo Pareja Tobes</a>
  */
 public class FillDataFromUniprot implements Executable {
 

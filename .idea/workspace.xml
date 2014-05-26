@@ -27,9 +27,30 @@
       <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\gb\ExportGenBankFiles.java" afterPath="" />
       <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\gb\GBCommon.java" afterPath="" />
       <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\gb\ImportGenBankFiles.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/bg7-build.iml" afterPath="$PROJECT_DIR$/.idea/modules/bg7-build.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/bg7.iml" afterPath="$PROJECT_DIR$/.idea/modules/bg7.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/sbt.xml" afterPath="$PROJECT_DIR$/.idea/sbt.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/AutomaticQualityControl.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/AutomaticQualityControl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/BG7.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/BG7.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/BasicQualityControl.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/BasicQualityControl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/Control5ColumnsGenBankFilesQuality.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/Control5ColumnsGenBankFilesQuality.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ControlGenBankFilesQuality.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ControlGenBankFilesQuality.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/Export5ColumnsGenBankFiles.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/Export5ColumnsGenBankFiles.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/embl/ExportEmblFiles.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/embl/ExportEmblFiles.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ExportGenBankFiles.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ExportGenBankFiles.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FillDataFromUniprot.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FillDataFromUniprot.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FixFastaHeaders.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FixFastaHeaders.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FixFastaHeadersQC.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FixFastaHeadersQC.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/GBCommon.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/GBCommon.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GeneEValuePair.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GeneEValuePair.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateCSVFile.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateCSVFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateFastaFiles.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateFastaFiles.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateGffFile.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateGffFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GetIntergenicSequences.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GetIntergenicSequences.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GffLine.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GffLine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ImportGenBankFiles.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ImportGenBankFiles.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/PredictGenes.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/PredictGenes.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/RemoveDismissedGenes.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/RemoveDismissedGenes.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/RemoveDuplicatedGenes.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/RemoveDuplicatedGenes.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/SolveOverlappings.java" afterPath="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/SolveOverlappings.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bg7.iws" />
@@ -65,26 +86,29 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ImportGenBankFiles.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/RemoveDismissedGenes.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/BasicQualityControl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/BG7.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FillDataFromUniprot.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FixFastaHeaders.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FixFastaHeadersQC.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/AutomaticQualityControl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GeneEValuePair.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateCSVFile.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateFastaFiles.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateGffFile.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GetIntergenicSequences.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GffLine.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/PredictGenes.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/RemoveDismissedGenes.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/RemoveDuplicatedGenes.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/SolveOverlappings.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/embl/ExportEmblFiles.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/BasicQualityControl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/AutomaticQualityControl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ExportGenBankFiles.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/Control5ColumnsGenBankFilesQuality.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ControlGenBankFilesQuality.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/Export5ColumnsGenBankFiles.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/PredictGenes.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FixFastaHeadersQC.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ExportGenBankFiles.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/GBCommon.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ImportGenBankFiles.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/embl/ExportEmblFiles.java" />
       </list>
     </option>
   </component>
@@ -136,6 +160,124 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="bg7" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bg7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bg7" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bg7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bg7" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bg7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bg7" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="annotation" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bg7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bg7" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="annotation" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gb" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bg7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bg7" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="annotation" />
+              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="embl" />
               <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -460,150 +602,196 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ImportGenBankFiles.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/BasicQualityControl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6443">
-          <caret line="25" column="37" selection-start-line="25" selection-start-column="37" selection-end-line="25" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/RemoveDismissedGenes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="941" max-vertical-offset="1598">
-          <caret line="78" column="35" selection-start-line="78" selection-start-column="35" selection-end-line="78" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2652">
+          <caret line="29" column="11" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="67" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/BG7.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="68" max-vertical-offset="476">
-          <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+          <caret line="24" column="67" selection-start-line="24" selection-start-column="67" selection-end-line="24" selection-end-column="67" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FillDataFromUniprot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="159" max-vertical-offset="1870">
-          <caret line="74" column="28" selection-start-line="74" selection-start-column="28" selection-end-line="74" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1734">
+          <caret line="30" column="67" selection-start-line="30" selection-start-column="67" selection-end-line="30" selection-end-column="67" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FixFastaHeaders.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="1496">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateCSVFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1288" max-vertical-offset="2924">
-          <caret line="96" column="28" selection-start-line="96" selection-start-column="28" selection-end-line="96" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateFastaFiles.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1203" max-vertical-offset="2890">
-          <caret line="95" column="35" selection-start-line="95" selection-start-column="35" selection-end-line="95" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateGffFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3570">
-          <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GetIntergenicSequences.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2556" max-vertical-offset="5151">
-          <caret line="168" column="34" selection-start-line="168" selection-start-column="34" selection-end-line="168" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/RemoveDuplicatedGenes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24489796" vertical-offset="1978" max-vertical-offset="4692">
-          <caret line="137" column="31" selection-start-line="137" selection-start-column="31" selection-end-line="137" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/SolveOverlappings.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="8268" max-vertical-offset="9843">
-          <caret line="509" column="63" selection-start-line="509" selection-start-column="63" selection-end-line="509" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/embl/ExportEmblFiles.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2658" max-vertical-offset="10625">
-          <caret line="179" column="49" selection-start-line="179" selection-start-column="49" selection-end-line="179" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/BasicQualityControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.54846936" vertical-offset="958" max-vertical-offset="2771">
-          <caret line="84" column="32" selection-start-line="84" selection-start-column="32" selection-end-line="84" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/AutomaticQualityControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6953">
-          <caret line="47" column="10" selection-start-line="47" selection-start-column="10" selection-end-line="47" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#20538#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ExportGenBankFiles.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="6296" max-vertical-offset="11832">
-          <caret line="393" column="19" selection-start-line="393" selection-start-column="19" selection-end-line="393" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/Control5ColumnsGenBankFilesQuality.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1951" max-vertical-offset="3400">
-          <caret line="132" column="35" selection-start-line="132" selection-start-column="35" selection-end-line="132" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ControlGenBankFilesQuality.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2614" max-vertical-offset="5355">
-          <caret line="158" column="121" selection-start-line="158" selection-start-column="121" selection-end-line="158" selection-end-column="121" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/Export5ColumnsGenBankFiles.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1942" max-vertical-offset="4794">
-          <caret line="135" column="35" selection-start-line="135" selection-start-column="35" selection-end-line="135" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/PredictGenes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29336736" vertical-offset="7450" max-vertical-offset="12155">
-          <caret line="460" column="41" selection-start-line="460" selection-start-column="41" selection-end-line="460" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="1445">
+          <caret line="25" column="67" selection-start-line="25" selection-start-column="67" selection-end-line="25" selection-end-column="67" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/FixFastaHeadersQC.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="2006">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="115" max-vertical-offset="2006">
+          <caret line="15" column="67" selection-start-line="15" selection-start-column="67" selection-end-line="15" selection-end-column="67" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/AutomaticQualityControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="6953">
+          <caret line="32" column="67" selection-start-line="32" selection-start-column="67" selection-end-line="32" selection-end-column="67" />
+          <folding>
+            <element signature="e#0#20557#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GeneEValuePair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
+          <caret line="20" column="67" selection-start-line="20" selection-start-column="67" selection-end-line="20" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateCSVFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2805">
+          <caret line="29" column="67" selection-start-line="29" selection-start-column="67" selection-end-line="29" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateFastaFiles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2754">
+          <caret line="30" column="67" selection-start-line="30" selection-start-column="67" selection-end-line="30" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GenerateGffFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="132" max-vertical-offset="3570">
+          <caret line="28" column="67" selection-start-line="28" selection-start-column="67" selection-end-line="28" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GetIntergenicSequences.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="4981">
+          <caret line="32" column="67" selection-start-line="32" selection-start-column="67" selection-end-line="32" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/GffLine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="9" max-vertical-offset="850">
+          <caret line="21" column="67" selection-start-line="21" selection-start-column="67" selection-end-line="21" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/PredictGenes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="11951">
+          <caret line="35" column="67" selection-start-line="35" selection-start-column="67" selection-end-line="35" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/RemoveDismissedGenes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1479">
+          <caret line="29" column="67" selection-start-line="29" selection-start-column="67" selection-end-line="29" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/RemoveDuplicatedGenes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4590">
+          <caret line="28" column="67" selection-start-line="28" selection-start-column="67" selection-end-line="28" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/SolveOverlappings.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="9690">
+          <caret line="31" column="67" selection-start-line="31" selection-start-column="67" selection-end-line="31" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/Control5ColumnsGenBankFilesQuality.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3230">
+          <caret line="32" column="67" selection-start-line="32" selection-start-column="67" selection-end-line="32" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ControlGenBankFilesQuality.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5168">
+          <caret line="33" column="67" selection-start-line="33" selection-start-column="67" selection-end-line="33" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/Export5ColumnsGenBankFiles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4692">
+          <caret line="28" column="67" selection-start-line="28" selection-start-column="67" selection-end-line="28" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ExportGenBankFiles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="11696">
+          <caret line="30" column="67" selection-start-line="30" selection-start-column="67" selection-end-line="30" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/GBCommon.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="799">
+          <caret line="9" column="67" selection-start-line="9" selection-start-column="67" selection-end-line="9" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/gb/ImportGenBankFiles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="182" max-vertical-offset="6443">
+          <caret line="30" column="67" selection-start-line="30" selection-start-column="67" selection-end-line="30" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/era7/bioinfo/annotation/embl/ExportEmblFiles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30357143" vertical-offset="0" max-vertical-offset="10489">
+          <caret line="30" column="67" selection-start-line="30" selection-start-column="67" selection-end-line="30" selection-end-column="67" />
+          <folding />
         </state>
       </provider>
     </entry>

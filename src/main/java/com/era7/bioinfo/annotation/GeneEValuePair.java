@@ -18,7 +18,7 @@ package com.era7.bioinfo.annotation;
 
 /**
  * Utility class used in the semi-automatic gene annotation process
- * @author Pablo Pareja Tobes <ppareja@era7.com>
+ * @author <a href="mailto:ppareja@era7.com">Pablo Pareja Tobes</a>
  */
 public class GeneEValuePair implements Comparable<GeneEValuePair> {
 

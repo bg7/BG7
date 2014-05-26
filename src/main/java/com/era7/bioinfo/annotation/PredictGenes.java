@@ -33,7 +33,7 @@ import org.jdom2.Element;
 /**
  * This is one of the most important programs/steps on the semi-automatic annotation
  * process. It carries out the gene prediction phase of the process
- * @author Pablo Pareja Tobes <ppareja@era7.com>
+ * @author <a href="mailto:ppareja@era7.com">Pablo Pareja Tobes</a>
  */
 public class PredictGenes implements Executable {
 
