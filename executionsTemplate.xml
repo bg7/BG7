@@ -1,6 +1,6 @@
 <scheduled_executions>
 	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.FixFastaHeaders</class_full_name>
+		<class_full_name>com.ohnosequences.bg7.FixFastaHeaders</class_full_name>
 		<arguments>
 			<argument>XX_sequences.fna</argument>
 			<argument>XX_sequences_header_fixed.fna</argument>
@@ -8,7 +8,7 @@
 		</arguments>
 	</execution>
 	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.PredictGenes</class_full_name>
+		<class_full_name>com.ohnosequences.bg7.PredictGenes</class_full_name>
 		<arguments>
 			<argument>XX_proteins_tBLASTn.xml</argument>
 			<argument>XX_sequences_header_fixed.fna</argument>
@@ -19,7 +19,7 @@
 		</arguments>
 	</execution>
 	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.RemoveDuplicatedGenes</class_full_name>
+		<class_full_name>com.ohnosequences.bg7.RemoveDuplicatedGenes</class_full_name>
 		<arguments>
 			<argument>XX_PredictedGenes.xml</argument>
 			<argument>XX_NoDuplicates.xml</argument>
@@ -27,7 +27,7 @@
 		</arguments>
 	</execution>
 	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.SolveOverlappings</class_full_name>
+		<class_full_name>com.ohnosequences.bg7.SolveOverlappings</class_full_name>
 		<arguments>
 			<argument>XX_NoDuplicates.xml</argument>
 			<argument>XX_SolvedOverlaps.xml</argument>
@@ -38,7 +38,7 @@
 		</arguments>
 	</execution>
 	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.GenerateFastaFiles</class_full_name>
+		<class_full_name>com.ohnosequences.bg7.GenerateFastaFiles</class_full_name>
 		<arguments>
 			<argument>XX_SolvedOverlaps.xml</argument>
 			<argument>XX_protein_nucleotide_sequences.fasta</argument>
@@ -46,35 +46,35 @@
 		</arguments>
 	</execution>	
 	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.FillDataFromUniprot</class_full_name> 
+		<class_full_name>com.ohnosequences.bg7.FillDataFromUniprot</class_full_name> 
 		<arguments>
 			<argument>XX_SolvedOverlaps.xml</argument> 
 			<argument>XX_Annotation_Dismissed_incl.xml</argument> 
 		</arguments>
 	</execution>
 	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.RemoveDismissedGenes</class_full_name>
+		<class_full_name>com.ohnosequences.bg7.RemoveDismissedGenes</class_full_name>
 		<arguments>
 			<argument>XX_Annotation_Dismissed_incl.xml</argument>
 			<argument>XX_Annotation.xml</argument>
 		</arguments>
 	</execution>
 	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.GenerateGffFile</class_full_name>
+		<class_full_name>com.ohnosequences.bg7.GenerateGffFile</class_full_name>
 		<arguments>
 			<argument>XX_Annotation.xml</argument>
 			<argument>XX_Annotation_GFF.gff</argument>
 		</arguments>
 	</execution>
 	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.GenerateCSVFile</class_full_name>
+		<class_full_name>com.ohnosequences.bg7.GenerateCSVFile</class_full_name>
 		<arguments>
 			<argument>XX_Annotation.xml</argument>
 			<argument>XX_Annotation.txt</argument>
 		</arguments>
 	</execution>
 	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.GetIntergenicSequences</class_full_name>
+		<class_full_name>com.ohnosequences.bg7.GetIntergenicSequences</class_full_name>
 		<arguments>
 			<argument>XX_Annotation.xml</argument>
 			<argument>XX_sequences_header_fixed.fna</argument>
@@ -83,7 +83,7 @@
 		</arguments>
 	</execution>
 	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.gb.ExportGenBankFiles</class_full_name>
+		<class_full_name>com.ohnosequences.bg7.gb.ExportGenBankFiles</class_full_name>
 		<arguments>
 			<argument>XX_Annotation.xml</argument>
 			<argument>XX_GenBankGeneralInfo.xml</argument>
@@ -92,7 +92,7 @@
 		</arguments>
 	</execution>
 	<execution>
-		<class_full_name>com.era7.bioinfo.annotation.BasicQualityControl</class_full_name>
+		<class_full_name>com.ohnosequences.bg7.BasicQualityControl</class_full_name>
 		<arguments>
 			<argument>XX_PredictedGenes.xml</argument>
 			<argument>XX_DiscardedGenes.xml</argument>
