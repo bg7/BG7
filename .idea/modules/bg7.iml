@@ -11,7 +11,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/../../target/classes" />
     <output-test url="file://$MODULE_DIR$/../../target/test-classes" />
     <exclude-output />
@@ -53,6 +53,10 @@
     <orderEntry type="library" name="SBT: org.neo4j:neo4j-lucene-index:1.9.3" level="project" />
     <orderEntry type="library" name="SBT: org.neo4j:neo4j-udc:1.9.3" level="project" />
     <orderEntry type="library" name="SBT: org.scala-lang:scala-library:2.10.4" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: com.novocode:junit-interface:0.9" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: junit:junit-dep:4.8.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.hamcrest:hamcrest-core:1.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="SBT: org.scala-tools.testing:test-interface:0.5" level="project" />
   </component>
 </module>
 

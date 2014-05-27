@@ -26,6 +26,10 @@
   <classpathentry kind="lib" path="C:\Users\ppareja\.ivy2\cache\com.fasterxml.jackson.core\jackson-annotations\jars\jackson-annotations-2.1.1.jar"/>
   <classpathentry kind="lib" path="C:\Users\ppareja\.ivy2\cache\org.apache.commons\commons-math\jars\commons-math-2.1.jar"/>
   <classpathentry kind="lib" path="C:\Users\ppareja\.ivy2\cache\org.jdom\jdom\jars\jdom-2.0.2.jar"/>
+  <classpathentry kind="lib" path="C:\Users\ppareja\.ivy2\cache\com.novocode\junit-interface\jars\junit-interface-0.9.jar"/>
+  <classpathentry kind="lib" path="C:\Users\ppareja\.ivy2\cache\junit\junit-dep\jars\junit-dep-4.8.2.jar"/>
+  <classpathentry kind="lib" path="C:\Users\ppareja\.ivy2\cache\org.hamcrest\hamcrest-core\jars\hamcrest-core-1.1.jar"/>
+  <classpathentry kind="lib" path="C:\Users\ppareja\.ivy2\cache\org.scala-tools.testing\test-interface\jars\test-interface-0.5.jar"/>
   <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
   <classpathentry kind="output" path="bin"/>
 </classpath>

@@ -14,6 +14,7 @@ public class GBCommon {
     public static final String GEN_BANK_FILE_EXTENSION = ".gbk";
     public static final int NUMBER_OF_WHITE_SPACES_FOR_INDENTATION = 12;
     public static final int NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_FEATURES = 21;
+    public static final int NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_GENE = 5;
     public static final String FIRST_LEVEL_INDENTATION = "  ";
     public static final String FIRST_LEVEL_INDENTATION_FEATURES = "     ";
     public static final String LOCUS_STR = "LOCUS";
@@ -28,9 +29,9 @@ public class GBCommon {
     public static final String FEATURES_STR = "FEATURES";
     public static final String COMMENT_STR = "COMMENT";
     public static final String SOURCE_FEATURES_STR = "source";
-    public static final String CDS_STR = "/CDS";
-    public static final String GENE_STR = "/gene";
-    public static final String RNA_STR = "/rna";
+    public static final String CDS_STR = "CDS";
+    public static final String GENE_STR = "gene";
+    public static final String RNA_STR = "rna";
     public static final String BASE_PAIRS_STR = "bp";
     public static final String CONTIGS_SIZE_STR = "rc";
     public static final String ORIGIN_STR = "ORIGIN";

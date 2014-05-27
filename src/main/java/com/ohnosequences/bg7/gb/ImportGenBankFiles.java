@@ -22,9 +22,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.fasterxml.jackson.core.PrettyPrinter;
 import com.ohnosequences.util.Executable;
+import com.ohnosequences.xml.api.util.XMLUtil;
 import com.ohnosequences.xml.model.*;
 import org.jdom2.Element;
+
+import javax.xml.transform.TransformerException;
 
 /**
  * 
@@ -49,34 +53,39 @@ public class ImportGenBankFiles implements Executable {
 
             File file = new File(args[0]);
 
-            if (file.isDirectory()) {
+            try{
+                if (file.isDirectory()) {
 
-                File[] files = file.listFiles();
-                for (File subFile : files) {
-                    if (subFile.isFile() && subFile.getName().endsWith(GBCommon.GEN_BANK_FILE_EXTENSION)) {
-                        Annotation annotation = importGenBankFile(subFile);
+                    File[] files = file.listFiles();
+                    for (File subFile : files) {
+                        if (subFile.isFile() && subFile.getName().endsWith(GBCommon.GEN_BANK_FILE_EXTENSION)) {
+                            Annotation annotation = importGenBankFile(subFile);
+                            writeFile(annotation,file);
+                        }
+                    }
+
+                } else {
+
+                    if (file.getName().endsWith(GBCommon.GEN_BANK_FILE_EXTENSION)) {
+                        Annotation annotation = importGenBankFile(file);
                         writeFile(annotation,file);
+                    } else {
+                        System.out.println("The file provided does not have " + GBCommon.GEN_BANK_FILE_EXTENSION + " extension");
                     }
                 }
-
-            } else {
-
-                if (file.getName().endsWith(GBCommon.GEN_BANK_FILE_EXTENSION)) {
-                    Annotation annotation = importGenBankFile(file);
-                    writeFile(annotation,file);
-                } else {
-                    System.out.println("The file provided does not have " + GBCommon.GEN_BANK_FILE_EXTENSION + " extension");
-                }
+            }catch (Exception e){
+                e.printStackTrace();
             }
+
         }
     }
 
-    private static void writeFile(Annotation annotation, File file){
+    private static void writeFile(Annotation annotation, File file) throws TransformerException {
         BufferedWriter writer = null;
         try {
             String outFileName = file.getName().split("\\"+ GBCommon.GEN_BANK_FILE_EXTENSION)[0] + ".xml";
             writer = new BufferedWriter(new FileWriter(new File(outFileName)));
-            writer.write(annotation.toString());
+            writer.write(XMLUtil.prettyPrintXML(annotation.toString(), 5));
             writer.close();
             System.out.println("File " + outFileName + " created successfully! :)");
         } catch (IOException ex) {
@@ -161,9 +170,10 @@ public class ImportGenBankFiles implements Executable {
 
             while (!line.trim().startsWith(GBCommon.ORIGIN_STR)) {
 
-                //System.out.println("line1 = " + line);
+//                System.out.println("line1 = " + line);
 
-                if (line.trim().startsWith(GBCommon.GENE_STR)) {
+                if (line.trim().startsWith(GBCommon.GENE_STR) &&
+                        checkStringContainsWhiteSpacesAtTheBeginning(line, GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_GENE)) {
 
                     //-------------GET STRAND & START/END POSITION--------------------
                     //---------------------------------------------------------------
@@ -176,36 +186,47 @@ public class ImportGenBankFiles implements Executable {
                         positionSt = line.split(GBCommon.GENE_STR)[1].trim();
                     }
 
+                    boolean positionsIncludeJoin = positionSt.indexOf("join(") >= 0;
+
+
                     boolean startIsCanonical = true;
                     boolean endIsCanonical = true;
-                    int startPosition, endPosition;
-                    //Now I have to figure out if start/end are canonical or not
-                    if (positionSt.charAt(0) == '<') {
-                        if (strandIsNegative) {
-                            endIsCanonical = false;
-                        } else {
-                            startIsCanonical = false;
+                    int startPosition = 4, endPosition = 5;
+                    String geneName = "";
+
+                    if(!positionsIncludeJoin){
+                        //Now I have to figure out if start/end are canonical or not
+                        if (positionSt.charAt(0) == '<') {
+                            if (strandIsNegative) {
+                                endIsCanonical = false;
+                            } else {
+                                startIsCanonical = false;
+                            }
+                            positionSt = positionSt.substring(1);
                         }
-                        positionSt = positionSt.substring(1);
-                    }
-                    if (positionSt.charAt(positionSt.length() - 1) == '>') {
-                        if (strandIsNegative) {
-                            startIsCanonical = false;
-                        } else {
-                            endIsCanonical = false;
+                        if (positionSt.charAt(positionSt.length() - 1) == '>') {
+                            if (strandIsNegative) {
+                                startIsCanonical = false;
+                            } else {
+                                endIsCanonical = false;
+                            }
+                            positionSt = positionSt.substring(0, positionSt.length() - 1);
                         }
-                        positionSt = positionSt.substring(0, positionSt.length() - 1);
+                        int pos1, pos2;
+                        pos1 = Integer.parseInt(positionSt.split("\\.\\.")[0]);
+                        pos2 = Integer.parseInt(positionSt.split("\\.\\.")[1]);
+                        if (strandIsNegative) {
+                            startPosition = pos2;
+                            endPosition = pos1;
+                        } else {
+                            startPosition = pos1;
+                            endPosition = pos2;
+                        }
                     }
-                    int pos1, pos2;
-                    pos1 = Integer.parseInt(positionSt.split("\\.\\.")[0]);
-                    pos2 = Integer.parseInt(positionSt.split("\\.\\.")[1]);
-                    if (strandIsNegative) {
-                        startPosition = pos2;
-                        endPosition = pos1;
-                    } else {
-                        startPosition = pos1;
-                        endPosition = pos2;
-                    }
+
+
+
+
 
                     //---------------------------------------------------------------
                     //---------------------------------------------------------------
@@ -213,6 +234,11 @@ public class ImportGenBankFiles implements Executable {
                     //----SKIP LINES TILL CDS /xRNA IS FOUND--------------
                     do {
                         line = reader.readLine();
+                        if(line.trim().startsWith("/gene=")){
+                            System.out.println(line);
+                            geneName = line.trim().split("=")[1].split("\"")[1];
+
+                        }
                     } while (!line.trim().startsWith(GBCommon.CDS_STR)
                             && (line.trim().split(" |\t")[0].toUpperCase().indexOf("RNA") < 0));
                     //-------------------------------------------------------------
@@ -293,6 +319,7 @@ public class ImportGenBankFiles implements Executable {
                         tempGene.setEndPosition(endPosition);
                         tempGene.setStartIsCanonical(startIsCanonical);
                         tempGene.setEndIsCanonical(endIsCanonical);
+                        tempGene.setGeneNames(geneName);
                         if (strandIsNegative) {
                             tempGene.setStrand(PredictedRna.NEGATIVE_STRAND);
                         } else {
@@ -307,9 +334,7 @@ public class ImportGenBankFiles implements Executable {
 
                 }
 
-                if (!line.trim().startsWith(GBCommon.ORIGIN_STR) && !line.trim().startsWith(GBCommon.GENE_STR)) {
-                    line = reader.readLine();
-                }
+                line = reader.readLine();
 
             }
 
@@ -359,6 +384,8 @@ public class ImportGenBankFiles implements Executable {
                         startPos = tempGene.getEndPosition() - 1;
                         endPos = tempGene.getStartPosition();
                     }
+                    System.out.println(tempGene.getGeneNames());
+                    System.out.println(startPos + "," + endPos);
                     tempGene.setSequence(contigSequence.substring(startPos, endPos));
                 }
 
@@ -384,5 +411,22 @@ public class ImportGenBankFiles implements Executable {
 
         return null;
 
+    }
+
+    public static boolean checkStringContainsWhiteSpacesAtTheBeginning(String str, int numberOfWhiteSpaces){
+        if(str.length() > numberOfWhiteSpaces){
+            for(int i=0;i < numberOfWhiteSpaces; i++){
+                if(str.charAt(i) != ' '){
+                    return false;
+                }
+            }
+            if(str.charAt(numberOfWhiteSpaces) != ' '){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
 }

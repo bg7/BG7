@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.path="C:\era7\ppareja\proyectos\JAVA\bg7\project" external.root.project.path="$MODULE_DIR$/../.." external.system.id="SBT" sbt.imports="sbt._, Keys._,   import _root_.org.jetbrains.sbt.StructurePlugin._, _root_.ohnosequences.sbt.nice.AssemblySettings._, _root_.ohnosequences.sbt.nice.DocumentationSettings._, _root_.ohnosequences.sbt.nice.JavaSettings._, _root_.ohnosequences.sbt.nice.MetadataSettings._, _root_.ohnosequences.sbt.nice.NiceProjectConfigs._, _root_.ohnosequences.sbt.nice.ReleaseSettings._, _root_.ohnosequences.sbt.nice.ResolverSettings._, _root_.ohnosequences.sbt.nice.ScalaSettings._, _root_.ohnosequences.sbt.nice.TagListSettings._, _root_.ohnosequences.sbt.SbtS3Resolver._, _root_.ohnosequences.sbt.SbtGithubReleasePlugin._, _root_.sbtrelease.ReleasePlugin._, _root_.sbtassembly.Plugin._, _root_.com.timushev.sbt.updates.UpdatesPlugin._, _root_.laughedelic.literator.plugin.LiteratorPlugin._, _root_.com.markatta.sbttaglist.TagListPlugin._&#10;      " type="SBT_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/../../project/target/idea-classes" />
     <output-test url="file://$MODULE_DIR$/../../project/target/idea-test-classes" />
     <exclude-output />
@@ -11,7 +11,7 @@
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library name="SBT: sbt-and-plugins">
         <CLASSES>
           <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-sbt/classfile/jars/classfile-0.13.0.jar!/" />
