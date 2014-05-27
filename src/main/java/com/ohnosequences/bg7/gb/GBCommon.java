@@ -28,9 +28,9 @@ public class GBCommon {
     public static final String FEATURES_STR = "FEATURES";
     public static final String COMMENT_STR = "COMMENT";
     public static final String SOURCE_FEATURES_STR = "source";
-    public static final String CDS_STR = "CDS";
-    public static final String GENE_STR = "gene";
-    public static final String RNA_STR = "rna";
+    public static final String CDS_STR = "/CDS";
+    public static final String GENE_STR = "/gene";
+    public static final String RNA_STR = "/rna";
     public static final String BASE_PAIRS_STR = "bp";
     public static final String CONTIGS_SIZE_STR = "rc";
     public static final String ORIGIN_STR = "ORIGIN";

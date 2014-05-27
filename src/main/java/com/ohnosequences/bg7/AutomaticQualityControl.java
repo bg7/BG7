@@ -14,19 +14,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.era7.bioinfo.annotation;
+package com.ohnosequences.bioinfo.annotation;
 
-import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.TreeSet;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.ohnosequences.util.Executable;
-import com.ohnosequences.xml.model.*;
-import org.jdom2.Element;
 
 /**
  * 

@@ -13,6 +13,7 @@ bucketSuffix := "era7.com"
 resolvers += "Era7 maven snapshots" at "http://snapshots.era7.com.s3.amazonaws.com"
 
 libraryDependencies += "ohnosequences" % "bioinfo-util" % "1.4.0-SNAPSHOT"
+libraryDependencies += "com.novocode" % "junit-interface" % "0.9" % "test"
 
 dependencyOverrides ++= Set(
   "commons-codec" % "commons-codec" % "1.7",
