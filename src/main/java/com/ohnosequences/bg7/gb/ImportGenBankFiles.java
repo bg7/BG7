@@ -170,12 +170,14 @@ public class ImportGenBankFiles implements Executable {
 
             while (!line.trim().startsWith(GBCommon.ORIGIN_STR)) {
 
-//                System.out.println("line1 = " + line);
+                boolean newGeneReached = false;
 
                 if (line.trim().startsWith(GBCommon.GENE_STR) &&
                         checkStringContainsWhiteSpacesAtTheBeginning(line, GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_GENE)) {
 
                     System.out.println(line);
+
+
 
                     //-------------GET STRAND & START/END POSITION--------------------
                     //---------------------------------------------------------------
@@ -298,6 +300,8 @@ public class ImportGenBankFiles implements Executable {
                             && !(line.trim().startsWith(GBCommon.GENE_STR)));
                     //-------------------------------------------------------------
 
+                    newGeneReached = !productFound;
+
                     String productSt = "";
                     //----I'm already in the product line--------------
                     if(productFound){
@@ -318,13 +322,20 @@ public class ImportGenBankFiles implements Executable {
 
 
                     //----READING LINES TILL FINDING EITHER TRANSLATION OR OTHER GENE--------------
-                    do {
-                        line = reader.readLine();
-                        System.out.println("AAA: " + line);
-                    } while (!line.trim().startsWith("/translation=")
-                            && !(line.trim().startsWith(GBCommon.GENE_STR))
-                            && !(line.trim().startsWith(GBCommon.ORIGIN_STR)));
-                    //-------------------------------------------------------------
+                    boolean translationFound = false;
+                    if(!newGeneReached){
+                        do {
+                            line = reader.readLine();
+                            translationFound = line.trim().startsWith("/translation=");
+                        } while (!translationFound
+                                && !(line.trim().startsWith(GBCommon.GENE_STR))
+                                && !(line.trim().startsWith(GBCommon.ORIGIN_STR)));
+                        //-------------------------------------------------------------
+                    }
+
+                    if(!translationFound){
+                        newGeneReached = true;
+                    }
 
                     //---------------translation line-------------------------
                     if (line.trim().startsWith("/translation=")) {
@@ -402,7 +413,9 @@ public class ImportGenBankFiles implements Executable {
 
                 }
 
-                line = reader.readLine();
+                if(!newGeneReached){
+                    line = reader.readLine();
+                }
 
             }
 
