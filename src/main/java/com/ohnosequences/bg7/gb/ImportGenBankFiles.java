@@ -175,6 +175,8 @@ public class ImportGenBankFiles implements Executable {
                 if (line.trim().startsWith(GBCommon.GENE_STR) &&
                         checkStringContainsWhiteSpacesAtTheBeginning(line, GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_GENE)) {
 
+                    System.out.println(line);
+
                     //-------------GET STRAND & START/END POSITION--------------------
                     //---------------------------------------------------------------
 
@@ -191,40 +193,77 @@ public class ImportGenBankFiles implements Executable {
 
                     boolean startIsCanonical = true;
                     boolean endIsCanonical = true;
-                    int startPosition = 4, endPosition = 5;
+                    int startPosition1, endPosition1, startPosition2 = 0, endPosition2 = 0;
                     String geneName = "";
 
-                    if(!positionsIncludeJoin){
-                        //Now I have to figure out if start/end are canonical or not
-                        if (positionSt.charAt(0) == '<') {
+                    if(positionsIncludeJoin){
+
+                        System.out.println("join!");
+
+                        positionSt = line.split("join\\(")[1].split("\\)")[0];
+                        String[] cols = positionSt.split(",");
+                        positionSt = cols[0];
+                        String position2St = cols[1];
+
+                        System.out.println("positionSt = " + positionSt);
+                        System.out.println("position2St = " + position2St);
+
+                        //---------------Retrieving positions of seconds gene in the join----------------
+                        if (position2St.charAt(0) == '<') {
                             if (strandIsNegative) {
                                 endIsCanonical = false;
                             } else {
                                 startIsCanonical = false;
                             }
-                            positionSt = positionSt.substring(1);
+                            position2St = position2St.substring(1);
                         }
-                        if (positionSt.charAt(positionSt.length() - 1) == '>') {
+                        if (position2St.charAt(position2St.length() - 1) == '>') {
                             if (strandIsNegative) {
                                 startIsCanonical = false;
                             } else {
                                 endIsCanonical = false;
                             }
-                            positionSt = positionSt.substring(0, positionSt.length() - 1);
+                            position2St = position2St.substring(0, position2St.length() - 1);
                         }
                         int pos1, pos2;
-                        pos1 = Integer.parseInt(positionSt.split("\\.\\.")[0]);
-                        pos2 = Integer.parseInt(positionSt.split("\\.\\.")[1]);
+                        pos1 = Integer.parseInt(position2St.split("\\.\\.")[0]);
+                        pos2 = Integer.parseInt(position2St.split("\\.\\.")[1]);
                         if (strandIsNegative) {
-                            startPosition = pos2;
-                            endPosition = pos1;
+                            startPosition2 = pos2;
+                            endPosition2 = pos1;
                         } else {
-                            startPosition = pos1;
-                            endPosition = pos2;
+                            startPosition2 = pos1;
+                            endPosition2 = pos2;
                         }
                     }
 
-
+                    //Now I have to figure out if start/end are canonical or not
+                    if (positionSt.charAt(0) == '<') {
+                        if (strandIsNegative) {
+                            endIsCanonical = false;
+                        } else {
+                            startIsCanonical = false;
+                        }
+                        positionSt = positionSt.substring(1);
+                    }
+                    if (positionSt.charAt(positionSt.length() - 1) == '>') {
+                        if (strandIsNegative) {
+                            startIsCanonical = false;
+                        } else {
+                            endIsCanonical = false;
+                        }
+                        positionSt = positionSt.substring(0, positionSt.length() - 1);
+                    }
+                    int pos1, pos2;
+                    pos1 = Integer.parseInt(positionSt.split("\\.\\.")[0]);
+                    pos2 = Integer.parseInt(positionSt.split("\\.\\.")[1]);
+                    if (strandIsNegative) {
+                        startPosition1 = pos2;
+                        endPosition1 = pos1;
+                    } else {
+                        startPosition1 = pos1;
+                        endPosition1 = pos2;
+                    }
 
 
 
@@ -235,7 +274,7 @@ public class ImportGenBankFiles implements Executable {
                     do {
                         line = reader.readLine();
                         if(line.trim().startsWith("/gene=")){
-                            System.out.println(line);
+                            //System.out.println(line);
                             geneName = line.trim().split("=")[1].split("\"")[1];
 
                         }
@@ -250,31 +289,38 @@ public class ImportGenBankFiles implements Executable {
 
                     String translationSt = "";
 
-                    //----SKIP LINES TILL FINDIND PRODUCT--------------
+                    //----SKIP LINES TILL PRODUCT IS FOUND--------------
+                    boolean productFound = false;
                     do {
                         line = reader.readLine();
-                    } while (!line.trim().startsWith("/product="));
+                        productFound = line.trim().startsWith("/product=");
+                    } while ( !productFound
+                            && !(line.trim().startsWith(GBCommon.GENE_STR)));
                     //-------------------------------------------------------------
 
+                    String productSt = "";
                     //----I'm already in the product line--------------
-                    String productSt = line.trim().split("/product=\"")[1];
-                    if (productSt.indexOf("\"") >= 0) {
-                        //the product must be completed in this line
-                        productSt = productSt.split("\"")[0];
-                    } else {
-                        do {
-                            line = reader.readLine();
-                            productSt += line.trim();
-                        } while (!line.trim().endsWith("\""));
-                        productSt = productSt.split("\"")[0];
+                    if(productFound){
+                        productSt = line.trim().split("/product=\"")[1];
+                        if (productSt.indexOf("\"") >= 0) {
+                            //the product must be completed in this line
+                            productSt = productSt.split("\"")[0];
+                        } else {
+                            do {
+                                line = reader.readLine();
+                                productSt += line.trim();
+                            } while (!line.trim().endsWith("\""));
+                            productSt = productSt.split("\"")[0];
+                        }
+                        //System.out.println("productSt = " + productSt);
                     }
-                    //System.out.println("productSt = " + productSt);
                     //-------------------------------------------------------------
 
 
                     //----READING LINES TILL FINDING EITHER TRANSLATION OR OTHER GENE--------------
                     do {
                         line = reader.readLine();
+                        System.out.println("AAA: " + line);
                     } while (!line.trim().startsWith("/translation=")
                             && !(line.trim().startsWith(GBCommon.GENE_STR))
                             && !(line.trim().startsWith(GBCommon.ORIGIN_STR)));
@@ -293,17 +339,18 @@ public class ImportGenBankFiles implements Executable {
                             } while (!line.trim().endsWith("\""));
                             translationSt = translationSt.split("\"")[0];
                         }
-                        //System.out.println("translationSt = " + productSt);
                     }
                     //-------------------------------------------------------------
+
+                    System.out.println(translationSt);
 
                     //System.out.println("isRna = " + isRna);
 
                     //-it's time to create the gene/rna
                     if (isRna) {
                         PredictedRna tempRna = new PredictedRna();
-                        tempRna.setStartPosition(startPosition);
-                        tempRna.setEndPosition(endPosition);
+                        tempRna.setStartPosition(startPosition1);
+                        tempRna.setEndPosition(endPosition1);
                         if (strandIsNegative) {
                             tempRna.setStrand(PredictedRna.NEGATIVE_STRAND);
                         } else {
@@ -314,16 +361,37 @@ public class ImportGenBankFiles implements Executable {
                         //System.out.println("tempRna = " + tempRna);
 
                     } else {
+
+                        //---------creating second gene in case there was a join-----------------
+                        if(positionsIncludeJoin){
+                            PredictedGene tempGene = new PredictedGene();
+                            tempGene.setStartPosition(startPosition2);
+                            tempGene.setEndPosition(endPosition2);
+                            tempGene.setStartIsCanonical(startIsCanonical);
+                            tempGene.setEndIsCanonical(endIsCanonical);
+                            tempGene.setGeneNames(geneName);
+                            if (strandIsNegative) {
+                                tempGene.setStrand(PredictedGene.NEGATIVE_STRAND);
+                            } else {
+                                tempGene.setStrand(PredictedGene.POSITIVE_STRAND);
+                            }
+                            tempGene.setProteinNames(productSt);
+                            if (translationSt.length() > 0) {
+                                tempGene.setProteinSequence(translationSt);
+                            }
+                            contigGenes.addPredictedGene(tempGene);
+                        }
+
                         PredictedGene tempGene = new PredictedGene();
-                        tempGene.setStartPosition(startPosition);
-                        tempGene.setEndPosition(endPosition);
+                        tempGene.setStartPosition(startPosition1);
+                        tempGene.setEndPosition(endPosition1);
                         tempGene.setStartIsCanonical(startIsCanonical);
                         tempGene.setEndIsCanonical(endIsCanonical);
                         tempGene.setGeneNames(geneName);
                         if (strandIsNegative) {
-                            tempGene.setStrand(PredictedRna.NEGATIVE_STRAND);
+                            tempGene.setStrand(PredictedGene.NEGATIVE_STRAND);
                         } else {
-                            tempGene.setStrand(PredictedRna.POSITIVE_STRAND);
+                            tempGene.setStrand(PredictedGene.POSITIVE_STRAND);
                         }
                         tempGene.setProteinNames(productSt);
                         if (translationSt.length() > 0) {
