@@ -312,7 +312,7 @@ public class ImportGenBankFiles implements Executable {
                         } else {
                             do {
                                 line = reader.readLine();
-                                productSt += line.trim();
+                                productSt += line.trim() + "\n";
                             } while (!line.trim().endsWith("\""));
                             productSt = productSt.split("\"")[0];
                         }
