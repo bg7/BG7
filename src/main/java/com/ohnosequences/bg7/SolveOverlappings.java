@@ -170,12 +170,12 @@ public class SolveOverlappings implements Executable {
                     //here I already have in the array the existing overlappings divided in two groups,
                     // greater or smaller than the bases threshold. Now it's time for all the magic
                     //regarding grouping and sorting pairs in order to see which ones are dismissed and when.
-                    TreeSet<GeneEValuePair> treeSet = new TreeSet<GeneEValuePair>();
+                    TreeSet<Pair<String, Double>> treeSet = new TreeSet<>();
                     for (Pair<Entry<String, Double>, Entry<String, Double>> pair : arraySolapamientosMayoresUmbral) {
-                        GeneEValuePair gene1 = new GeneEValuePair(pair.getValue1().getKey(), pair.getValue1().getValue());
+                        Pair<String, Double> gene1 = new Pair<String, Double>(pair.getValue1().getKey(), pair.getValue1().getValue());
                         treeSet.add(gene1);
                         //System.out.println("gene1.id = " + gene1.id);
-                        GeneEValuePair gene2 = new GeneEValuePair(pair.getValue2().getKey(), pair.getValue2().getValue());
+                        Pair<String, Double> gene2 = new Pair<String, Double>(pair.getValue2().getKey(), pair.getValue2().getValue());
                         //System.out.println("gene2.id = " + gene2.id);
                         treeSet.add(gene2);
                     }
@@ -193,8 +193,8 @@ public class SolveOverlappings implements Executable {
 //                    }
 
                     while (treeSet.size() > 0) {
-                        tempGenePair = treeSet.pollFirst();
-                        consoleBuff.write("tempGenePair = " + tempGenePair.id + ", e= " + tempGenePair.eValue + "\n");
+                        Pair<String, Double> tempGenePair = treeSet.pollFirst();
+                        consoleBuff.write("tempGenePair = " + tempGenePair.getValue1() + ", e= " + tempGenePair.getValue2() + "\n");
 
                         //array for storing the ids of the genes dismissed by the current tempGenePair 
                         ArrayList<String> anuladosArray = new ArrayList<String>();
@@ -204,32 +204,32 @@ public class SolveOverlappings implements Executable {
                             Entry<String, Double> value1 = pair.getValue1();
                             Entry<String, Double> value2 = pair.getValue2();
 
-                            if (value1.getKey().equals(tempGenePair.id)) {
+                            if (value1.getKey().equals(tempGenePair.getValue1())) {
                                 consoleBuff.write("value1 = " + value1 + "\n");
                                 consoleBuff.write("value2 = " + value2);
 
                                 //I'm in a pair corresponding to the current geneEvaluePair in value1
-                                if (value2.getValue() >= tempGenePair.eValue) {
-                                    dismissedGenes.put(value2.getKey(), tempGenePair.id);
+                                if (value2.getValue() >= tempGenePair.getValue2()) {
+                                    dismissedGenes.put(value2.getKey(), tempGenePair.getValue1());
                                     anuladosArray.add(value2.getKey());
                                     consoleBuff.write("value2 must be removed: " + value2.getKey() + "\n");
                                 } else {
-                                    dismissedGenes.put(tempGenePair.id, value2.getKey());
-                                    anuladosArray.add(tempGenePair.id);
+                                    dismissedGenes.put(tempGenePair.getValue1(), value2.getKey());
+                                    anuladosArray.add(tempGenePair.getValue1());
                                 }
-                            } else if (value2.getKey().equals(tempGenePair.id)) {
+                            } else if (value2.getKey().equals(tempGenePair.getValue1())) {
 
                                 consoleBuff.write("value1 = " + value1 + "\n");
                                 consoleBuff.write("value2 = " + value2 + "\n");
 
                                 //I'm in a pair corresponding to the current geneEvaluePair in value1
-                                if (value1.getValue() >= tempGenePair.eValue) {
+                                if (value1.getValue() >= tempGenePair.getValue2()) {
                                     consoleBuff.write("value1 must be removed: " + value1.getKey() + "\n");
-                                    dismissedGenes.put(value1.getKey(), tempGenePair.id);
+                                    dismissedGenes.put(value1.getKey(), tempGenePair.getValue1());
                                     anuladosArray.add(value1.getKey());
                                 } else {
-                                    dismissedGenes.put(tempGenePair.id, value1.getKey());
-                                    anuladosArray.add(tempGenePair.id);
+                                    dismissedGenes.put(tempGenePair.getValue1(), value1.getKey());
+                                    anuladosArray.add(tempGenePair.getValue1());
                                 }
 
                             }
@@ -238,11 +238,11 @@ public class SolveOverlappings implements Executable {
 
 
                         //now genes which were dismissed by the current one are removed from the list
-                        for (Iterator<GeneEValuePair> it = treeSet.iterator(); it.hasNext();) {
-                            GeneEValuePair tempPair = it.next();
+                        for (Iterator<Pair<String, Double>> it = treeSet.iterator(); it.hasNext();) {
+                            Pair<String, Double> tempPair = it.next();
                             for (String string : anuladosArray) {
-                                if (tempPair.id.equals(string)) {
-                                    consoleBuff.write("removing " + tempPair.id + "\n");
+                                if (tempPair.getValue1().equals(string)) {
+                                    consoleBuff.write("removing " + tempPair.getValue1() + "\n");
                                     it.remove();
                                 }
                             }

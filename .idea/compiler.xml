@@ -21,7 +21,7 @@
     <bytecodeTargetLevel target="1.8" />
   </component>
   <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_STRING" value="-source 1.8 -target 1.8 -Xlint:unchecked -encoding UTF-8" />
+    <option name="ADDITIONAL_OPTIONS_STRING" value="-source 1.7 -target 1.7 -Xlint:unchecked -encoding UTF-8" />
   </component>
 </project>
 
