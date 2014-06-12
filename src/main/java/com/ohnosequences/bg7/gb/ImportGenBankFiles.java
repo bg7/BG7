@@ -105,6 +105,9 @@ public class ImportGenBankFiles implements Executable {
 
             System.out.println("file.getName() = " + file.getName());
 
+            int predictedGeneIdCounter = 1;
+            int predictedRnaIdCounter = 1;
+
             //xml elems
             Annotation annotation = new Annotation();
             PredictedGenes predictedGenes = new PredictedGenes();
@@ -378,6 +381,8 @@ public class ImportGenBankFiles implements Executable {
                         //-it's time to create the gene/rna
                         if (isRna) {
                             PredictedRna tempRna = new PredictedRna();
+                            tempRna.setId(String.valueOf(predictedRnaIdCounter));
+                            predictedRnaIdCounter++;
                             tempRna.setStartPosition(startPosition1);
                             tempRna.setEndPosition(endPosition1);
                             if (strandIsNegative) {
@@ -394,6 +399,8 @@ public class ImportGenBankFiles implements Executable {
                             //---------creating second gene in case there was a join-----------------
                             if(positionsIncludeJoin){
                                 PredictedGene tempGene = new PredictedGene();
+                                tempGene.setId(String.valueOf(predictedGeneIdCounter));
+                                predictedGeneIdCounter++;
                                 tempGene.setStartPosition(startPosition2);
                                 tempGene.setEndPosition(endPosition2);
                                 tempGene.setStartIsCanonical(startIsCanonical);
@@ -411,7 +418,11 @@ public class ImportGenBankFiles implements Executable {
                                 contigGenes.addPredictedGene(tempGene);
                             }
 
+
+
                             PredictedGene tempGene = new PredictedGene();
+                            tempGene.setId(String.valueOf(predictedGeneIdCounter));
+                            predictedGeneIdCounter++;
                             tempGene.setStartPosition(startPosition1);
                             tempGene.setEndPosition(endPosition1);
                             tempGene.setStartIsCanonical(startIsCanonical);

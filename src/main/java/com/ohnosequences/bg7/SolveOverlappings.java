@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package com.ohnosequences.bioinfo.annotation;
+package com.ohnosequences.bg7;
 
 import java.io.*;
 import java.util.*;
@@ -193,7 +193,7 @@ public class SolveOverlappings implements Executable {
 //                    }
 
                     while (treeSet.size() > 0) {
-                        GeneEValuePair tempGenePair = treeSet.pollFirst();
+                        tempGenePair = treeSet.pollFirst();
                         consoleBuff.write("tempGenePair = " + tempGenePair.id + ", e= " + tempGenePair.eValue + "\n");
 
                         //array for storing the ids of the genes dismissed by the current tempGenePair 

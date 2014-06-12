@@ -21,6 +21,7 @@ import java.util.*;
 
 import com.ohnosequences.util.Executable;
 import com.ohnosequences.util.model.Feature;
+import com.ohnosequences.xml.api.model.XMLElement;
 import com.ohnosequences.xml.api.model.XMLElementException;
 import com.ohnosequences.xml.model.*;
 import com.ohnosequences.xml.model.embl.EmblXML;
@@ -248,9 +249,15 @@ public class ExportEmblFiles implements Executable {
 
         TreeSet<Feature> featuresTreeSet = new TreeSet<Feature>();
 
+        System.out.println("lalala " + currentContig.toString());
+
         //----------------------GENES LOOP----------------------------
         List<Element> genesList = currentContig.asJDomElement().getChildren(PredictedGene.TAG_NAME);
         for (Element element : genesList) {
+
+            System.out.println("gene list size: " + genesList.size());
+
+            System.out.println(new XMLElement(element).toString());
 
             PredictedGene gene = new PredictedGene(element);
             Feature tempFeature = new Feature();
@@ -262,6 +269,7 @@ public class ExportEmblFiles implements Executable {
                 tempFeature.setBegin(gene.getEndPosition());
                 tempFeature.setEnd(gene.getStartPosition());
             }
+            System.out.println(gene.getId());
             featuresTreeSet.add(tempFeature);
             genesRnasMixedUpMap.put(gene.getId(), getGeneStringForEmbl(gene,emblXml.getLocusTagPrefix()));
 
