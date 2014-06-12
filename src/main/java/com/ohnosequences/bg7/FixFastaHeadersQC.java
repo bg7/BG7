@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ohnosequences.bioinfo.annotation;
+package com.ohnosequences.bg7;
 
 import com.ohnosequences.util.Executable;
 

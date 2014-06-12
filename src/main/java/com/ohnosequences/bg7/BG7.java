@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package com.ohnosequences.bioinfo.annotation;
+package com.ohnosequences.bg7;
 
 
 import com.ohnosequences.util.ExecuteFromFile;
