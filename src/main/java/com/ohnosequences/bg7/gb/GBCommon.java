@@ -15,6 +15,8 @@ public class GBCommon {
     public static final int NUMBER_OF_WHITE_SPACES_FOR_INDENTATION = 12;
     public static final int NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_FEATURES = 21;
     public static final int NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_GENE = 5;
+    public static final int NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_CDS = 5;
+    public static final int NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_RNA = 5;
     public static final String FIRST_LEVEL_INDENTATION = "  ";
     public static final String FIRST_LEVEL_INDENTATION_FEATURES = "     ";
     public static final String LOCUS_STR = "LOCUS";

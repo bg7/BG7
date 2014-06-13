@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.fasterxml.jackson.core.PrettyPrinter;
 import com.ohnosequences.util.Executable;
 import com.ohnosequences.xml.api.util.XMLUtil;
 import com.ohnosequences.xml.model.*;
@@ -293,22 +292,21 @@ public class ImportGenBankFiles implements Executable {
                         //---------------------------------------------------------------
                         //---------------------------------------------------------------
 
+                        boolean cDSFound = false;
+                        boolean rnaFound = false;
+
                         //----SKIP LINES TILL CDS /xRNA IS FOUND--------------
                         do {
                             line = reader.readLine();
+                            cDSFound = line.trim().startsWith(GBCommon.CDS_STR) && checkStringContainsWhiteSpacesAtTheBeginning(line, GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_CDS);
+                            rnaFound = line.trim().startsWith(GBCommon.RNA_STR) && checkStringContainsWhiteSpacesAtTheBeginning(line, GBCommon.NUMBER_OF_WHITE_SPACES_FOR_INDENTATION_RNA);
                             if(line.trim().startsWith("/gene=")){
                                 //System.out.println(line);
                                 geneName = line.trim().split("=")[1].split("\"")[1];
 
                             }
-                        } while (!line.trim().startsWith(GBCommon.CDS_STR)
-                                && (line.trim().split(" |\t")[0].toUpperCase().indexOf("RNA") < 0));
+                        } while (!cDSFound && !rnaFound);
                         //-------------------------------------------------------------
-
-                        boolean isRna = false;
-                        if (line.trim().split(" |\t")[0].toUpperCase().indexOf("RNA") >= 0) {
-                            isRna = true;
-                        }
 
                         String translationSt = "";
 
@@ -379,7 +377,7 @@ public class ImportGenBankFiles implements Executable {
                         //System.out.println("isRna = " + isRna);
 
                         //-it's time to create the gene/rna
-                        if (isRna) {
+                        if (rnaFound) {
                             PredictedRna tempRna = new PredictedRna();
                             tempRna.setId(String.valueOf(predictedRnaIdCounter));
                             predictedRnaIdCounter++;

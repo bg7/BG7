@@ -590,8 +590,8 @@ public class ExportEmblFiles implements Executable {
 //                19,
 //                true));
 
-        //System.out.println("rna.getId() = " + rna.getId());
-        //System.out.println("rna.getAnnotationUniprotId() = " + rna.getAnnotationUniprotId());
+        System.out.println("rna.getId() = " + rna.getId());
+        System.out.println("rna.getAnnotationUniprotId() = " + rna.getAnnotationUniprotId());
         
         String rnaProduct = rna.getAnnotationUniprotId().split("\\|")[3];
         String rnaValue = "rna";
