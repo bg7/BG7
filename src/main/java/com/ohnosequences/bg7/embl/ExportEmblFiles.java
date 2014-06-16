@@ -556,51 +556,33 @@ public class ExportEmblFiles implements Executable {
         if (negativeStrand) {
 
             positionsString += "complement(";
-//            if (!rna.getEndIsCanonical()) {
-//                positionsString += "<";
-//            }
             positionsString += "<" + rna.getEndPosition() + ".." + ">" + rna.getStartPosition();
-//            if (!rna.getStartIsCanonical()) {
-//                positionsString += ">";
-//            }
             positionsString += ")";
 
         } else {
-
-//            if (!rna.getStartIsCanonical()) {
-//                positionsString += "<";
-//            }
             positionsString += "<" + rna.getStartPosition() + ".." + ">" + rna.getEndPosition();
-//            if (!rna.getEndIsCanonical()) {
-//                positionsString += ">";
-//            }
-
         }
 
-        //rna part
-//        String tempRnaStr = "FT   "
-//                + "gene"
-//                + getWhiteSpaces(12)
-//                + positionsString + "\n";
-//
-//        rnaStBuilder.append(tempRnaStr);
-//        rnaStBuilder.append(patatizaEnLineas("FT"
-//                + getWhiteSpaces(19) + "/product=\"",
-//                rna.getAnnotationUniprotId().split("\\|")[3],
-//                19,
-//                true));
 
         System.out.println("rna.getId() = " + rna.getId());
         System.out.println("rna.getAnnotationUniprotId() = " + rna.getAnnotationUniprotId());
-        
-        String rnaProduct = rna.getAnnotationUniprotId().split("\\|")[3];
+
+        String rnaAnnotationUniprotID = rna.getAnnotationUniprotId();
+
         String rnaValue = "rna";
-        
-        if(rnaProduct.toLowerCase().contains("ribosomal")){
-            rnaValue = "rRNA";
-        }else if(rnaProduct.toLowerCase().contains("trna")){
-            rnaValue = "tRNA";
+        String rnaProduct = "-";
+
+        if(rnaAnnotationUniprotID != null){
+
+            rnaProduct = rnaAnnotationUniprotID.split("\\|")[3];
+            if(rnaProduct.toLowerCase().contains("ribosomal")){
+                rnaValue = "rRNA";
+            }else if(rnaProduct.toLowerCase().contains("trna")){
+                rnaValue = "tRNA";
+            }
+
         }
+
         
         String tempRNAString = "FT   "
                 + rnaValue

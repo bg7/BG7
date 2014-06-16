@@ -19,7 +19,6 @@
           <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.3.jar!/" />
           <root url="jar://$USER_HOME$/.IdeaIC13/system/sbt/boot/scala-2.10.2/org.scala-sbt/sbt/0.13.0/jline-2.11.jar!/" />
           <root url="jar://$USER_HOME$/.IdeaIC13/system/sbt/boot/scala-2.10.2/org.scala-sbt/sbt/0.13.0/task-system-0.13.0.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/scala_2.10/sbt_0.13/org.jetbrains/sbt-structure/jars/sbt-structure-2.3.2.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-sbt/process/jars/process-0.13.0.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-sbt/compiler-interface/jars/compiler-interface-bin-0.13.0.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/ohnosequences/ivy-s3-resolver/jars/ivy-s3-resolver-0.5.0.jar!/" />
@@ -42,7 +41,6 @@
           <root url="jar://$USER_HOME$/.IdeaIC13/system/sbt/boot/scala-2.10.2/org.scala-sbt/sbt/0.13.0/ivy-2.3.0-rc1.jar!/" />
           <root url="jar://$USER_HOME$/.IdeaIC13/system/sbt/boot/scala-2.10.2/org.scala-sbt/sbt/0.13.0/sbt-0.13.0.jar!/" />
           <root url="jar://$USER_HOME$/.IdeaIC13/system/sbt/boot/scala-2.10.2/org.scala-sbt/sbt/0.13.0/test-interface-1.0.jar!/" />
-          <root url="jar://$USER_HOME$/.sbt/boot/scala-2.10.2/lib/scala-compiler.jar!/" />
           <root url="jar://$USER_HOME$/.IdeaIC13/system/sbt/boot/scala-2.10.2/org.scala-sbt/sbt/0.13.0/run-0.13.0.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/commons-codec/commons-codec/jars/commons-codec-1.7.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/laughedelic/literator-lib_2.10/jars/literator-lib_2.10-0.5.1.jar!/" />
@@ -115,7 +113,6 @@
           <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-sbt/relation/jars/relation-0.13.0.jar!/" />
           <root url="jar://$USER_HOME$/.IdeaIC13/system/sbt/boot/scala-2.10.2/org.scala-sbt/sbt/0.13.0/xsbti/interface-0.13.0.jar!/" />
           <root url="jar://$USER_HOME$/.IdeaIC13/system/sbt/boot/scala-2.10.2/org.scala-sbt/sbt/0.13.0/control-0.13.0.jar!/" />
-          <root url="jar://$USER_HOME$/.sbt/boot/scala-2.10.2/lib/scala-reflect.jar!/" />
           <root url="jar://$USER_HOME$/.IdeaIC13/system/sbt/boot/scala-2.10.2/org.scala-sbt/sbt/0.13.0/scala-reflect-2.10.2.jar!/" />
           <root url="jar://$USER_HOME$/.IdeaIC13/system/sbt/boot/scala-2.10.2/lib/jline.jar!/" />
           <root url="jar://$USER_HOME$/.IdeaIC13/system/sbt/boot/scala-2.10.2/org.scala-sbt/sbt/0.13.0/launcher-interface-0.13.0.jar!/" />
@@ -154,8 +151,8 @@
           <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-sbt/cache/srcs/cache-0.13.0-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-sbt/cross/srcs/cross-0.13.0-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-sbt/incremental-compiler/srcs/incremental-compiler-0.13.0-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.httpcomponents/httpcore/srcs/httpcore-4.2-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-sbt/command/srcs/command-0.13.0-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.httpcomponents/httpcore/srcs/httpcore-4.2-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-sbt/relation/srcs/relation-0.13.0-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/commons-lang/commons-lang/srcs/commons-lang-2.6-sources.jar!/" />
           <root url="jar://$USER_HOME$/.ivy2/cache/org.scala-sbt/api/srcs/api-0.13.0-sources.jar!/" />
