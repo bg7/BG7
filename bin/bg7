@@ -238,7 +238,7 @@ blastn -query "${genome}" -db "${name}.rnas.db" -outfmt "5" -evalue "1e-20" -max
 echo "done! will do a basic results check now"
 # check end element etc
 echo "checking if blast xml output file looks ok..."
-rnaBlastOk=$(tail -n 1 ${rnasVsContigsOutputPath} | grep -c '</BlastOutput>')
+rnaBlastOk=$(tail -n 2 ${rnasVsContigsOutputPath} | grep -c '</BlastOutput>')
 if [ ! "${rnaBlastOk}" = 1 ]; then
   echo "looks like the RNA vs contigs blast didn't work"
   exit 1
@@ -275,7 +275,7 @@ tblastn -query "${proteins}" -db "${name}.genome.db" -outfmt "5" -evalue "1e-30"
 # here we do a basic check, to see if the tblastn results look good. What we do is checking that the end line has the corresponding closing tag for BLAST xml output. If not, inform and leave.
 echo "done! will do a basic results check now"
 echo "checking if blast xml output file looks ok..."
-proteinBlastOk=`tail -n 1 ${proteinsVsContigsOutPath} | grep -c '</BlastOutput>'`
+proteinBlastOk=`tail -n 2 ${proteinsVsContigsOutPath} | grep -c '</BlastOutput>'`
 if [ ! "${proteinBlastOk}" = 1 ]; then
   echo "looks like tblastn proteins vs contigs didn't work"
   exit 1
@@ -305,6 +305,7 @@ cat > $output_folder/executions.xml << EOF
       <argument>${name}_PredictedGenes.xml</argument>
       <argument>400</argument>
       <argument>true</argument>
+      <argument>30</argument>
     </arguments>
   </execution>
   <execution>

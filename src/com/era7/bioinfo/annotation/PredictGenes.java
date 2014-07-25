@@ -199,13 +199,14 @@ public class PredictGenes implements Executable {
                     ArrayList<Hit> hits = iteration.getIterationHits();
 
                     System.out.println("Iteration " + iteration.getUniprotIdFromQueryDef() + " has " + hits.size() + "hits");
-                    //System.out.println("hits = " + hits);
+                    System.out.println("hits = " + hits);
 
                     //Retrieving organism from the iteration
 
                     String iterationOrganism = null;
                     if (hits.size() > 0) {
-                        if (iteration.getQueryDef() != null) {
+                    	// Added a sanity check here -SC
+                        if (iteration.getQueryDef() != null && iteration.getQueryDef().split("\\|")[2].split("OS=").length > 1) {
                             iterationOrganism = iteration.getQueryDef().split("\\|")[2].split("OS=")[1].split("GN=")[0].trim();
                         }
                     }

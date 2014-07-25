@@ -474,6 +474,8 @@ public class SolveOverlappings implements Executable {
                             endPosition = tempSwap;
                         }
 
+                        //System.out.println(beginPosition - 1);
+                        //System.out.println(endPosition);
                         String tempSeq = contigSequence.substring(beginPosition - 1, endPosition);
 
                         boolean sePuedeTraducirAProteina = true;
