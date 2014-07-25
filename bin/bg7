@@ -1,0 +1,404 @@
+#!/bin/sh
+#
+#
+# # bg7 #
+#
+# ### requirements ###
+# this script requires a standard bg7 install, with $BG7_HOME set.
+# Inside there, you should have
+
+# standard stuff. We should also be using `set -o nounset`. This prevents you from using unset variables.
+# 
+# exit at the point something's not working
+set -e
+
+# usage function. This returns the usage message below. Note that it is okay to echo multiline strings.
+usage ()
+{
+echo "
+runs bg7 version 0.9. Params are:
+
+  -n | --project_name: the name for your project. Defaults to ${default_name}
+  -g | --genome: path to FASTA file with the sequences you want to annotate. It defaults to 
+                 <name>-genome.fasta
+  -p | --proteins: FASTA file with ref proteins; defaults to <name>-proteins.fasta
+  -r | --rnas: FASTA file with ref RNAs; defaults to <name>-rnas.fasta
+  -c | --genetic_code: the genetic code you want to use; defaults to <name>-genetic_code
+  -o | --out: the folder you want bg7 output to go; defaults to where you're running the 
+              program (this would be ${PWD} now)
+  -G | --genbank_data: xml with extra data for your project needed for .gbk output (things like 
+                       locus name, Gen bank division tag, etc). There's a template for this at
+                       ${BG7_HOME}/resources/
+                        
+  -h | --help: this message
+
+" >&2
+}
+
+# default project name.
+default_name=bg7project
+
+# params vars. This will match the params that will be used for execution, upon input param parsing etc.
+name=""
+proteins=""
+genome=""
+rnas=""
+genetic_code=""
+output_folder=""
+genbank_data=""
+
+# ## parse input ##
+# Now, we will parse params, override corresponding param var after test, and make some fairly basic sanity checks.
+
+# no param then usage
+if [ "$1" = "" ]; then
+  usage
+  exit 1
+fi
+# iterate through input params, using shift. Fragile, but it works!
+while [ "$1" != "" ]; do
+  case $1 in
+    -n | --project_name )  shift
+      if [ "$1" = "" ]
+        then
+          echo "empty project name parameter!"
+          exit 1
+      fi
+      name="$1"
+    ;;
+    -g | --genome ) shift
+      if [ "$1" = "" ]; then
+        echo "empty genome file parameter!"
+        exit 1
+      fi
+      if [ ! -f $1 ]; then 
+        echo "genome file provided does not exist!"
+        exit 1  
+      fi
+      # get full path
+      genome=$(readlink -f "$1")    													
+    ;;
+    -G | --genbank_data ) shift
+      if [ "$1" = "" ]; then
+        echo "empty genbank data file parameter!"
+        exit 1
+      fi
+      if [ ! -f $1 ]; then 
+        echo "genbank data file provided does not exist!"
+        exit 1  
+      fi
+      genbank_data=$(readlink -f "$1")                                
+    ;;
+    -p | --proteins)  shift
+      if [ "$1" = "" ]; then
+        echo "empty proteins file parameter!"
+        exit 1
+      fi
+      if [ ! -f $1 ]; then 
+        echo "proteins file provided does not exist!"
+        exit 1
+      fi
+      proteins=$(readlink -f "$1") 
+    ;;
+    -r | --rnas)  shift
+      if [ "$1" = "" ]; then
+        echo "empty RNAs file parameter!"
+        exit 1
+      fi
+      if [ ! -f $1 ]; then 
+        echo "RNAs file provided does not exist!"
+        exit 1
+      fi
+      rnas=$(readlink -f "$1") 
+    ;;
+    -c | --genetic_code)  shift
+      if [ "$1" = "" ]; then
+        echo "empty genetic code file parameter!"
+        exit 1
+      fi
+      if [ ! -f $1 ]; then 
+        echo "genetic code file provided does not exist!"
+        exit 1
+      fi
+      genetic_code=$(readlink -f "$1") 
+    ;;
+    -h | --help )           usage
+      exit 1
+    ;;
+    -o | --out)  shift
+      if [ "$1" = "" ]; then
+        echo "empty output folder!"
+        exit 1
+      fi
+      if [ ! -d $1 ]; then 
+        echo "output folder provided does not exist! will try to create it"
+        mkdir -p $(readlink -f "$1")
+      fi
+      output_folder=$(readlink -f "$1")
+    ;;
+    -h | --help )           usage
+      exit 1
+    ;;
+    * )                     usage
+    exit 1
+    esac
+    shift
+done
+#
+# #### check and set defaults ####
+# now, we will build defaults, if needed. First thing to check is if `$name` has been set; if not, just use the default.
+if [ "$name" = "" ]; then
+  name=$default_name
+  echo "you didn't provide a name for your project, will use default: ${name}"
+fi
+# Once we have `$name` solved, we can continue checking the rest of params. As some of them are relative to `$name`, we need to do this once `$name` is known.
+#
+# check proteins file. Note that we need to check _again_ for file existence.
+if [ "$proteins" = "" ]; then
+  proteins="${name}-proteins.fasta"
+  if [ ! -f "$proteins" ]; then
+    echo "no proteins file at: ${proteins}"
+    echo "will have to leave now"
+    exit 1
+  fi
+fi
+# check RNAs file, same as for proteins
+if [ "$rnas" = "" ]; then
+  rnas="${name}-rnas.fasta"
+  if [ ! -f "$rnas" ]; then
+    echo "no RNAs file at: ${rnas}"
+    echo "will have to leave now"
+    exit 1
+  fi
+fi
+# check genome seqs file...
+if [ "$genome" = "" ]; then
+  genome="${name}-genome.fasta"
+  if [ ! -f "$genome" ]; then
+    echo "no genome sequences file: ${genome}"
+    echo "will have to leave now"
+    exit 1
+  fi
+fi
+# here we use the default bacterial genetic code. It'd be nice to add a link to _what_ genetic code is this one.
+if [ "$genetic_code" = "" ]; then
+  genetic_code="${name}-genetic_code"
+  if [ ! -f "$genetic_code" ]; then
+    echo "no genetic code file: ${genetic_code}"
+    echo "using default from: ${BG7_HOME}/resources/genetic_code"
+    genetic_code="$BG7_HOME/resources/genetic_code"
+  fi
+fi
+# check output folder; if there's none, we'll try to use `$PWD`.
+if [ "$output_folder" = "" ]; then
+  echo "you didn't provide an output folder, will try to use ${PWD}"
+  output_folder="${PWD}"
+fi
+
+# everything looks ok. let's create output folder
+mkdir -p $output_folder
+
+# log params to a params log file. This will be in the output folder
+param_log="params.log"
+params_log_file="${output_folder}/${param_log}"
+echo "logging your params to $params_log_file"
+touch $params_log_file
+echo "--project_name ${name}" >> $params_log_file
+echo "--genome ${genome}" >> $params_log_file
+echo "--proteins ${proteins}" >> $params_log_file
+echo "--rnas ${rnas}" >> $params_log_file
+echo "--genetic_code ${genetic_code}" >> $params_log_file
+echo "--genbank_data ${genbank_data}" >> $params_log_file
+echo "--output_folder ${output_folder}" >> $params_log_file
+
+# ## BLAST runs ##
+# here we run blast for RNAs and proteins.
+# get number of processors; you need to set this manually for BLAST
+cores=$(grep -c processor /proc/cpuinfo)
+echo "it looks like this machine has ${cores} cores, will use that for blast settings"
+echo "cores used for BLAST: ${cores}" >> $params_log_file
+# ### RNAs vs contigs run ###
+#
+# first, we run RNAs vs contigs
+cd $output_folder
+
+# output vars
+rnasVsContigsSuffix="_RNA_blastn.xml"
+rnasVsContigsOutputName="${name}${rnasVsContigsSuffix}"
+rnasVsContigsOutputPath="${output_folder}/${rnasVsContigsOutputName}"
+
+# creating blast db for RNAs
+echo "creating RNAs blast db"
+makeblastdb -in "${rnas}" -dbtype "nucl" -out "${name}.rnas.db" -logfile "${name}.rnas.db.log"
+echo "RNA blast db created: $output_folder/${name}.rnas.db"
+echo "if you want, you can check makeblastdb log: $output_folder/${name}.rnas.db.log"
+# run blastn
+echo "running blastn: RNAs vs genome sequence"
+blastn -query "${genome}" -db "${name}.rnas.db" -outfmt "5" -evalue "1e-20" -max_target_seqs "1" -out "${rnasVsContigsOutputName}" -num_threads "${cores}"
+echo "done! will do a basic results check now"
+# check end element etc
+echo "checking if blast xml output file looks ok..."
+rnaBlastOk=$(tail -n 1 ${rnasVsContigsOutputPath} | grep -c '</BlastOutput>')
+if [ ! "${rnaBlastOk}" = 1 ]; then
+  echo "looks like the RNA vs contigs blast didn't work"
+  exit 1
+fi
+echo "done! everything looks ok"
+# remove first two lines, I don't know why
+sed '2d' $rnasVsContigsOutputPath > $rnasVsContigsOutputPath.tmp
+mv $rnasVsContigsOutputPath.tmp $rnasVsContigsOutputPath
+
+
+# ### proteins vs contigs blast ###
+# 
+# here we run tblastn against a blast db consisting in the ref proteins. Due to the way `makeblastdb` works, we need to run everything from the output folder.
+
+# #### blast db creation ####
+# go into output folder
+cd $output_folder
+# creating blast db for proteins
+echo "creating blast db with genome sequences"
+makeblastdb -in "${genome}" -dbtype nucl -out "${name}.genome.db" -logfile "${name}.genome.db.log"
+echo "genome blast db created: $output_folder/${name}.genome.db"
+echo "you can check makeblastdb log: $output_folder/${name}.genome.db.log"
+# output file vars, needed to adhere to file naming conventions
+proteinsVsContigsSuffix="_proteins_tBLASTn.xml"
+proteinsVsContigsOutName=$name$proteinsVsContigsSuffix
+proteinsVsContigsOutPath=$output_folder/$proteinsVsContigsOutName
+
+# #### tblastn run ####
+# run tblastn; note that we enclose everything in double-quotes.
+echo "running tblastn: proteins vs genome sequence"
+tblastn -query "${proteins}" -db "${name}.genome.db" -outfmt "5" -evalue "1e-30" -max_target_seqs "1" -out "${proteinsVsContigsOutName}" -num_threads "${cores}"
+
+# #### check tblastn results ####
+# here we do a basic check, to see if the tblastn results look good. What we do is checking that the end line has the corresponding closing tag for BLAST xml output. If not, inform and leave.
+echo "done! will do a basic results check now"
+echo "checking if blast xml output file looks ok..."
+proteinBlastOk=`tail -n 1 ${proteinsVsContigsOutPath} | grep -c '</BlastOutput>'`
+if [ ! "${proteinBlastOk}" = 1 ]; then
+  echo "looks like tblastn proteins vs contigs didn't work"
+  exit 1
+fi
+echo "done! everything looks ok"
+# remove first line, I don't know why. It looks like jdom has some ugly bug when parsing an xml file with a link to a nonexistant DTD. In this case, removing the first 2 lines from the xml will make things work (no DTD declaration).
+sed '2d' $proteinsVsContigsOutPath > $proteinsVsContigsOutPath.tmp
+mv $proteinsVsContigsOutPath.tmp $proteinsVsContigsOutPath
+
+# copy files to conform to strange requirements
+cp $genome $output_folder/${name}_sequences.fna
+cp $proteins $output_folder/${name}_ReferenceProteins.fasta
+cp $genetic_code $output_folder/genetic_code.txt
+cp $genbank_data $output_folder/${name}_GenBankExternalData.xml
+
+# ## create executions.xml ##
+# we have everything set, now we need to create the xml file which defines the execution, named (somewhat unexpectedly) `executions.xml`.
+# We'll do that through a HERE document; not the most orthodox way to create an xml file, but again, _it works_.
+echo "Now I will create the executions.xml file that will drive bg7 execution"
+cat > $output_folder/executions.xml << EOF
+<scheduled_executions>
+  <execution>
+    <class_full_name>com.era7.bioinfo.annotation.PredictGenes</class_full_name>
+    <arguments>
+      <argument>${name}_proteins_tBLASTn.xml</argument>
+      <argument>${name}_sequences.fna</argument>
+      <argument>${name}_PredictedGenes.xml</argument>
+      <argument>400</argument>
+      <argument>true</argument>
+    </arguments>
+  </execution>
+  <execution>
+    <class_full_name>com.era7.bioinfo.annotation.RemoveDuplicatedGenes</class_full_name>
+    <arguments>
+      <argument>${name}_PredictedGenes.xml</argument>
+      <argument>${name}_NoDuplicates.xml</argument>
+      <argument>${name}_DiscardedGenes.xml</argument>
+    </arguments>
+  </execution>
+  <execution>
+    <class_full_name>com.era7.bioinfo.annotation.SolveOverlappings</class_full_name>
+    <arguments>
+      <argument>${name}_NoDuplicates.xml</argument>
+      <argument>${name}_SolvedOverlaps.xml</argument>
+      <argument>102</argument>
+      <argument>${name}_RNA_blastn.xml</argument>
+      <argument>${name}_sequences.fna</argument>
+      <argument>genetic_code.txt</argument>
+    </arguments>
+  </execution>
+  <execution>
+    <class_full_name>com.era7.bioinfo.annotation.GenerateFastaFiles</class_full_name>
+    <arguments>
+      <argument>${name}_SolvedOverlaps.xml</argument>
+      <argument>${name}_protein_nucleotide_sequences.fasta</argument>
+      <argument>${name}_protein_aminoacid_sequences.fasta</argument>
+    </arguments>
+  </execution>  
+  <execution>
+    <class_full_name>com.era7.bioinfo.annotation.FillDataFromUniprot</class_full_name> 
+    <arguments>
+      <argument>${name}_SolvedOverlaps.xml</argument> 
+      <argument>${name}_Annotation_Dismissed_incl.xml</argument> 
+    </arguments>
+  </execution>
+    <execution>
+    <class_full_name>com.era7.bioinfo.annotation.RemoveDismissedGenes</class_full_name>
+    <arguments>
+      <argument>${name}_Annotation_Dismissed_incl.xml</argument>
+      <argument>${name}_Annotation.xml</argument>
+    </arguments>
+  </execution>
+  <execution>
+    <class_full_name>com.era7.bioinfo.annotation.GenerateGffFile</class_full_name>
+    <arguments>
+      <argument>${name}_Annotation.xml</argument>
+      <argument>${name}_Annotation.gff</argument>
+    </arguments>
+  </execution>
+  <execution>
+    <class_full_name>com.era7.bioinfo.annotation.GenerateCSVFile</class_full_name>
+    <arguments>
+      <argument>${name}_Annotation.xml</argument>
+      <argument>${name}_Annotation.tsv</argument>
+    </arguments>
+  </execution>
+  <execution>
+    <class_full_name>com.era7.bioinfo.annotation.GetIntergenicSequences</class_full_name>
+    <arguments>
+      <argument>${name}_Annotation.xml</argument>
+      <argument>${name}_sequences.fna</argument>
+      <argument>${name}_Intergenic.xml</argument>
+      <argument>${name}_Intergenic.fasta</argument>      
+    </arguments>
+  </execution>
+  <execution>
+    <class_full_name>com.era7.bioinfo.annotation.gb.ExportGenBankFiles</class_full_name>
+    <arguments>
+      <argument>${name}_Annotation.xml</argument>
+      <argument>${name}_GenBankExternalData.xml</argument>
+      <argument>${name}_sequences.fna</argument>
+      <argument>${name}</argument>     
+    </arguments>
+  </execution>
+  <execution>
+    <class_full_name>com.era7.bioinfo.annotation.BasicQualityControl</class_full_name>
+    <arguments>
+      <argument>${name}_PredictedGenes.xml</argument>
+      <argument>${name}_DiscardedGenes.xml</argument>
+      <argument>${name}_NoDuplicates.xml</argument>
+      <argument>${name}_BasicControlQuality.xml</argument>     
+    </arguments>
+  </execution>
+</scheduled_executions>
+EOF
+
+echo "you can take a look at it, if you want: $output_folder/executions.xml"
+# ugly hack, executions.xml should be a param
+cp $BG7_HOME/jar/bg7.jar $output_folder/
+# run bg7!
+# I will add memory conf through the script later on, no time for this now
+echo "running bg7 now!"
+java -d64 -Xmx6G -Xms1G -jar $output_folder/bg7.jar
+# clean up
+rm -f $output_folder/bg7.jar
+
