@@ -84,13 +84,15 @@ public class FillDataFromUniprot implements Executable {
                         //System.out.println("gene.getAnnotationUniprotId() = " + gene.getAnnotationUniprotId());
                         
                         
-                        try{
+                        /*try{
                             gene = UniprotProteinRetreiver.getUniprotDataFor(gene,false);
+						
                             System.out.println("gene = " + gene.getAnnotationUniprotId() + " completed!");
-                        }catch(Exception e){
+                        }catch(Exception e){*/
+							//Right now we're DDOSing Uniprot's server
                             System.out.println("There was an exception when retrieving the gene: " + gene.getAnnotationUniprotId());
                             System.out.println("Its data could not be retrieved from Uniprot... :(");
-                        }
+                        //}
                         
 
                         //System.out.println("gene = " + gene);
