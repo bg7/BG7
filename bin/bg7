@@ -305,7 +305,7 @@ cat > $output_folder/executions.xml << EOF
       <argument>${name}_PredictedGenes.xml</argument>
       <argument>400</argument>
       <argument>true</argument>
-	  <argument>40</argument>
+      <argument>30</argument>
     </arguments>
   </execution>
   <execution>
