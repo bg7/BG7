@@ -3,14 +3,11 @@
     <!--this file was created by Eclipse Runnable JAR Export Wizard-->
     <!--ANT 1.7 is required                                        -->
     <target name="create_run_jar">
-        <jar destfile="/home/saman/Programming/BG7/jars/BG7.jar" filesetmanifest="mergewithoutmain">
+        <jar destfile="jars/BG7.jar" filesetmanifest="mergewithoutmain">
             <manifest>
                 <attribute name="Main-Class" value="MDRevealer.MDRevealer"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
-            <fileset dir="/home/saman/Programming/Professional Projects/MDRevealer/bin"/>
-            <zipfileset excludes="META-INF/*.SF" src="/home/saman/Programming/Professional Projects/MDRevealer/lib/commons-collections4-4.0.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/home/saman/Programming/Professional Projects/MDRevealer/lib/libintl.jar"/>
         </jar>
     </target>
 </project>
