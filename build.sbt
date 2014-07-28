@@ -15,8 +15,8 @@ organization := "ohnosequences"
 bucketSuffix := "era7.com"
 
 libraryDependencies ++= Seq(
-	"ohnosequences" % "bioinfo-util" % "1.4.0-SNAPSHOT"
-	libraryDependencies += "com.novocode" % "junit-interface" % "0.9" % "test"
+	"ohnosequences" % "bioinfo-util" % "1.4.0-SNAPSHOT",
+	"com.novocode" % "junit-interface" % "0.9" % "test"
 )
 
 dependencyOverrides ++= Set(
