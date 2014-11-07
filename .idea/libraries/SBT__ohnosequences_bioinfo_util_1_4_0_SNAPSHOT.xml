@@ -4,8 +4,6 @@
       <root url="jar://$USER_HOME$/.ivy2/cache/ohnosequences/bioinfo-util/jars/bioinfo-util-1.4.0-SNAPSHOT.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.ivy2/cache/ohnosequences/bioinfo-util/srcs/bioinfo-util-1.4.0-SNAPSHOT-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

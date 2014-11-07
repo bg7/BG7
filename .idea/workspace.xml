@@ -2,9 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b7984c7-9dd5-4b90-97d7-b177e6c0cf85" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.history" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\NC_000913.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__com_googlecode_concurrentlinkedhashmap_concurrentlinkedhashmap_lru_1_3_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_apache_commons_commons_math_2_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_apache_geronimo_specs_geronimo_jta_1_1_spec_1_1_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_apache_lucene_lucene_core_3_6_2.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_neo4j_neo4j_1_9_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_neo4j_neo4j_cypher_1_9_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_neo4j_neo4j_graph_algo_1_9_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_neo4j_neo4j_graph_matching_1_9_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_neo4j_neo4j_jmx_1_9_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_neo4j_neo4j_kernel_1_9_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_neo4j_neo4j_lucene_index_1_9_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_neo4j_neo4j_udc_1_9_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_scala_lang_scala_library_2_10_4.xml" afterPath="" />
       <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\AutomaticQualityControl.java" afterPath="" />
       <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\BG7.java" afterPath="" />
       <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\BasicQualityControl.java" afterPath="" />
@@ -28,29 +38,24 @@
       <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\gb\ExportGenBankFiles.java" afterPath="" />
       <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\gb\GBCommon.java" afterPath="" />
       <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\gb\ImportGenBankFiles.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\AutomaticQualityControl.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\BG7.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\BasicQualityControl.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\FillDataFromUniprot.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\FixFastaHeaders.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\FixFastaHeadersQC.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\GeneEValuePair.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\GenerateCSVFile.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\GenerateFastaFiles.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\GenerateGffFile.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\GetIntergenicSequences.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\GffLine.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\PredictGenes.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\RemoveDismissedGenes.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\RemoveDuplicatedGenes.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\SolveOverlappings.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\embl\ExportEmblFiles.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\gb\Control5ColumnsGenBankFilesQuality.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\gb\ControlGenBankFilesQuality.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\gb\Export5ColumnsGenBankFiles.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\gb\ExportGenBankFiles.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\gb\GBCommon.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\main\java\com\era7\bioinfo\annotation\gb\ImportGenBankFiles.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/FillDataFromUniprot.java" afterPath="$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/FillDataFromUniprot.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__com_amazonaws_aws_java_sdk_1_6_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__com_amazonaws_aws_java_sdk_1_6_8.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__com_fasterxml_jackson_core_jackson_annotations_2_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__com_fasterxml_jackson_core_jackson_annotations_2_1_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__com_fasterxml_jackson_core_jackson_core_2_1_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__com_fasterxml_jackson_core_jackson_core_2_1_2.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__com_fasterxml_jackson_core_jackson_databind_2_1_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__com_fasterxml_jackson_core_jackson_databind_2_1_2.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__com_novocode_junit_interface_0_9.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__com_novocode_junit_interface_0_9.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__commons_codec_commons_codec_1_7.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__commons_codec_commons_codec_1_7.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__commons_logging_commons_logging_1_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__commons_logging_commons_logging_1_1_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__junit_junit_dep_4_8_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__junit_junit_dep_4_8_2.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__ohnosequences_bioinfo_util_1_4_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__ohnosequences_bioinfo_util_1_4_0_SNAPSHOT.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_apache_httpcomponents_httpclient_4_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__org_apache_httpcomponents_httpclient_4_2.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_apache_httpcomponents_httpcore_4_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__org_apache_httpcomponents_httpcore_4_2.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_hamcrest_hamcrest_core_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__org_hamcrest_hamcrest_core_1_1.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_jdom_jdom_2_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__org_jdom_jdom_2_0_2.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/bg7-build.iml" afterPath="$PROJECT_DIR$/.idea/modules/bg7-build.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/bg7.iml" afterPath="$PROJECT_DIR$/.idea/modules/bg7.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/highlighting.xml" afterPath="$PROJECT_DIR$/.idea/highlighting.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bg7.iws" />
@@ -74,21 +79,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ExportEmblFiles.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/embl/ExportEmblFiles.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="9318" max-vertical-offset="10302">
-              <caret line="587" column="24" selection-start-line="587" selection-start-column="24" selection-end-line="587" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="FillDataFromUniprot.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/FillDataFromUniprot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25289255" vertical-offset="0" max-vertical-offset="1734">
-              <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.5629139" vertical-offset="816" max-vertical-offset="1751">
+              <caret line="91" column="25" selection-start-line="91" selection-start-column="25" selection-end-line="91" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -135,7 +130,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/PredictGenes.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/RemoveDuplicatedGenes.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/SolveOverlappings.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/FillDataFromUniprot.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/AutomaticQualityControl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/BasicQualityControl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/BG7.java" />
@@ -151,6 +145,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/gb/GBCommon.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/gb/ImportGenBankFiles.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/embl/ExportEmblFiles.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/FillDataFromUniprot.java" />
       </list>
     </option>
   </component>
@@ -201,7 +196,7 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="bg7" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -211,11 +206,11 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="bg7" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -225,15 +220,15 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="bg7" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -243,23 +238,53 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="bg7" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="bg7" />
-              <option name="myItemType" value="com.android.tools.idea.gradle.projectView.AndroidPsiDirectoryNode" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bg7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bg7" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -590,7 +615,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24110033" sideWeight="0.501548" order="0" side_tool="true" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17152104" sideWeight="0.501548" order="0" side_tool="true" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29041916" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -848,7 +873,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33225283" vertical-offset="288" max-vertical-offset="1139">
           <caret line="46" column="16" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -863,7 +887,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334" vertical-offset="1044" max-vertical-offset="4879">
           <caret line="89" column="11" selection-start-line="89" selection-start-column="11" selection-end-line="89" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -951,13 +974,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/PredictGenes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="11951">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/gb/Control5ColumnsGenBankFilesQuality.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3230">
@@ -1000,25 +1016,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/gb/ImportGenBankFiles.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/embl/ExportEmblFiles.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47407407" vertical-offset="6115" max-vertical-offset="9078">
-          <caret line="386" column="36" selection-start-line="386" selection-start-column="36" selection-end-line="386" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.4661157" vertical-offset="9289" max-vertical-offset="10302">
+          <caret line="587" column="24" selection-start-line="587" selection-start-column="24" selection-end-line="587" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/embl/ExportEmblFiles.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/gb/ImportGenBankFiles.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="9318" max-vertical-offset="10302">
-          <caret line="587" column="24" selection-start-line="587" selection-start-column="24" selection-end-line="587" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.39173552" vertical-offset="392" max-vertical-offset="8874">
+          <caret line="64" column="21" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/PredictGenes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3723" max-vertical-offset="11951">
+          <caret line="209" column="63" selection-start-line="209" selection-start-column="63" selection-end-line="209" selection-end-column="63" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/FillDataFromUniprot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25289255" vertical-offset="0" max-vertical-offset="1734">
-          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.5629139" vertical-offset="816" max-vertical-offset="1751">
+          <caret line="91" column="25" selection-start-line="91" selection-start-column="25" selection-end-line="91" selection-end-column="25" />
           <folding />
         </state>
       </provider>

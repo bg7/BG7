@@ -88,6 +88,7 @@ public class FillDataFromUniprot implements Executable {
                         }catch(Exception e){
                             System.out.println("There was an exception when retrieving the gene: " + gene.getAnnotationUniprotId());
                             System.out.println("Its data could not be retrieved from Uniprot... :(");
+	                        e.printStackTrace();
                         }
                         
 
