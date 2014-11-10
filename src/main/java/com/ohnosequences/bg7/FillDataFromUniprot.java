@@ -80,21 +80,25 @@ public class FillDataFromUniprot implements Executable {
                         PredictedGene gene = new PredictedGene(xMLElement.asJDomElement());
 
                         //System.out.println("gene.getAnnotationUniprotId() = " + gene.getAnnotationUniprotId());
-                        
-                        
-                        try{
-                            gene = UniprotProteinRetreiver.getUniprotDataFor(gene, false);
-                            System.out.println("gene = " + gene.getAnnotationUniprotId() + " completed!");
-                        }catch(Exception e){
-                            System.out.println("There was an exception when retrieving the gene: " + gene.getAnnotationUniprotId());
-                            System.out.println("Its data could not be retrieved from Uniprot... :(");
-	                        e.printStackTrace();
-                        }
-                        
+                        boolean geneSuccessfullyUpdated = false;
+	                    long timeout = 1;
+	                    long exponentialFactorForTimeout = 2;
 
-                        //System.out.println("gene = " + gene);
+	                    while(!geneSuccessfullyUpdated){
+		                    try{
+			                    gene = UniprotProteinRetreiver.getUniprotDataFor(gene, false);
+			                    System.out.println("gene = " + gene.getAnnotationUniprotId() + " completed!");
+			                    geneSuccessfullyUpdated = true;
+		                    }catch(Exception e){
+			                    System.out.println("There was an exception when retrieving the gene: " + gene.getAnnotationUniprotId());
+			                    System.out.println("Its data could not be retrieved from Uniprot... :(");
+			                    e.printStackTrace();
+			                    System.out.println("Retrying the request in " + timeout + " seconds...");
+			                    Thread.sleep(timeout * 1000);
+			                    timeout = timeout * exponentialFactorForTimeout;
+		                    }
+	                    }
 
-                        
                     }
 
                     contadorContigs++;

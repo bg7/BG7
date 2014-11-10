@@ -2,60 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6b7984c7-9dd5-4b90-97d7-b177e6c0cf85" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__com_googlecode_concurrentlinkedhashmap_concurrentlinkedhashmap_lru_1_3_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_apache_commons_commons_math_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_apache_geronimo_specs_geronimo_jta_1_1_spec_1_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_apache_lucene_lucene_core_3_6_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_neo4j_neo4j_1_9_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_neo4j_neo4j_cypher_1_9_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_neo4j_neo4j_graph_algo_1_9_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_neo4j_neo4j_graph_matching_1_9_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_neo4j_neo4j_jmx_1_9_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_neo4j_neo4j_kernel_1_9_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_neo4j_neo4j_lucene_index_1_9_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_neo4j_neo4j_udc_1_9_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\.idea\libraries\SBT__org_scala_lang_scala_library_2_10_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\AutomaticQualityControl.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\BG7.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\BasicQualityControl.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\FillDataFromUniprot.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\FixFastaHeaders.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\FixFastaHeadersQC.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\GeneEValuePair.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\GenerateCSVFile.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\GenerateFastaFiles.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\GenerateGffFile.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\GetIntergenicSequences.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\GffLine.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\PredictGenes.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\RemoveDismissedGenes.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\RemoveDuplicatedGenes.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\SolveOverlappings.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\embl\ExportEmblFiles.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\gb\Control5ColumnsGenBankFilesQuality.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\gb\ControlGenBankFilesQuality.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\gb\Export5ColumnsGenBankFiles.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\gb\ExportGenBankFiles.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\gb\GBCommon.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\era7\ppareja\proyectos\JAVA\bg7\src\com\era7\bioinfo\annotation\gb\ImportGenBankFiles.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/FillDataFromUniprot.java" afterPath="$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/FillDataFromUniprot.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__com_amazonaws_aws_java_sdk_1_6_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__com_amazonaws_aws_java_sdk_1_6_8.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__com_fasterxml_jackson_core_jackson_annotations_2_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__com_fasterxml_jackson_core_jackson_annotations_2_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__com_fasterxml_jackson_core_jackson_core_2_1_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__com_fasterxml_jackson_core_jackson_core_2_1_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__com_fasterxml_jackson_core_jackson_databind_2_1_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__com_fasterxml_jackson_core_jackson_databind_2_1_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__com_novocode_junit_interface_0_9.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__com_novocode_junit_interface_0_9.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__commons_codec_commons_codec_1_7.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__commons_codec_commons_codec_1_7.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__commons_logging_commons_logging_1_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__commons_logging_commons_logging_1_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__junit_junit_dep_4_8_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__junit_junit_dep_4_8_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__ohnosequences_bioinfo_util_1_4_0_SNAPSHOT.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__ohnosequences_bioinfo_util_1_4_0_SNAPSHOT.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_apache_httpcomponents_httpclient_4_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__org_apache_httpcomponents_httpclient_4_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_apache_httpcomponents_httpcore_4_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__org_apache_httpcomponents_httpcore_4_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_hamcrest_hamcrest_core_1_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__org_hamcrest_hamcrest_core_1_1.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_jdom_jdom_2_0_2.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__org_jdom_jdom_2_0_2.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/bg7-build.iml" afterPath="$PROJECT_DIR$/.idea/modules/bg7-build.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/bg7.iml" afterPath="$PROJECT_DIR$/.idea/modules/bg7.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/highlighting.xml" afterPath="$PROJECT_DIR$/.idea/highlighting.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bg7.iws" />
@@ -82,8 +29,8 @@
       <file leaf-file-name="FillDataFromUniprot.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/FillDataFromUniprot.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5629139" vertical-offset="816" max-vertical-offset="1751">
-              <caret line="91" column="25" selection-start-line="91" selection-start-column="25" selection-end-line="91" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.6743802" vertical-offset="816" max-vertical-offset="1819">
+              <caret line="95" column="104" selection-start-line="95" selection-start-column="104" selection-end-line="95" selection-end-column="104" />
               <folding />
             </state>
           </provider>
@@ -181,6 +128,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -289,8 +238,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -363,6 +310,14 @@
       <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
       <method />
     </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
     <configuration default="true" type="Specs2RunConfiguration" factoryName="Specs2">
       <module name="" />
       <setting name="path" value="" />
@@ -376,12 +331,17 @@
       <setting name="showProgressMessages" value="true" />
       <method />
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -409,19 +369,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -471,19 +418,6 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
-      <module name="" />
-      <setting name="path" value="" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="" />
-      <setting name="testKind" value="Class" />
-      <setting name="showProgressMessages" value="true" />
-      <method />
-    </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="" />
       <option name="ACTIVITY_CLASS" value="" />
@@ -502,6 +436,19 @@
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
       <method />
     </configuration>
     <configuration default="false" name="ExportEmblFiles" type="Application" factoryName="Application">
@@ -632,12 +579,12 @@
       <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32817337" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23543689" sideWeight="0.5011442" order="0" side_tool="true" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26511627" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26511627" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32868218" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
@@ -649,8 +596,8 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32198143" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.49885583" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -687,6 +634,14 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/FillDataFromUniprot.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="1751">
+          <caret line="82" column="24" selection-start-line="82" selection-start-column="24" selection-end-line="82" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/ohnosequences/bg7/tests/BG7Tests.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="221">
@@ -869,31 +824,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/ohnosequences/bioinfo-util/srcs/bioinfo-util-1.4.0-SNAPSHOT-sources.jar!/com/ohnosequences/xml/model/Annotation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33225283" vertical-offset="288" max-vertical-offset="1139">
-          <caret line="46" column="16" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/ohnosequences/bg7/tests/ImportGenBankFilesTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6326861" vertical-offset="0" max-vertical-offset="618">
           <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/ohnosequences/bioinfo-util/srcs/bioinfo-util-1.4.0-SNAPSHOT-sources.jar!/com/ohnosequences/xml/model/PredictedGene.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334" vertical-offset="1044" max-vertical-offset="4879">
-          <caret line="89" column="11" selection-start-line="89" selection-start-column="11" selection-end-line="89" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/ohnosequences/bioinfo-util/srcs/bioinfo-util-1.4.0-SNAPSHOT-sources.jar!/com/ohnosequences/util/Entry.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.697411" vertical-offset="436" max-vertical-offset="1054">
-          <caret line="61" column="13" selection-start-line="61" selection-start-column="13" selection-end-line="61" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1027,7 +961,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.39173552" vertical-offset="392" max-vertical-offset="8874">
           <caret line="64" column="21" selection-start-line="64" selection-start-column="21" selection-end-line="64" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1035,14 +968,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="3723" max-vertical-offset="11951">
           <caret line="209" column="63" selection-start-line="209" selection-start-column="63" selection-end-line="209" selection-end-column="63" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ohnosequences/bg7/FillDataFromUniprot.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5629139" vertical-offset="816" max-vertical-offset="1751">
-          <caret line="91" column="25" selection-start-line="91" selection-start-column="25" selection-end-line="91" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.6743802" vertical-offset="816" max-vertical-offset="1819">
+          <caret line="95" column="104" selection-start-line="95" selection-start-column="104" selection-end-line="95" selection-end-column="104" />
           <folding />
         </state>
       </provider>
