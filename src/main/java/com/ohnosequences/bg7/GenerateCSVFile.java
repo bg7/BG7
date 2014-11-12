@@ -101,10 +101,6 @@ public class GenerateCSVFile implements Executable{
                     for (XMLElement xMLElement : genes) {
                         PredictedGene gene = new PredictedGene(xMLElement.asJDomElement());
 
-                        if(!gene.getPubmedId().equals("")){
-                            System.out.println("gene.getPubmedId() = " + gene.getPubmedId());
-                        }
-
                         outBuff.write(contig.getId() + SEPARATOR + gene.getId() + SEPARATOR + GENE + SEPARATOR);
                         outBuff.write(gene.getStartIsCanonical() + SEPARATOR + gene.getStartPosition() + SEPARATOR);
                         outBuff.write(gene.getEndIsCanonical() + SEPARATOR + gene.getEndPosition() + SEPARATOR);
