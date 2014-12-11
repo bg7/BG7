@@ -10,9 +10,16 @@ project/plugins/project/
 
 # Scala-IDE specific
 .scala_dependencies
+.project
+.classpath
+.settings/
+.cache
+.history
 
-# IntelliJ idea specific
+# IntelliJ Idea specific
 .idea/
+bin/
+*.iml
 
 # st2
 *.sublime-project

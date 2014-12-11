@@ -7,16 +7,14 @@ javaVersion := "1.8"
 fatArtifactSettings
 
 name := "bg7"
-
-description := "bg7 project"
-
+description := "Bacterial genome annotation tool"
 organization := "ohnosequences"
 
 bucketSuffix := "era7.com"
 
 libraryDependencies ++= Seq(
-	"ohnosequences" % "bioinfo-util" % "1.4.0-SNAPSHOT",
-	"com.novocode" % "junit-interface" % "0.9" % "test"
+	"ohnosequences" % "bioinfo-util" % "1.4.2",
+	"com.novocode" % "junit-interface" % "0.11" % "test"
 )
 
 dependencyOverrides ++= Set(
@@ -32,4 +30,9 @@ mainClass in assembly := Some("com.ohnosequences.bg7.BG7")
 
 assemblyOption in assembly ~= { _.copy(includeScala = false) }
 
-
+mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) => {
+    case PathList("META-INF", "CHANGES.txt") => MergeStrategy.discard
+    case PathList("META-INF", "LICENSES.txt") => MergeStrategy.discard
+    case x => old(x)
+  }
+}
